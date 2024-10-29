@@ -1,11 +1,5 @@
-.home_card_container {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-flow: row nowrap;
-    height: 80%;
-    border: 2px solid white;
-    border-radius: 3px;
+Button.home_card_link_container {
+    background-color: red;
 }
 
 .home_card_link_container {
@@ -15,6 +9,7 @@
     align-items: center;
     border: 2px solid white;
     padding: 1em;
+    height: auto;
 }
 
 .home_card_link_upper {
@@ -25,8 +20,18 @@
 
 .home_card_link_title {
     font-size: 20px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+
+.home_card_link_pic {
+    padding-left: 0.3em;
+    padding-top: 0.15em;
 }
 
 .home_card_desc {
+    text-align: center;
     font-size: 15px;
+    word-wrap: break-word;
 }

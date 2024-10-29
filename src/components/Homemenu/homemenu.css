@@ -1,0 +1,21 @@
+.home_card_container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row nowrap;
+    border: 2px solid white;
+    margin-top: 2em;
+    border-radius: 3px;
+}
+
+.home_card_container Button {
+    width: min(auto, 11em);
+    height: auto;
+}
+
+@media screen and (max-width: 991px) {
+    .home_card_container {
+        flex-flow: column wrap;
+    }
+}
