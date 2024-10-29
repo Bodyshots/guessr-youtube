@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
+import { cn } from "@/lib/utils"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,7 +29,7 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
         >
           <SidebarProvider>
             <AppSidebar />
-            <SidebarTrigger/>
+            <SidebarTrigger style={{ color: "white" }} className={cn("hover:bg-slate-700")}/>
             {children}
           </SidebarProvider>
         </body>

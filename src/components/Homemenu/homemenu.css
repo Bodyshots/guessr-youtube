@@ -10,11 +10,11 @@
 }
 
 .home_card_container Button {
-    width: min(auto, 11em);
-    height: auto;
+    /* width: min(auto, 11em); */
+    /* height: auto; */
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 1100px) {
     .home_card_container {
         flex-flow: column wrap;
     }

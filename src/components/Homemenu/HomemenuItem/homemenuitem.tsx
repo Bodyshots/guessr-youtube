@@ -24,8 +24,8 @@ const IconButton: React.FC<IconButtonProps> = ({ icon: Icon, label, desc }) => {
           <Button className="home_card_link_container">
               <div className="home_card_link_upper">
                   <div className='home_card_link_title'>
-                      <span>{label}</span>
-                      <span className="home_card_link_pic"><Icon/></span>
+                      <span className="home_card_label">{label}</span>
+                      <span className="home_card_link_pic"><Icon className="home_card_icon"/></span>
                   </div>
               </div>
           </Button>
