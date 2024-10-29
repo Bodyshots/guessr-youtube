@@ -4,6 +4,7 @@ import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 import { cn } from "@/lib/utils"
+import { Roboto } from 'next/font/google'
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -15,6 +16,10 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
+const roboto = Roboto({
+  weight: '400',
+  subsets: ['latin'],
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,7 +30,7 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
   return (
       <html lang="en">
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased body_container`}
+          className={`${geistSans.variable} ${geistMono.variable} ${roboto.className} antialiased body_container`}
         >
           <SidebarProvider>
             <AppSidebar />

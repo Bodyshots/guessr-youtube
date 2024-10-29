@@ -6,6 +6,7 @@ body {
   background: #1a1d24;
   font-family: Arial, Helvetica, sans-serif;
   color-scheme: dark;
+  overflow-y: hidden;
 }
 
 .body_container {

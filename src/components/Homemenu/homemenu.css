@@ -18,4 +18,8 @@
     .home_card_container {
         flex-flow: column wrap;
     }
+
+    .home_card_container Button {
+        width: 12.5em;
+    }
 }
