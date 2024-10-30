@@ -1,25 +1,43 @@
 .home_card_container {
-    position: relative;
+    /* position: relative; */
+    margin-top: 2em;
+    border-radius: 3px;
+    width: 100%;
+
     display: flex;
     align-items: center;
     justify-content: center;
     flex-flow: row nowrap;
-    border: 2px solid white;
-    margin-top: 2em;
-    border-radius: 3px;
+    /* border: 2px solid white; */
 }
 
-.home_card_container Button {
-    /* width: min(auto, 11em); */
-    /* height: auto; */
-}
+/* .home_card_container Button {
+    width: min(auto, 11em);
+    height: auto;
+} */
 
 @media screen and (max-width: 1100px) {
     .home_card_container {
         flex-flow: column wrap;
+        margin: 0;
+        padding: 0;
     }
 
     .home_card_container Button {
-        width: 12.5em;
+        width: 90%;
+        margin: 0;
+        margin-bottom: 0;
+        margin-top: 0.5em
+    }
+
+    .home_card_container {
+        vertical-align: auto;
+        margin: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .home_menu_comp {
+        width: 20em;
     }
 }

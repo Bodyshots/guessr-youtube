@@ -34,7 +34,7 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
         >
           <SidebarProvider>
             <AppSidebar />
-            <SidebarTrigger style={{ color: "white" }} className={cn("hover:bg-slate-700")}/>
+            <SidebarTrigger style={{ color: "white"}} className={cn("hover:bg-slate-700")}/>
             {children}
           </SidebarProvider>
         </body>

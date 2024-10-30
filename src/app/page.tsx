@@ -1,6 +1,8 @@
+"use client";
+
 import './globals.css'
 import './home.css'
-import HomeMenu from '../components/Homemenu/page'
+import HomeMenu from '../components/Homemenu/homemenu'
 
 export default function Home() {
   return (
