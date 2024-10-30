@@ -50,3 +50,7 @@ Button.home_card_link_container:hover {
     font-size: 15px;
     word-wrap: break-word;
 }
+
+Button:disabled.data-\[state\=on\]\:bg-accent[data-state="on"] {
+    color: black;
+}
