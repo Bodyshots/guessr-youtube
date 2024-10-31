@@ -7,6 +7,7 @@ import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
 import { IoLogoYoutube, IoLogoGoogle } from 'react-icons/io5';
 import { TrashIcon, Dice5Icon, PartyPopperIcon, SettingsIcon, Grid3x3Icon } from 'lucide-react';
+import { ScrollArea } from '@radix-ui/react-scroll-area';
 
 const BingoMenu = () => {
 
@@ -60,9 +61,9 @@ const BingoMenu = () => {
                     Clear all
                   </Button>
                 </div>
-                <div className="bingo_items">
+                <ScrollArea className="bingo_items">
                   <Input/>
-                </div>
+                </ScrollArea>
                 <Button>
                   <PartyPopperIcon/>
                   Start
