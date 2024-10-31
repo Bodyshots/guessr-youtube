@@ -1,0 +1,38 @@
+.bingo_menu_container {
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    flex-flow: column nowrap;
+    margin: auto;
+    justify-content: space-between;
+    border: solid 1px white;
+    border-radius: 10px;
+    padding: 1em;
+    background-color: hsl(223, 20%, 21%);
+}
+
+.bingo_settings {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.bingo_board_settings {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.bingo_settings_objs_container {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.bingo_settings_objs {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.bingo_settings_btns {
+    display: flex;
+    flex-flow: row nowrap;
+}

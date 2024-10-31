@@ -1,5 +1,4 @@
-import { Home, Settings, Grid3X3Icon, CircleHelpIcon } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { Home, Settings2, Grid3X3, CircleHelp, LogIn } from "lucide-react"
 
 import {
   Sidebar,
@@ -20,19 +19,24 @@ const items = [
     icon: Home,
   },
   {
+    title: "Login",
+    url: "/login",
+    icon: LogIn,
+  },
+  {
     title: "Bingo",
     url: "/bingo",
-    icon: Grid3X3Icon,
+    icon: Grid3X3,
   },
   {
     title: "Settings",
     url: "/settings",
-    icon: Settings,
+    icon: Settings2,
   },
   {
     title: "About",
     url: "/about",
-    icon: CircleHelpIcon,
+    icon: CircleHelp,
   },
 ]
 
@@ -41,15 +45,15 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className={cn("text-sm my-1 text-zinc-400")}>Currently at: Home</SidebarGroupLabel>
+          <SidebarGroupLabel className={"text-sm my-1 text-zinc-400"}>Currently at: Home</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem key={item.title} className={cn("my-1.5")}>
+                <SidebarMenuItem key={item.title} className={"my-1.5"}>
                   <SidebarMenuButton asChild>
                     <a href={item.url}>
                       <item.icon />
-                      <span className={cn("text-lg")}>{item.title}</span>
+                      <span className={"text-lg"}>{item.title}</span>
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

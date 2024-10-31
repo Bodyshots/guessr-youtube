@@ -1,9 +1,13 @@
+"use client";
 
+import './bingo.css';
+import BingoMenu from "@/components/Bingomenu/bingomenu";
 
-export default function Home() {
+export default function Bingo() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      test
+    <div className="bingo_page_container">
+      <span className="text-4xl text-white font-medium">Guessr - Bingo</span>
+      <BingoMenu/>
     </div>
   );
 }
