@@ -82,7 +82,7 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
       <TooltipProvider>
         <Tooltip>
 
-          <TooltipTrigger>
+          <TooltipTrigger asChild>
             <DialogTrigger asChild>
               <Button className="home_card_link_container">
                 <div className="home_card_link_upper">
