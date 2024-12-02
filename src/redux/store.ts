@@ -1,5 +1,8 @@
 'use client';
 
+import authReducer from './slices/authSlice';
+import { AuthState, GameState } from './slices/types';
+import gameReducer from './slices/gameSlice';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer, PersistedState } from 'redux-persist';
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
@@ -37,10 +40,12 @@ const createPersistedReducer = (sliceReducer: any, persistConfig: any) =>
   persistReducer(persistConfig, sliceReducer);
 
 const authPersistConfig = createPersistConfig('auth', ['auth']);
-const convosPersistConfig = createPersistConfig('convos', ['convos']);
+const gamePersistConfig = createPersistConfig('game', ['video', 'clips', 'mode', 'timer']);
+// const convosPersistConfig = createPersistConfig('convos', ['convos']);
 
 const rootReducer = combineReducers({
-  // auth_persist: createPersistedReducer(authReducer, authPersistConfig),
+  auth_persist: createPersistedReducer(authReducer, authPersistConfig),
+  game_persist: createPersistedReducer(gameReducer, gamePersistConfig),
   // convos_persist: createPersistedReducer(convosReducer, convosPersistConfig),
 })
 
@@ -51,7 +56,8 @@ export const store = configureStore({
 })
 
 export interface RootState {
-  // auth_persist: PersistedState & AuthState;
+  auth_persist: PersistedState & AuthState;
+  game_persist: PersistedState & GameState;
   // convos_persist: PersistedState & ConvosState;
 }
 export type AppDispatch = typeof store.dispatch;

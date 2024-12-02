@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar/appsidebar";
-import { cn } from "@/lib/utils"
+import { ReduxProvider } from "@/redux/reduxprovider";
 import { Roboto } from 'next/font/google'
 
 const geistSans = localFont({
@@ -31,11 +31,13 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
         <body
           className={`${geistSans.variable} ${geistMono.variable} ${roboto.className} antialiased body_container`}
         >
+          <ReduxProvider>
           <SidebarProvider>
             <AppSidebar />
             <SidebarTrigger className="text-white"/>
             {children}
           </SidebarProvider>
+          </ReduxProvider>
         </body>
       </html>
   );

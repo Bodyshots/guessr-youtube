@@ -37,12 +37,12 @@ Button.home_card_link_container:hover {
 }
 
 .home_card_link_pic svg {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-left: 0.2em;
-    width: 2rem;
-    height: 2rem;
+    display: flex!important;
+    justify-content: center!important;
+    align-items: center!important;
+    padding-left: 0.2em!important;
+    width: 2rem!important;
+    height: 2rem!important;
 }
 
 .home_card_desc {

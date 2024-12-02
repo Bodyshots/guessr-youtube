@@ -14,7 +14,6 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -28,17 +27,18 @@ import {
   SelectValue,
   SelectGroup,
 } from "@/components/ui/select"
-import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import {
   ToggleGroup,
   ToggleGroupItem,
 } from "@/components/ui/toggle-group"
 import { Input } from '@/components/ui/input';
-import { VideoConstants, VideoType } from '@/constants/videotypes';
+import { VideoConstants } from '@/constants/videotypes';
 import { ClipConstants, ClipType } from '@/constants/clips';
-import { ModeConstants, ModeType } from '@/constants/modes';
+import { ModeConstants } from '@/constants/modes';
 import { OtherConstants } from '@/constants/other';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { setVideo, setClips, setMode, setTimer } from '@/redux/slices/gameSlice';
 
 interface IconButtonProps {
   icon: IconType;
@@ -53,9 +53,15 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
                                                   tooltip_desc,
                                                   modal_title,
                                                   modePresent }) => {
-    const [videoType, setVideoType] = useState<VideoType>(VideoConstants.VIDEO);
-    const [mode, setMode] = useState<ModeType>(ModeConstants.NORMAL);
-    const [clipSelect, setClipSelect] = useState<(ClipType)>(ClipConstants.RANDOM);
+    const dispatch = useAppDispatch();
+    const videoType = useAppSelector((state) => state.game_persist.video);
+    const clipSelect = useAppSelector((state) => state.game_persist.clips);
+    const mode = useAppSelector((state) => state.game_persist.mode);
+    const timer = useAppSelector((state) => state.game_persist.timer);
+
+    const handleSelect = (e: ClipType) => {
+      dispatch(setClips(e));
+    }
 
   return (
     <Dialog>
@@ -78,24 +84,25 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
 
         <DialogContent className="sm:max-w-[425px] bg-[#2b3140]">
         <DialogHeader>
-          <DialogTitle style={{color: "white"}} className={"text-xl font-semibold"}>{modal_title}</DialogTitle>
+          <DialogTitle className="text-xl font-semibold text-white">{modal_title}</DialogTitle>
         </DialogHeader>
-        <DialogTitle style={{color: "white"}} className={"text-center font-normal"}>Video Type</DialogTitle>
+        <DialogTitle className="text-center font-normal text-white">Video Type</DialogTitle>
 
         {/* Video Types */}
-        <ToggleGroup size={"lg"} type="single" style={{color: "white"}} className="gap-0">
+        <ToggleGroup size={"lg"} type="single" className="gap-0 text-white">
           <ToggleGroupItem  data-state={videoType === VideoConstants.VIDEO ? OtherConstants.ON : OtherConstants.OFF}  
                             value={VideoConstants.VIDEO}
                             aria-label="Toggle videos"
-                            onClick={() => setVideoType(VideoConstants.VIDEO)}
+                            onClick={() => dispatch(setVideo(VideoConstants.VIDEO))}
                             disabled={videoType === VideoConstants.VIDEO}
                             variant="outline"
                             className="rounded-r-none focus:z-10">
             {VideoConstants.VIDEO}
           </ToggleGroupItem>
-          <ToggleGroupItem  value={VideoConstants.SHORTS}
+          <ToggleGroupItem  data-state={videoType === VideoConstants.SHORTS ? OtherConstants.ON : OtherConstants.OFF}
+                            value={VideoConstants.SHORTS}
                             aria-label="Toggle shorts" 
-                            onClick={() => setVideoType(VideoConstants.SHORTS)}
+                            onClick={() => dispatch(setVideo(VideoConstants.SHORTS))}
                             disabled={videoType === VideoConstants.SHORTS}
                             variant="outline" 
                             className="rounded-l-none focus:z-10">
@@ -104,52 +111,54 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
         </ToggleGroup>
 
         {videoType === VideoConstants.VIDEO ? 
-        <span style={{color: "white"}} className={"text-center text-sm"}>A random video will be picked for you each round. Videos may have ads</span>
-        : <span style={{color: "white"}} className={"text-center text-sm"}>A random short (less than 60 seconds) will be picked for you each round. Shorts may have ads</span>}
+        <span className="text-center text-sm text-white">A random video will be picked for you each round. Videos may have ads</span>
+        : <span className="text-center text-sm text-white">A random short (less than 60 seconds) will be picked for you each round. Shorts may have ads</span>}
 
         {/* Shorts - clip collection */}
         {videoType === VideoConstants.SHORTS &&
-        <DialogTitle style={{color: "white"}} className={"text-center font-normal"}>Clip collection</DialogTitle>}
+        <DialogTitle className="text-center font-normal text-white">Clip collection</DialogTitle>}
 
         {videoType === VideoConstants.SHORTS &&
-          <Select>
+          <Select onValueChange={handleSelect}>
             <SelectTrigger className="w-[100%] flex m-auto p-auto">
               <SelectValue placeholder={clipSelect.replace('&lt;', '<').replace('&gt;', '>')}/>
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem value={ClipConstants.RANDOM} onClick={() => setClipSelect(ClipConstants.RANDOM)}>{ClipConstants.RANDOM}</SelectItem>
-                <SelectItem value={ClipConstants.SHORT} onClick={() => setClipSelect(ClipConstants.SHORT)}>{ClipConstants.SHORT.replace('&lt;', '<')}</SelectItem>
-                <SelectItem value={ClipConstants.LONG} onClick={() => setClipSelect(ClipConstants.LONG)}>{ClipConstants.LONG.replace('&gt;', '>')}</SelectItem>
-                <SelectItem value={ClipConstants.POPULAR} onClick={() => setClipSelect(ClipConstants.POPULAR)}>{ClipConstants.POPULAR}</SelectItem>
-                <SelectItem value={ClipConstants.FORSEN} onClick={() => setClipSelect(ClipConstants.FORSEN)}>{ClipConstants.FORSEN}</SelectItem>
+                <SelectItem value={ClipConstants.RANDOM}>{ClipConstants.RANDOM}</SelectItem>
+                <SelectItem value={ClipConstants.SHORT}>{ClipConstants.SHORT.replace('&lt;', '<')}</SelectItem>
+                <SelectItem value={ClipConstants.LONG}>{ClipConstants.LONG.replace('&gt;', '>')}</SelectItem>
+                <SelectItem value={ClipConstants.POPULAR}>{ClipConstants.POPULAR}</SelectItem>
+                <SelectItem value={ClipConstants.FORSEN}>{ClipConstants.FORSEN}</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>}
 
         {/* Modes */}
         {modePresent && 
-          <ToggleGroup size={"lg"} type="single" style={{color: "white"}} className="gap-0">
+          <ToggleGroup size={"lg"} type="single" className="gap-0 text-white">
           <ToggleGroupItem  data-state={mode === ModeConstants.NORMAL ? OtherConstants.ON : OtherConstants.OFF}  
                             value={ModeConstants.NORMAL} 
                             aria-label="Toggle normal"
-                            onClick={() => setMode(ModeConstants.NORMAL)}
+                            onClick={() => dispatch(setMode(ModeConstants.NORMAL))}
                             disabled={mode === ModeConstants.NORMAL}
                             className="button:disabled:bg-red-600 rounded-r-none focus:z-10"
                             variant="outline">
             {ModeConstants.NORMAL}
           </ToggleGroupItem>
-          <ToggleGroupItem  value={ModeConstants.MC} 
+          <ToggleGroupItem  data-state={mode === ModeConstants.MC ? OtherConstants.ON : OtherConstants.OFF}  
+                            value={ModeConstants.MC} 
                             aria-label="Toggle multiple choice" 
-                            onClick={() => setMode(ModeConstants.MC)}
+                            onClick={() => dispatch(setMode(ModeConstants.MC))}
                             disabled={mode === ModeConstants.MC}
                             className="rounded-none focus:z-10"
                             variant="outline">
             {ModeConstants.MC}
           </ToggleGroupItem>
-          <ToggleGroupItem  value={ModeConstants.HL}
+          <ToggleGroupItem  data-state={mode === ModeConstants.HL ? OtherConstants.ON : OtherConstants.OFF}  
+                            value={ModeConstants.HL}
                             aria-label="Toggle higher lower" 
-                            onClick={() => setMode(ModeConstants.HL)}
+                            onClick={() => dispatch(setMode(ModeConstants.HL))}
                             disabled={mode === ModeConstants.HL}
                             className="rounded-l-none focus:z-10"
                             variant="outline">
@@ -157,14 +166,18 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
           </ToggleGroupItem>
         </ToggleGroup>}
 
-        <DialogTitle style={{color: "white"}} className={cn("text-center font-normal")}>Round timer (minutes)</DialogTitle>
-        <Input type="number" placeholder="0" min={"0"}/>
-        <span style={{color: "white"}} className={cn("text-center text-sm")}>Your guess will be automatically submitted when the timer runs out. Set to 0 to disable</span>
-        <DialogTitle style={{color: "white"}} className={cn("text-center font-normal")}>Play with chat (YouTube)</DialogTitle>
+        <DialogTitle className="text-center font-normal text-white">Round timer (minutes)</DialogTitle>
+        <Input type="number"
+               placeholder={timer ? timer : "0"} 
+               min={"0"}
+               value={timer ? timer : ""} 
+               onChange={(e) => dispatch(setTimer(e.target.value))}/>
+        <span className="text-center text-sm text-white">Your guess will be automatically submitted when the timer runs out. Set to 0 to disable</span>
+        <DialogTitle className="text-center font-normal text-white">Play with chat (YouTube)</DialogTitle>
         <Input type="url" placeholder="www.youtube.com/watch?v=..."/>
-        <span style={{color: "white"}} className={cn("text-center text-sm")}>Your viewers will be able to play along by guessing in chat</span>
+        <span className="text-center text-sm text-white">Your viewers will be able to play along by guessing in chat</span>
         <DialogFooter>
-          <Button type="submit" className={cn("bg-white hover:bg-gray-200 text-black justify-center text-center m-auto")}>Start</Button>
+          <Button type="submit" className="bg-white hover:bg-gray-200 text-black justify-center text-center m-auto">Start</Button>
         </DialogFooter>
         </DialogContent>
         

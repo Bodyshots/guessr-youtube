@@ -1,5 +1,3 @@
-"use client";
-
 import './globals.css'
 import './home.css'
 import HomeMenu from '../components/Homemenu/homemenu'
