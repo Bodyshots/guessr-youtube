@@ -1,5 +1,4 @@
 .home_card_container {
-    /* position: relative; */
     margin-top: 2em;
     border-radius: 3px;
     width: 100%;
@@ -8,19 +7,14 @@
     align-items: center;
     justify-content: center;
     flex-flow: row nowrap;
-    /* border: 2px solid white; */
 }
-
-/* .home_card_container Button {
-    width: min(auto, 11em);
-    height: auto;
-} */
 
 @media screen and (max-width: 1100px) {
     .home_card_container {
         flex-flow: column wrap;
         margin: 0;
         padding: 0;
+        gap: 0.5em;
     }
 
     .home_card_container Button {

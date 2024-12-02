@@ -2,7 +2,7 @@
 
 import './homemenuitem.css';
 import '../../../app/globals.css';
-import { ReactNode, MouseEvent } from "react";
+import { ReactNode } from "react";
 import { IconType } from "react-icons";
 import { Button } from "@/components/ui/button"
 import {
@@ -35,6 +35,10 @@ import {
   ToggleGroupItem,
 } from "@/components/ui/toggle-group"
 import { Input } from '@/components/ui/input';
+import { VideoConstants, VideoType } from '@/constants/videotypes';
+import { ClipConstants, ClipType } from '@/constants/clips';
+import { ModeConstants, ModeType } from '@/constants/modes';
+import { OtherConstants } from '@/constants/other';
 
 interface IconButtonProps {
   icon: IconType;
@@ -44,41 +48,18 @@ interface IconButtonProps {
   modePresent: boolean;
 }
 
-const VideoTypes = {
-  video: 'Videos',
-  shorts: 'Shorts'
-}
-
-const Modes = {
-  normal: 'Normal',
-  mc: "Multiple Choice",
-  hl: "Higher Lower"
-}
-
-const Clips = {
-  random: 'Random',
-  short: 'Short clips (<10s)',
-  long: 'Long clips (>40s)',
-  popular: 'Popular clips (>100,000 views)',
-  forsen: 'forsen'
-}
-
-const Toggle = {
-  on: 'on',
-  off: 'off'
-}
-
 const IconButton: React.FC<IconButtonProps> = ({  icon: Icon, 
                                                   btn_label, 
                                                   tooltip_desc,
                                                   modal_title,
                                                   modePresent }) => {
-    const [videoType, setVideoType] = useState(VideoTypes.video);
-    const [mode, setMode] = useState(Modes.normal);
-    const [clipSelect, setClipSelect] = useState(Clips.random);
+    const [videoType, setVideoType] = useState<VideoType>(VideoConstants.VIDEO);
+    const [mode, setMode] = useState<ModeType>(ModeConstants.NORMAL);
+    const [clipSelect, setClipSelect] = useState<(ClipType)>(ClipConstants.RANDOM);
 
   return (
     <Dialog>
+      <DialogTitle/>
       <TooltipProvider>
         <Tooltip>
 
@@ -103,45 +84,45 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
 
         {/* Video Types */}
         <ToggleGroup size={"lg"} type="single" style={{color: "white"}} className="gap-0">
-          <ToggleGroupItem  data-state={videoType === VideoTypes.video ? Toggle.on : Toggle.off}  
-                            value={VideoTypes.video}
+          <ToggleGroupItem  data-state={videoType === VideoConstants.VIDEO ? OtherConstants.ON : OtherConstants.OFF}  
+                            value={VideoConstants.VIDEO}
                             aria-label="Toggle videos"
-                            onClick={() => setVideoType(VideoTypes.video)}
-                            disabled={videoType === VideoTypes.video}
+                            onClick={() => setVideoType(VideoConstants.VIDEO)}
+                            disabled={videoType === VideoConstants.VIDEO}
                             variant="outline"
                             className="rounded-r-none focus:z-10">
-            {VideoTypes.video}
+            {VideoConstants.VIDEO}
           </ToggleGroupItem>
-          <ToggleGroupItem  value={VideoTypes.shorts}
+          <ToggleGroupItem  value={VideoConstants.SHORTS}
                             aria-label="Toggle shorts" 
-                            onClick={() => setVideoType(VideoTypes.shorts)}
-                            disabled={videoType === VideoTypes.shorts}
+                            onClick={() => setVideoType(VideoConstants.SHORTS)}
+                            disabled={videoType === VideoConstants.SHORTS}
                             variant="outline" 
                             className="rounded-l-none focus:z-10">
-            {VideoTypes.shorts}
+            {VideoConstants.SHORTS}
           </ToggleGroupItem>
         </ToggleGroup>
 
-        {videoType === VideoTypes.video ? 
+        {videoType === VideoConstants.VIDEO ? 
         <span style={{color: "white"}} className={"text-center text-sm"}>A random video will be picked for you each round. Videos may have ads</span>
         : <span style={{color: "white"}} className={"text-center text-sm"}>A random short (less than 60 seconds) will be picked for you each round. Shorts may have ads</span>}
 
         {/* Shorts - clip collection */}
-        {videoType === VideoTypes.shorts &&
+        {videoType === VideoConstants.SHORTS &&
         <DialogTitle style={{color: "white"}} className={"text-center font-normal"}>Clip collection</DialogTitle>}
 
-        {videoType === VideoTypes.shorts &&
+        {videoType === VideoConstants.SHORTS &&
           <Select>
             <SelectTrigger className="w-[100%] flex m-auto p-auto">
               <SelectValue placeholder={clipSelect.replace('&lt;', '<').replace('&gt;', '>')}/>
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem value={Clips.random} onClick={() => setClipSelect(Clips.random)}>{Clips.random}</SelectItem>
-                <SelectItem value={Clips.short} onClick={() => setClipSelect(Clips.short)}>{Clips.short.replace('&lt;', '<')}</SelectItem>
-                <SelectItem value={Clips.long} onClick={() => setClipSelect(Clips.long)}>{Clips.long.replace('&gt;', '>')}</SelectItem>
-                <SelectItem value={Clips.popular} onClick={() => setClipSelect(Clips.popular)}>{Clips.popular}</SelectItem>
-                <SelectItem value={Clips.forsen} onClick={() => setClipSelect(Clips.forsen)}>{Clips.forsen}</SelectItem>
+                <SelectItem value={ClipConstants.RANDOM} onClick={() => setClipSelect(ClipConstants.RANDOM)}>{ClipConstants.RANDOM}</SelectItem>
+                <SelectItem value={ClipConstants.SHORT} onClick={() => setClipSelect(ClipConstants.SHORT)}>{ClipConstants.SHORT.replace('&lt;', '<')}</SelectItem>
+                <SelectItem value={ClipConstants.LONG} onClick={() => setClipSelect(ClipConstants.LONG)}>{ClipConstants.LONG.replace('&gt;', '>')}</SelectItem>
+                <SelectItem value={ClipConstants.POPULAR} onClick={() => setClipSelect(ClipConstants.POPULAR)}>{ClipConstants.POPULAR}</SelectItem>
+                <SelectItem value={ClipConstants.FORSEN} onClick={() => setClipSelect(ClipConstants.FORSEN)}>{ClipConstants.FORSEN}</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>}
@@ -149,30 +130,30 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
         {/* Modes */}
         {modePresent && 
           <ToggleGroup size={"lg"} type="single" style={{color: "white"}} className="gap-0">
-          <ToggleGroupItem  data-state={mode === Modes.normal ? Toggle.on : Toggle.off}  
-                            value={Modes.normal} 
+          <ToggleGroupItem  data-state={mode === ModeConstants.NORMAL ? OtherConstants.ON : OtherConstants.OFF}  
+                            value={ModeConstants.NORMAL} 
                             aria-label="Toggle normal"
-                            onClick={() => setMode(Modes.normal)}
-                            disabled={mode === Modes.normal}
+                            onClick={() => setMode(ModeConstants.NORMAL)}
+                            disabled={mode === ModeConstants.NORMAL}
                             className="button:disabled:bg-red-600 rounded-r-none focus:z-10"
                             variant="outline">
-            {Modes.normal}
+            {ModeConstants.NORMAL}
           </ToggleGroupItem>
-          <ToggleGroupItem  value={Modes.mc} 
+          <ToggleGroupItem  value={ModeConstants.MC} 
                             aria-label="Toggle multiple choice" 
-                            onClick={() => setMode(Modes.mc)}
-                            disabled={mode === Modes.mc}
+                            onClick={() => setMode(ModeConstants.MC)}
+                            disabled={mode === ModeConstants.MC}
                             className="rounded-none focus:z-10"
                             variant="outline">
-            {Modes.mc}
+            {ModeConstants.MC}
           </ToggleGroupItem>
-          <ToggleGroupItem  value={Modes.hl}
+          <ToggleGroupItem  value={ModeConstants.HL}
                             aria-label="Toggle higher lower" 
-                            onClick={() => setMode(Modes.hl)}
-                            disabled={mode === Modes.hl}
+                            onClick={() => setMode(ModeConstants.HL)}
+                            disabled={mode === ModeConstants.HL}
                             className="rounded-l-none focus:z-10"
                             variant="outline">
-            {Modes.hl}
+            {ModeConstants.HL}
           </ToggleGroupItem>
         </ToggleGroup>}
 
@@ -187,7 +168,7 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
         </DialogFooter>
         </DialogContent>
         
-          <TooltipContent>
+          <TooltipContent className="tooltip_content">
             {tooltip_desc}
           </TooltipContent>
         </Tooltip>

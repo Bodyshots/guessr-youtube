@@ -20,15 +20,14 @@
 
     margin-left: auto;
     margin-right: auto;
-    margin-top: 5em;
 }
 
 .home_menu_comp {
     display: flex;
+    flex-flow: column nowrap;
     position: relative;
     justify-content: center;
-    margin-top: 3em;
-    margin-bottom: auto;
+    margin: auto;
     border-radius: 3px;
     border: 3px;
     border-color: red;

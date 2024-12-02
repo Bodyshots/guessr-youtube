@@ -7,13 +7,13 @@ Button.home_card_link_container:hover {
 }
 
 .home_card_link_container {
-    margin: 0.5em;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    border: 1.5px solid white;
-    padding: 1.5em;
-    height: auto;
+    margin: 0.5em!important;
+    text-align: center!important;
+    justify-content: center!important;
+    align-items: center!important;
+    border: 1.5px solid white!important;
+    padding: 1.5em!important;
+    height: auto!important;
 }
 
 .home_card_link_upper {
@@ -53,4 +53,12 @@ Button.home_card_link_container:hover {
 
 Button:disabled.data-\[state\=on\]\:bg-accent[data-state="on"] {
     color: black;
+}
+
+.tooltip_content {
+    max-width: 300px;
+    width: auto;
+    white-space: normal;
+    word-wrap: break-word;
+    padding: 10px;
 }
