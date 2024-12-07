@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 Button.home_card_link_container {
     background-color: #20242c;
 }
