@@ -5,6 +5,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar/appsidebar";
 import { ReduxProvider } from "@/redux/reduxprovider";
 import { Roboto } from 'next/font/google'
+import PrivacyPop from '@/components/PrivacyPop/privacyPop';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,6 +35,7 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
           <ReduxProvider>
           <SidebarProvider>
             <AppSidebar />
+            <PrivacyPop/>
             <SidebarTrigger className="text-white"/>
             {children}
           </SidebarProvider>

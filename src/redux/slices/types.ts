@@ -4,7 +4,11 @@ import { VideoType } from "@/constants/videotypes";
 
 export interface AuthState {
     auth: boolean;
-  }
+}
+
+export interface PrivacyState {
+  privacy_ack: boolean;
+}
 
 export interface GameState {
     video: VideoType;
