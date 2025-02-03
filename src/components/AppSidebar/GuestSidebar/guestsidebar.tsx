@@ -11,7 +11,7 @@ import {
   SidebarMenuItem,
   SidebarFooter
 } from "@/components/ui/sidebar"
-// import SiteTitle from "@/components/SiteFullTitle/SiteTitle/sitetitle"
+import SiteTitle from "@/components/SiteTitle/sitetitle"
 import Link from "next/link"
 
 // Menu items.
@@ -73,7 +73,7 @@ interface sidebarProps {
 const SidebarGroupCustom = ({ label, items }: sidebarProps) => {
   return (
   <SidebarGroup>
-    <SidebarGroupLabel className="text-sm">{label}</SidebarGroupLabel>
+    <SidebarGroupLabel className="text-sm font-yt_font">{label}</SidebarGroupLabel>
     <SidebarGroupContent>
       <SidebarMenu>
         {items.map((item) => (
@@ -81,7 +81,7 @@ const SidebarGroupCustom = ({ label, items }: sidebarProps) => {
             <SidebarMenuButton asChild>
               <Link href={item.url}>
                 <item.icon />
-                <span>{item.title}</span>
+                <span className="font-yt_font">{item.title}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -97,7 +97,7 @@ export function GuestSidebar() {
   return (
     <Sidebar>
       <SidebarContent>
-      <SidebarGroupLabel className="text-lg text-foreground justify-center flex my-2">main</SidebarGroupLabel>
+      <SidebarGroupLabel className="text-lg justify-center flex my-2 mt-5"><SiteTitle width={50} height={50} title_style="text-3xl text-black"/></SidebarGroupLabel>
         <SidebarGroupCustom
           label={"Main"}
           items={main}

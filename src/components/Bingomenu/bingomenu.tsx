@@ -12,7 +12,7 @@ import { ScrollArea } from '@radix-ui/react-scroll-area';
 const BingoMenu = () => {
 
     return (
-    <div className="bingo_menu_container">
+    <div className="bingo_menu_container font-roboto">
       <div>
         <div className="how_to_login_btns">
           <Button variant="outline"

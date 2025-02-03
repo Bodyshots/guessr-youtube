@@ -11,7 +11,7 @@ import { GameModeConstants } from '@/constants/gamemode';
 
 const HomeMenu = () => {
     return (
-    <div className="home_card_container">
+    <div className="home_card_container font-yt_font">
         <IconButton icon={IoPersonOutline} 
                     btn_label={GameModeConstants.VIEWERS} 
                     tooltip_desc={<span>A random YouTube video will be shown and you will have to guess how many <b>viewers</b> it has.

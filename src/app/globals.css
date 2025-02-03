@@ -2,9 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  font-family: var(--font-yt-sans), sans-serif;
+}
+
+.yt-sans {
+  font-family: var(--font-yt-sans);
+}
+
+.yt-sans-dark {
+  font-family: var(--font-yt-sans-dark);
+}
+
+.roboto {
+  font-family: var(--font-roboto);
+}
+
+.logo-font {
+  font-family: var(--font-gothic);
+}
+
 body {
-  background: #1a1d24;
-  font-family: Arial, Helvetica, sans-serif;
+  /* background: #1a1d24; */
   color-scheme: dark;
   overflow-y: hidden;
 }
@@ -17,7 +36,6 @@ body {
 html {
   width: 100%;
   height: 100%;
-  padding: 1em;
 }
 
 @layer base {
@@ -47,8 +65,8 @@ html {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
-    --sidebar-background: 223, 20%, 21%;
-    --sidebar-foreground: 180, 11%, 98%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 240 4.8% 95.9%;
@@ -56,7 +74,7 @@ html {
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
-  .dark {
+  :root[class~="dark"] {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
     --card: 0 0% 3.9%;

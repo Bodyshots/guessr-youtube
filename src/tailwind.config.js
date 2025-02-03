@@ -73,7 +73,13 @@ module.exports = {
   				ring: 'hsl(var(--sidebar-ring))'
   			},
         'custom_green_hover': 'rgb(22, 180, 57)'
-  		}
+  		},
+		fontFamily: {
+			logo: ['var(--font-gothic)'],
+			yt_font: ['var(--font-yt-sans)'],
+			yt_font_dark: ['var(--font-yt-sans-dark)'],
+			roboto: ['var(--font-roboto)']
+		}
   	}
   },
   plugins: [require("tailwindcss-animate")],

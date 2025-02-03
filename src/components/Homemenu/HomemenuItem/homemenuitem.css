@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 Button.home_card_link_container {
-    background-color: #20242c;
+    /* background-color: #20242c; */
 }
 
 Button.home_card_link_container:hover {
-    background-color: #1a1d24;
+    /* background-color: #1a1d24; */
 }
 
 .home_card_link_container {

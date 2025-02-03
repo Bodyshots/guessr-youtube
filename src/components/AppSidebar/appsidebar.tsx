@@ -8,5 +8,5 @@ export function AppSidebar() {
   // const auth = useAppSelector((state) => state.auth_persist.auth);
 
   // return ( auth ? <AuthSidebar/> : <GuestSidebar/> )
-  return <GuestSidebar/>
+  return <span className="font-yt_font"><GuestSidebar/></span>
 }

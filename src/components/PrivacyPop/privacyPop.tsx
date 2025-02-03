@@ -29,14 +29,14 @@ const PrivacyPop = () => {
         onInteractOutside={(e) => e.preventDefault()}
         hideClose>
         <DialogHeader>
-          <DialogTitle className="text-center">
+          <DialogTitle className="text-center font-yt_font">
             Privacy Policy
           </DialogTitle>
         </DialogHeader>
         <PrivacyDesc/>
         <DialogFooter className="flex flex-col justify-center sm:justify-center">
           <DialogTrigger asChild>
-            <Button className="w-auto">
+            <Button className="w-auto font-roboto">
               I agree
             </Button>
           </DialogTrigger>

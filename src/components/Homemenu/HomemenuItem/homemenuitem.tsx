@@ -83,12 +83,12 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
 
         <DialogContent className="sm:max-w-[425px] bg-[#2b3140]">
         <DialogHeader>
-          <DialogTitle className="text-xl font-semibold text-white">{modal_title}</DialogTitle>
+          <DialogTitle className="text-xl font-bold text-white font-yt_font">{modal_title}</DialogTitle>
         </DialogHeader>
-        <DialogTitle className="text-center font-normal text-white">Video Type</DialogTitle>
+        <DialogTitle className="text-center text-white font-yt_font font-semibold">Video Type</DialogTitle>
 
         {/* Video Types */}
-        <ToggleGroup size={"lg"} type="single" className="gap-0 text-white">
+        <ToggleGroup size={"lg"} type="single" className="gap-0 text-white font-roboto">
           <ToggleGroupItem  data-state={videoType === VideoConstants.VIDEO ? OtherConstants.ON : OtherConstants.OFF}  
                             value={VideoConstants.VIDEO}
                             aria-label="Toggle videos"
@@ -110,8 +110,8 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
         </ToggleGroup>
 
         {videoType === VideoConstants.VIDEO ? 
-        <span className="text-center text-sm text-white">A random video will be picked for you each round. Videos may have ads</span>
-        : <span className="text-center text-sm text-white">A random short (less than 60 seconds) will be picked for you each round. Shorts may have ads</span>}
+        <span className="text-center text-sm text-white font-roboto">A random video will be picked for you each round. Videos may have ads</span>
+        : <span className="text-center text-sm text-white font-roboto">A random short (less than 60 seconds) will be picked for you each round. Shorts may have ads</span>}
 
         {/* Shorts - clip collection */}
         {videoType === VideoConstants.SHORTS &&
@@ -135,7 +135,7 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
 
         {/* Modes */}
         {modePresent && 
-          <ToggleGroup size={"lg"} type="single" className="gap-0 text-white">
+          <ToggleGroup size={"lg"} type="single" className="gap-0 text-white font-roboto">
           <ToggleGroupItem  data-state={mode === ModeConstants.NORMAL ? OtherConstants.ON : OtherConstants.OFF}  
                             value={ModeConstants.NORMAL} 
                             aria-label="Toggle normal"
@@ -165,18 +165,18 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
           </ToggleGroupItem>
         </ToggleGroup>}
 
-        <DialogTitle className="text-center font-normal text-white">Round timer (minutes)</DialogTitle>
+        <DialogTitle className="text-center text-white font-yt_font font-semibold">Round timer (minutes)</DialogTitle>
         <Input type="number"
                placeholder={timer ? timer : "0"} 
                min={"0"}
                value={timer ? timer : ""} 
                onChange={(e) => dispatch(setTimer(e.target.value))}/>
-        <span className="text-center text-sm text-white">Your guess will be automatically submitted when the timer runs out. Set to 0 to disable</span>
-        <DialogTitle className="text-center font-normal text-white">Play with chat (YouTube)</DialogTitle>
+        <span className="text-center text-sm text-white font-roboto">Your guess will be automatically submitted when the timer runs out. Set to 0 to disable</span>
+        <DialogTitle className="text-center text-white font-semibold font-yt_font">Play with chat (YouTube)</DialogTitle>
         <Input type="url" placeholder="www.youtube.com/watch?v=..."/>
-        <span className="text-center text-sm text-white">Your viewers will be able to play along by guessing in chat</span>
+        <span className="text-center text-sm text-white font-roboto">Your viewers will be able to play along by guessing in chat</span>
         <DialogFooter>
-          <Button type="submit" className="bg-white hover:bg-gray-200 text-black justify-center text-center m-auto">Start</Button>
+          <Button type="submit" className="bg-white hover:bg-gray-200 text-black justify-center text-center m-auto font-roboto">Start</Button>
         </DialogFooter>
         </DialogContent>
         
