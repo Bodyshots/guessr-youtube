@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { ThemeProvider } from "@/components/theme-provider";
 import { AppSidebar } from "@/components/AppSidebar/appsidebar";
 import { ReduxProvider } from "@/redux/reduxprovider";
 import PrivacyPop from '@/components/PrivacyPop/privacyPop';
-import Footer from "@/components/Footer/footer";
 import { GeistMonoFont, RobotoFont, GothicFont, YouTubeSansFont, YouTubeSansDarkFont, } from "@/fonts";
 
 export const metadata: Metadata = {
@@ -19,11 +19,17 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
         >
           <ReduxProvider>
           <SidebarProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
             <AppSidebar />
             <PrivacyPop/>
-            <SidebarTrigger className="text-white"/>
+            <SidebarTrigger className="m-1 mt-3"/>
             {children}
-            <Footer/>
+          </ThemeProvider>
           </SidebarProvider>
           </ReduxProvider>
         </body>

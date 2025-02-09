@@ -1,21 +1,8 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-Button.home_card_link_container {
-    /* background-color: #20242c; */
-}
-
-Button.home_card_link_container:hover {
-    /* background-color: #1a1d24; */
-}
-
 .home_card_link_container {
     margin: 0.5em!important;
     text-align: center!important;
     justify-content: center!important;
     align-items: center!important;
-    border: 1.5px solid white!important;
     padding: 1.5em!important;
     height: auto!important;
 }
@@ -30,7 +17,6 @@ Button.home_card_link_container:hover {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
-    color: #ffffff;
 }
 
 .home_card_label {
@@ -53,10 +39,6 @@ Button.home_card_link_container:hover {
     text-align: center;
     font-size: 15px;
     word-wrap: break-word;
-}
-
-Button:disabled.data-\[state\=on\]\:bg-accent[data-state="on"] {
-    color: black;
 }
 
 .tooltip_content {

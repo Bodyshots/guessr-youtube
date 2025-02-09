@@ -3,7 +3,6 @@
 import './homemenuitem.css';
 import '../../../app/globals.css';
 import { ReactNode } from "react";
-import { IconType } from "react-icons";
 import { Button } from "@/components/ui/button"
 import {
   Tooltip,
@@ -31,6 +30,7 @@ import {
   ToggleGroup,
   ToggleGroupItem,
 } from "@/components/ui/toggle-group"
+import { LucideIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { VideoConstants } from '@/constants/videotypes';
 import { ClipConstants, ClipType } from '@/constants/clips';
@@ -40,7 +40,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { setVideo, setClips, setMode, setTimer } from '@/redux/slices/gameSlice';
 
 interface IconButtonProps {
-  icon: IconType;
+  icon: LucideIcon;
   btn_label: ReactNode;
   tooltip_desc: ReactNode;
   modal_title: ReactNode;
@@ -64,7 +64,7 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
 
   return (
     <Dialog>
-      <DialogTitle/>
+      <DialogTitle className="text-foreground"/>
       <TooltipProvider>
         <Tooltip>
 
@@ -81,14 +81,14 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
             </DialogTrigger>
           </TooltipTrigger>
 
-        <DialogContent className="sm:max-w-[425px] bg-[#2b3140]">
+        <DialogContent className="sm:max-w-[425px] bg-background">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-white font-yt_font">{modal_title}</DialogTitle>
+          <DialogTitle className="text-xl font-bold font-yt_font">{modal_title}</DialogTitle>
         </DialogHeader>
-        <DialogTitle className="text-center text-white font-yt_font font-semibold">Video Type</DialogTitle>
+        <DialogTitle className="text-center text-foreground font-yt_font font-semibold">Video Type</DialogTitle>
 
         {/* Video Types */}
-        <ToggleGroup size={"lg"} type="single" className="gap-0 text-white font-roboto">
+        <ToggleGroup size={"lg"} type="single" className="gap-0 text-foreground font-roboto">
           <ToggleGroupItem  data-state={videoType === VideoConstants.VIDEO ? OtherConstants.ON : OtherConstants.OFF}  
                             value={VideoConstants.VIDEO}
                             aria-label="Toggle videos"
@@ -110,12 +110,12 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
         </ToggleGroup>
 
         {videoType === VideoConstants.VIDEO ? 
-        <span className="text-center text-sm text-white font-roboto">A random video will be picked for you each round. Videos may have ads</span>
-        : <span className="text-center text-sm text-white font-roboto">A random short (less than 60 seconds) will be picked for you each round. Shorts may have ads</span>}
+        <span className="text-center text-sm text-foreground font-roboto">A random video will be picked for you each round. Videos may have ads</span>
+        : <span className="text-center text-sm text-foreground font-roboto">A random short (less than 60 seconds) will be picked for you each round. Shorts may have ads</span>}
 
         {/* Shorts - clip collection */}
         {videoType === VideoConstants.SHORTS &&
-        <DialogTitle className="text-center font-normal text-white">Clip collection</DialogTitle>}
+        <DialogTitle className="text-center font-normal text-foreground">Clip collection</DialogTitle>}
 
         {videoType === VideoConstants.SHORTS &&
           <Select onValueChange={handleSelect}>
@@ -135,13 +135,13 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
 
         {/* Modes */}
         {modePresent && 
-          <ToggleGroup size={"lg"} type="single" className="gap-0 text-white font-roboto">
+          <ToggleGroup size={"lg"} type="single" className="gap-0 text-foreground font-roboto">
           <ToggleGroupItem  data-state={mode === ModeConstants.NORMAL ? OtherConstants.ON : OtherConstants.OFF}  
                             value={ModeConstants.NORMAL} 
                             aria-label="Toggle normal"
                             onClick={() => dispatch(setMode(ModeConstants.NORMAL))}
                             disabled={mode === ModeConstants.NORMAL}
-                            className="button:disabled:bg-red-600 rounded-r-none focus:z-10"
+                            className="rounded-r-none focus:z-10"
                             variant="outline">
             {ModeConstants.NORMAL}
           </ToggleGroupItem>
@@ -165,18 +165,23 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
           </ToggleGroupItem>
         </ToggleGroup>}
 
-        <DialogTitle className="text-center text-white font-yt_font font-semibold">Round timer (minutes)</DialogTitle>
+        <DialogTitle className="text-center text-foreground font-yt_font font-semibold">Round timer (minutes)</DialogTitle>
         <Input type="number"
                placeholder={timer ? timer : "0"} 
                min={"0"}
                value={timer ? timer : ""} 
                onChange={(e) => dispatch(setTimer(e.target.value))}/>
-        <span className="text-center text-sm text-white font-roboto">Your guess will be automatically submitted when the timer runs out. Set to 0 to disable</span>
-        <DialogTitle className="text-center text-white font-semibold font-yt_font">Play with chat (YouTube)</DialogTitle>
-        <Input type="url" placeholder="www.youtube.com/watch?v=..."/>
-        <span className="text-center text-sm text-white font-roboto">Your viewers will be able to play along by guessing in chat</span>
+        <span className="text-center text-sm text-foreground font-roboto">Your guess will be automatically submitted when the timer runs out. Set to 0 to disable</span>
+        <DialogTitle className="text-center text-foreground font-semibold font-yt_font">Play with chat (YouTube)</DialogTitle>
+        <Input className="font-yt_font" type="url" placeholder="www.youtube.com/watch?v=..."/>
+        <span className="text-center text-sm text-foreground font-roboto">Your viewers will be able to play along by guessing in chat</span>
         <DialogFooter>
-          <Button type="submit" className="bg-white hover:bg-gray-200 text-black justify-center text-center m-auto font-roboto">Start</Button>
+          <Button
+          type="submit"
+          variant="outline"
+          className="bg-background text-foreground justify-center text-center m-auto font-roboto">
+            Start
+          </Button>
         </DialogFooter>
         </DialogContent>
         

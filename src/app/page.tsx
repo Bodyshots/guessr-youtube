@@ -7,9 +7,10 @@ export default function Home() {
   return (
     <div className="home_container">
       <div className="home_menu_comp">
-      {/* <Image src={logo_img} alt="logo" width={500} height={300}/> */}
-      <SiteTitle/>
-      {/* <span className={`landing_text ${gothicFont.className}`}>Welcome to Guessr<br/>The YouTube Edition</span> */}
+        <div className="flex flex-col gap-4">
+          <SiteTitle/>
+          <span className="font-yt_font font-semibold text-muted-foreground/90">Click one of the buttons below to prepare a game!</span>
+        </div>
         <HomeMenu/>
       </div>
     </div>
