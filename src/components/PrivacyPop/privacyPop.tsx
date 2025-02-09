@@ -26,8 +26,7 @@ const PrivacyPop = () => {
     <Dialog 
       open={!privacy_ack} onOpenChange={() => onOpenChange()}>
       <DialogContent
-        onInteractOutside={(e) => e.preventDefault()}
-        hideClose>
+        onInteractOutside={(e) => e.preventDefault()} hideClose>
         <DialogHeader>
           <DialogTitle className="text-center font-yt_font">
             Privacy Policy
