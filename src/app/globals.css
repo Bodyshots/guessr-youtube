@@ -22,12 +22,6 @@
   font-family: var(--font-gothic);
 }
 
-body {
-  /* background: #1a1d24; */
-  color-scheme: dark;
-  overflow-y: hidden;
-}
-
 .body_container {
   width: 100%;
   height: 100%;

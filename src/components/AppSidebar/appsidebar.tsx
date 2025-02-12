@@ -1,7 +1,7 @@
 "use client"
 
-import { Home, CircleHelp, UserRound, Play, ThumbsUp, Folder, LogIn, LogOut,
-         FileText, Settings, Grid3X3, LucideIcon, Gamepad2, Moon, Sun } from "lucide-react"
+import { Home, CircleHelp, UserRound, ThumbsUp, Folder, LogIn, LogOut,
+         FileText, Settings, Grid3X3, LucideIcon, Gamepad2, Moon, Sun, DollarSign, Calendar } from "lucide-react"
 import { cn } from "@/lib/utils"
 import React from "react"
 import {
@@ -36,32 +36,35 @@ import { useAppDispatch, useAppSelector } from '@/redux/store'
 import { setPrivacyAck } from '@/redux/slices/privacySlice'
 import YTicon from "@/components/YTIcon/yticon"
 import { ThemeConstants } from "@/constants/theme"
+import { GameModeConstants } from "@/constants/gamemode"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { TooltipConstants } from "@/constants/tooltip"
 
 // Menu items
 const modes = [
   {
-    title: "Bingo",
+    title: GameModeConstants.BINGO,
     url: "/bingo",
     icon: Grid3X3,
   },
   {
-    title: "Viewers",
-    url: "/viewers",
+    title: GameModeConstants.VIEWERS,
+    url: "",
     icon: UserRound
   },
   {
-    title: "Subscribers",
-    url: "/viewers",
-    icon: Play
+    title: GameModeConstants.UPLOAD,
+    url: "",
+    icon: Calendar
   },
   {
-    title: "Likes",
-    url: "/viewers",
+    title: GameModeConstants.LIKES,
+    url: "",
     icon: ThumbsUp
   },
   {
-    title: "Genre",
-    url: "/viewers",
+    title: GameModeConstants.GENRE,
+    url: "",
     icon: Folder
   },
 ]
@@ -70,6 +73,11 @@ const other = [
     title: "Documentation",
     url: "/docs/getting_started/introduction",
     icon: FileText,
+  },
+  {
+    title: "Donate",
+    url: "https://buy.stripe.com/cN2fZ5aV05jc20U000",
+    icon: DollarSign,
   },
   {
     title: "Settings",
@@ -97,6 +105,7 @@ interface sidebarCollapseCustomProps {
   label: string;
   labelIcon: LucideIcon;
   items: sidebarItem[];
+  redirect_path?: string;
   className?: string;
 }
 
@@ -142,12 +151,23 @@ function LogBtn({ className }: ModeToggleProps) {
   const auth = useAppSelector((state) => state.auth_persist.auth)
  
   return (!auth ?
-    <Button 
-      variant="outline" 
-      className={cn("justify-start gap-3", className)}>
-        <LogIn />
-      <Link href="/login" className="font-yt_font">Log In</Link>
-    </Button> :
+    <TooltipProvider delayDuration={TooltipConstants.DELAY_DURATION}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button 
+            variant="outline" 
+            className={cn("justify-start gap-3", className)}>
+              <LogIn />
+            <Link href="/login" className="font-yt_font">Log In</Link>
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent
+          sideOffset={TooltipConstants.HOME_SIDE_OFFSET}
+          className="text-center max-w-[250px] p-[10px] text-wrap whitespace-normal font-yt_font">
+          Log into your Google account to save your Bingo card and settings.
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider> :
     <Button
       variant="outline" 
       className={cn("justify-start gap-3", className)}>
@@ -189,11 +209,19 @@ const SidebarCollapseCustom = ({ label, labelIcon: LabelIcon, items, className }
       </CollapsibleTrigger>
       <CollapsibleContent>
       {items.map((item) => (
-        <SidebarMenuSub key={item.title}> 
+        <SidebarMenuSub key={item.title}>
+          {item.url ?
+          <Link href={item.url}>
+            <SidebarMenuSubItem className="py-0.5 text-base flex items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground h-8">
+              <item.icon/>
+              <span className="text-sidebar-foreground/70 font-yt_font">{item.title}</span>
+            </SidebarMenuSubItem>
+          </Link>
+          :
           <SidebarMenuSubItem className="py-0.5 text-base flex items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground h-8">
               <item.icon/>
               <span className="text-sidebar-foreground/70 font-yt_font">{item.title}</span>
-          </SidebarMenuSubItem>
+            </SidebarMenuSubItem>}
         </SidebarMenuSub>
       ))}
       </CollapsibleContent>

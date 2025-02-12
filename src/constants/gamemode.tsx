@@ -1,6 +1,7 @@
 export const GameModeConstants = Object.freeze({
+    BINGO: 'Bingo',
     VIEWERS: 'Viewers',
-    SUBS: 'Subscribers',
+    UPLOAD: 'Date',
     LIKES: 'Likes',
     GENRE: 'Genre',
     CHANNEL: 'Channel',

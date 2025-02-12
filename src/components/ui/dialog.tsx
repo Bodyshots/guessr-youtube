@@ -5,6 +5,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import { SheetDescription } from "./sheet"
 
 const Dialog = DialogPrimitive.Root
 
@@ -38,6 +39,7 @@ const DialogContent = React.forwardRef<
 >(({ className, children, hideClose, ...props }, ref) => (
   <DialogPortal>
     <DialogOverlay />
+    <SheetDescription/>
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
