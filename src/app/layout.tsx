@@ -4,14 +4,18 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AppSidebar } from "@/components/AppSidebar/appsidebar";
 import { ReduxProvider } from "@/redux/reduxprovider";
+import { SessionProvider } from '@/components/providers/SessionProvider';
 import PrivacyPop from '@/components/PrivacyPop/privacyPop';
 import { GeistMonoFont, RobotoFont, GothicFont, YouTubeSansFont, YouTubeSansDarkFont, } from "@/fonts";
+import { getServerSession } from 'next-auth';
 
 export const metadata: Metadata = {
   title: "Guessr - YouTube Edition"
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode; }) {
+export default async function RootLayout({ children }: { children: React.ReactNode; }) {
+  const session = await getServerSession();
+
   return (
       <html lang="en">
         <body
@@ -25,10 +29,12 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
             enableSystem
             disableTransitionOnChange
           >
+          <SessionProvider session={session}>
             <AppSidebar />
             <PrivacyPop/>
             <SidebarTrigger className="m-1 mt-3"/>
             {children}
+          </SessionProvider>
           </ThemeProvider>
           </SidebarProvider>
           </ReduxProvider>

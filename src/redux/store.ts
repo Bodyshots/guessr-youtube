@@ -1,9 +1,8 @@
 'use client';
 
-import authReducer from './slices/authSlice';
 import gameReducer from './slices/gameSlice';
 import privacyReducer from './slices/privacySlice';
-import { AuthState, GameState, PrivacyState } from './slices/types';
+import { GameState, PrivacyState } from './slices/types';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer, PersistedState } from 'redux-persist';
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
@@ -40,16 +39,12 @@ const createPersistConfig = (key: string, whitelist: string[]) => ({
 const createPersistedReducer = (sliceReducer: any, persistConfig: any) => 
   persistReducer(persistConfig, sliceReducer);
 
-const authPersistConfig = createPersistConfig('auth', ['auth']);
 const gamePersistConfig = createPersistConfig('game', ['video', 'clips', 'mode', 'timer']);
 const privacyPersistConfig = createPersistConfig('privacy', ['privacy_ack']);
-// const convosPersistConfig = createPersistConfig('convos', ['convos']);
 
 const rootReducer = combineReducers({
-  auth_persist: createPersistedReducer(authReducer, authPersistConfig),
   game_persist: createPersistedReducer(gameReducer, gamePersistConfig),
   privacy_persist: createPersistedReducer(privacyReducer, privacyPersistConfig)
-  // convos_persist: createPersistedReducer(convosReducer, convosPersistConfig),
 })
 
 export const store = configureStore({
@@ -59,7 +54,6 @@ export const store = configureStore({
 })
 
 export interface RootState {
-  auth_persist: PersistedState & AuthState;
   game_persist: PersistedState & GameState;
   privacy_persist: PersistedState & PrivacyState;
   // convos_persist: PersistedState & ConvosState;
