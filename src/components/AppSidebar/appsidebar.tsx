@@ -3,7 +3,7 @@
 import { Home, CircleHelp, UserRound, ThumbsUp, Folder, LogIn, LogOut,
          FileText, Settings, Grid3X3, LucideIcon, Gamepad2, Moon, Sun, Heart, Calendar } from "lucide-react"
 import { cn } from "@/lib/utils"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import {
   Sidebar,
   SidebarContent,
@@ -155,8 +155,19 @@ function capitalizeFirstLetter(val: string | undefined) {
 }
 
 function ModeToggle({ className }: ModeToggleProps) {
-  const { setTheme, theme } = useTheme()
+  const { setTheme, theme } = useTheme();
+  const [ isMounted, setIsMounted ] = useState(false);
  
+  useEffect(() => {
+    setIsMounted(true);
+  }, [])
+
+  if (!isMounted) return (
+    <Button variant="outline" className={cn("justify-start gap-3", className)} disabled={true}>
+      <span className="font-yt_font">Loading...</span>
+    </Button>
+  )
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

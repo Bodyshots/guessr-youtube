@@ -5,7 +5,7 @@ interface YTiconProps {
   width?: number,
 }
 
-const YTicon = ({ width = 50}: YTiconProps) => {
+const YTicon = ({ width = 50 }: YTiconProps) => {
   return (
     <Image 
       src='/yt_logo.svg'
