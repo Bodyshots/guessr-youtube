@@ -32,7 +32,7 @@ export default function SiteTitle() {
       {/* Small/Mobile screens */}
       <div className="flex-col gap-4 max-sm:block hidden font-logo">
         <div className="flex flex-row gap-4 justify-center align-center">
-          <YTicon width={80} height={80} />
+          <YTicon width={80}/>
             <span className={`pt-2 inline-block text-5xl`}>
               {OtherConstants.SITETITLE.split("").map((char, index) => (
                 <span
@@ -58,7 +58,7 @@ export default function SiteTitle() {
           className={`flex flex-row gap-x-3 text-center justify-center font-logo pb-2`}>
             <div className="flex flex-col">
               <div className="flex flex-row gap-4 justify-center align-center">
-                <YTicon width={100} height={100} />
+                <YTicon width={100} />
                 <span className={`pt-2 inline-block text-7xl`}>
                   {OtherConstants.SITETITLE.split("").map((char, index) => (
                     <span

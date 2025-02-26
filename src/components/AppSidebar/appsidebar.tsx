@@ -298,7 +298,7 @@ export function AppSidebar() {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 {(state !== SidebarConstants.COLLAPSED || isMobile) && <SidebarCollapseCustom
-                  label={"Game Modes"}
+                  label={"Modes"}
                   labelIcon={Gamepad2}
                   items={modes}
                   status={status}
