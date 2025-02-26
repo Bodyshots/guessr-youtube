@@ -4,6 +4,7 @@ import './homemenuitem.css';
 import '../../../app/globals.css';
 import { ReactNode, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"
+import { Card } from '@/components/ui/card';
 import {
   Tooltip,
   TooltipContent,
@@ -41,6 +42,22 @@ import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { setVideo, setClips, setMode, setTimer } from '@/redux/slices/gameSlice';
 import { useRouter } from 'next/navigation'
 
+
+const IconCard: React.FC<{ Icon: LucideIcon; btn_label: ReactNode; onClick?: () => void }> = ({ Icon, btn_label, onClick }) => (
+  <Card className="p-6 hover:bg-accent transition-colors group cursor-pointer shadow-md dark:shadow-white"
+        onClick={onClick}>
+    <div className="space-y-4">
+      <div className="p-3 w-fit rounded-lg bg-primary/5 group-hover:bg-primary/10 transition-colors">
+        <Icon className="h-6 w-6" />
+      </div>
+      <div>
+        <p className="text-2xl font-semibold text-left p-1 pl-0">{btn_label}</p>
+        <p className="text-sm text-muted-foreground text-left">test1 description</p>
+      </div>
+    </div>
+  </Card>
+);
+
 interface IconButtonProps {
   icon: LucideIcon;
   btn_label: ReactNode;
@@ -56,48 +73,33 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
                                                   modal_title,
                                                   modePresent,
                                                   redirect_path }) => {
+                                                    
     const dispatch = useAppDispatch();
     const videoType = useAppSelector((state) => state.game_persist.video);
     const clipSelect = useAppSelector((state) => state.game_persist.clips);
     const mode = useAppSelector((state) => state.game_persist.mode);
     const timer = useAppSelector((state) => state.game_persist.timer);
     const router = useRouter();
-    const [tooltipSide, setTooltipSide] = useState<TooltipSide>(TooltipSide.TOP);
 
     const handleSelect = (e: ClipType) => {
       dispatch(setClips(e));
     }
-    
-    useEffect(() => {
-        const updateTooltipSide = () => {
-            setTooltipSide(window.innerWidth <= TooltipConstants.BREAKPOINT_SWITCH
-                                              ? TooltipSide.RIGHT : TooltipSide.TOP);
-        };
 
-        updateTooltipSide();
-        window.addEventListener("resize", updateTooltipSide);
-        
-        return () => window.removeEventListener("resize", updateTooltipSide);
-    }, []);
-
-  return (!redirect_path ?
+  return (
     <div className="home_menu_item">
-        <Dialog>
+      <Dialog>
         <DialogTitle className="text-foreground"/>
-        <TooltipProvider delayDuration={TooltipConstants.DELAY_DURATION}>
+          <TooltipProvider delayDuration={TooltipConstants.DELAY_DURATION}>
             <Tooltip>
-
-            <div className="home_card_link_container">
-            <TooltipTrigger asChild>
-                <DialogTrigger asChild>
-                <Button className="home_card_btn">
-                    <span className="home_card_link_pic"><Icon className="home_card_icon"/></span>
-                </Button>
-                </DialogTrigger>
-            </TooltipTrigger>
-                <span className="home_card_label text-2xl font-semibold">{btn_label}</span>
-            </div>
-
+              <TooltipTrigger asChild>
+                <div>
+                  {!redirect_path ? <DialogTrigger asChild>
+                    <IconCard Icon={Icon} btn_label={btn_label}/>
+                    </DialogTrigger> :
+                    <IconCard Icon={Icon} btn_label={btn_label} onClick={redirect_path ? () => router.push(redirect_path) : undefined} />                                  
+                  }
+                </div>
+              </TooltipTrigger>
             <DialogContent className="sm:max-w-[425px] bg-background">
             <DialogHeader>
               <DialogTitle className="text-xl font-bold font-yt_font pb-0">{modal_title}</DialogTitle>
@@ -204,41 +206,14 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
             
             <TooltipContent 
                 className="tooltip_content" 
-                side={tooltipSide}
+                side={TooltipSide.TOP}
                 sideOffset={TooltipConstants.HOME_SIDE_OFFSET}>
                 {tooltip_desc}
             </TooltipContent>
-            </Tooltip>
+          </Tooltip>
         </TooltipProvider>
-        </Dialog>
-    </div> :
-  <div className="home_menu_item">
-    <Dialog>
-    <DialogTitle className="text-foreground"/>
-    <TooltipProvider delayDuration={TooltipConstants.DELAY_DURATION}>
-        <Tooltip>
-
-        <div className="home_card_link_container">
-        <TooltipTrigger asChild>
-            <DialogTrigger asChild>
-            <Button className="home_card_btn" onClick={() => redirect_path && router.push(redirect_path)}>
-                <span className="home_card_link_pic"><Icon className="home_card_icon"/></span>
-            </Button>
-            </DialogTrigger>
-        </TooltipTrigger>
-            <span className="text-2xl font-semibold home_card_label">{btn_label}</span>
-        </div>
-        
-        <TooltipContent 
-            className="tooltip_content" 
-            side={tooltipSide}
-            sideOffset={TooltipConstants.HOME_SIDE_OFFSET}>
-            {tooltip_desc}
-        </TooltipContent>
-        </Tooltip>
-    </TooltipProvider>
-    </Dialog>
-  </div>);
+      </Dialog>
+    </div>);
 };
 
 export default IconButton;

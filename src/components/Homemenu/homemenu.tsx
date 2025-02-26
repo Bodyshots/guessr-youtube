@@ -8,7 +8,7 @@ import { GameModeConstants } from '@/constants/gamemode';
 
 const HomeMenu = () => {
     return (
-    <div className="home_card_container font-yt_font">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 font-yt_font ">
         {/* Replace w/ redirect to bingo path */}
         <IconButton icon={Grid3X3} 
             btn_label={GameModeConstants.BINGO} 
