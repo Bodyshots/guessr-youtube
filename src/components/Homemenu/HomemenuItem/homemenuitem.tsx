@@ -43,16 +43,27 @@ import { setVideo, setClips, setMode, setTimer } from '@/redux/slices/gameSlice'
 import { useRouter } from 'next/navigation'
 
 
-const IconCard: React.FC<{ Icon: LucideIcon; btn_label: ReactNode; onClick?: () => void }> = ({ Icon, btn_label, onClick }) => (
-  <Card className="p-6 hover:bg-accent transition-colors group cursor-pointer shadow-md dark:shadow-white"
-        onClick={onClick}>
+const IconCard: React.FC<{ 
+  Icon: LucideIcon;
+  btn_label: ReactNode;
+  short_desc: ReactNode;
+  onClick?: () => void }> = 
+({ 
+  Icon, 
+  btn_label,
+  short_desc,
+  onClick 
+}) => (
+  <Card 
+    className="p-6 hover:bg-accent transition-colors group cursor-pointer shadow-md dark:shadow-white h-full min-h-[227px]"
+    onClick={onClick}>
     <div className="space-y-4">
       <div className="p-3 w-fit rounded-lg bg-primary/5 group-hover:bg-primary/10 transition-colors">
         <Icon className="h-6 w-6" />
       </div>
       <div>
         <p className="text-2xl font-semibold text-left p-1 pl-0">{btn_label}</p>
-        <p className="text-sm text-muted-foreground text-left">test1 description</p>
+        <p className="text-md text-muted-foreground text-left">{short_desc}</p>
       </div>
     </div>
   </Card>
@@ -61,6 +72,7 @@ const IconCard: React.FC<{ Icon: LucideIcon; btn_label: ReactNode; onClick?: () 
 interface IconButtonProps {
   icon: LucideIcon;
   btn_label: ReactNode;
+  short_desc?: ReactNode;
   tooltip_desc: ReactNode;
   modal_title: ReactNode;
   modePresent: boolean;
@@ -68,7 +80,8 @@ interface IconButtonProps {
 }
 
 const IconButton: React.FC<IconButtonProps> = ({  icon: Icon, 
-                                                  btn_label, 
+                                                  btn_label,
+                                                  short_desc,
                                                   tooltip_desc,
                                                   modal_title,
                                                   modePresent,
@@ -86,7 +99,7 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
     }
 
   return (
-    <div className="home_menu_item">
+    <div>
       <Dialog>
         <DialogTitle className="text-foreground"/>
           <TooltipProvider delayDuration={TooltipConstants.DELAY_DURATION}>
@@ -94,9 +107,16 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
               <TooltipTrigger asChild>
                 <div>
                   {!redirect_path ? <DialogTrigger asChild>
-                    <IconCard Icon={Icon} btn_label={btn_label}/>
+                    <IconCard 
+                      Icon={Icon} 
+                      btn_label={btn_label} 
+                      short_desc={short_desc}/>
                     </DialogTrigger> :
-                    <IconCard Icon={Icon} btn_label={btn_label} onClick={redirect_path ? () => router.push(redirect_path) : undefined} />                                  
+                    <IconCard 
+                      Icon={Icon}
+                      btn_label={btn_label}
+                      onClick={redirect_path ? () => router.push(redirect_path) : undefined}
+                      short_desc={short_desc}/>                                  
                   }
                 </div>
               </TooltipTrigger>

@@ -1,0 +1,63 @@
+@keyframes fadeSlide {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+@keyframes fadeRight {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+  
+.title-letter {
+    opacity: 0;
+    display: inline-block;
+    animation: fadeSlide 0.35s ease-out forwards;
+}
+
+.subtitle {
+    opacity: 0;
+    display: inline-block;
+    animation: fadeRight 0.5s ease-out forwards;
+}
+
+.hero-section {
+    background-image: url('/hero_page3_blurred.avif');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.7) 0%,
+        rgba(0, 0, 0, 0.5) 100%
+    );
+    z-index: 1;
+}
+  
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+  }

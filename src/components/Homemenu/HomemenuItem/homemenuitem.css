@@ -6,11 +6,6 @@
 }
 
 @media screen and (max-width: 570px) {
-    .home_menu_item {
-        justify-content: left;
-        align-items: start;
-        text-align: left;
-    }
     .tooltip_content {
         width: min(50vw, 300px)
     }

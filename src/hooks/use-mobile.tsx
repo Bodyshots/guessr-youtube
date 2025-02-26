@@ -1,6 +1,7 @@
 import * as React from "react"
+import { OtherConstants } from "@/constants/other"
 
-const MOBILE_BREAKPOINT = 768
+const MOBILE_BREAKPOINT = OtherConstants.MOBILE_BREAKPOINT;
 
 export function useIsMobile() {
   const [isMobile, setIsMobile] = React.useState<boolean | undefined>(undefined)

@@ -2,31 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-.home_container {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.landing_text {
-    font-size: 35px;
-    display: flex;
-    font-weight: bold;
-    color: #ffffff;
-    align-self: flex-end;
-    vertical-align: start;
-    align-items: center;
-
-    margin-left: auto;
-    margin-right: auto;
-}
-
 .hero-section {
-    background-image: url('/hero_page_blurred.jpg');
+    background-image: url('/hero_page3_blurred.avif');
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
@@ -54,25 +31,3 @@
     z-index: 2;
     color: white;
   }
-
-@media screen and (max-width: 1281px) {
-    .home_title {
-        height: 22.5%;
-    }
-}
-
-@media screen and (max-width: 1020px) {
-    .home_title {
-        height: 12.5%;
-    }
-}
-
-@media screen and (max-width: 570px) {
-    .home_container {
-        margin-left: 0;
-        align-items: left;
-    }
-    .home_menu_comp {
-        margin-left: 0;
-    }
-}

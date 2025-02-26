@@ -6,4 +6,6 @@ export const OtherConstants = Object.freeze({
   DELETE_ACC: 'Delete my account',
   ON: 'on',
   OFF: 'off',
+  SITETITLE: 'Guessr.yt',
+  MOBILE_BREAKPOINT: 803,
 })

@@ -1,9 +1,9 @@
 "use client"
 
 import { Home, CircleHelp, UserRound, ThumbsUp, Folder, LogIn, LogOut,
-         FileText, Settings, Grid3X3, LucideIcon, Gamepad2, Moon, Sun, DollarSign, Calendar } from "lucide-react"
+         FileText, Settings, Grid3X3, LucideIcon, Gamepad2, Moon, Sun, Heart, Calendar } from "lucide-react"
 import { cn } from "@/lib/utils"
-import React, { useEffect } from "react"
+import React from "react"
 import {
   Sidebar,
   SidebarContent,
@@ -42,6 +42,7 @@ import { TooltipConstants } from "@/constants/tooltip"
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { AuthConstants, AuthType } from "@/constants/auth"
 import { SidebarConstants } from "@/constants/sidebar"
+import { OtherConstants } from "@/constants/other"
 
 // Menu items
 const modes = [
@@ -86,7 +87,7 @@ const other = [
   {
     title: "Donate",
     url: "https://buy.stripe.com/cN2fZ5aV05jc20U000",
-    icon: DollarSign,
+    icon: Heart,
     auth: AuthConstants.UNAUTH
   },
   {
@@ -218,7 +219,7 @@ const SidebarGroupCustom = ({ items, status }: sidebarGroupCustomProps) => {
       <SidebarMenu>
         {items.map((item) => (
           (item.auth === AuthConstants.UNAUTH || (item.auth === AuthConstants.AUTH && status === AuthConstants.AUTH)) &&
-          <SidebarMenuItem key={item.title} className="py-0.5">
+          <SidebarMenuItem key={item.title} className="py-0.5 cursor-pointer">
             <SidebarMenuButton asChild>
               <Link href={item.url}>
                 <AddSidebarBtn item={item} className="font-yt_font text-base"/>
@@ -240,7 +241,7 @@ const SidebarCollapseCustom = ({ label, labelIcon: LabelIcon, items, status, cla
     defaultOpen 
     className={cn("font-yt_font outline-none ring-sidebar-ring transition-[margin,opa] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0 group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 text-base group/collapsible ", className)}>
       <CollapsibleTrigger asChild>
-        <SidebarMenuButton className="text-base">
+        <SidebarMenuButton className="text-base cursor-pointer">
           <LabelIcon/>
           {label}
           <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -281,7 +282,7 @@ export function AppSidebar() {
           <Link href={"/"} 
                 className="flex flex-row gap-x-3 text-center justify-center title-text font-logo hover:opacity-50 transition-all duration-300">
             <YTicon/>
-            <span className={`text-3xl ` + ((state === SidebarConstants.COLLAPSED && !isMobile) ? 'hidden' : "")}>Guessr.yt</span>
+            <span className={`text-3xl ` + ((state === SidebarConstants.COLLAPSED && !isMobile) ? 'hidden' : "")}>{OtherConstants.SITETITLE}</span>
           </Link>
         </SidebarHeader>
         <SidebarContent>
