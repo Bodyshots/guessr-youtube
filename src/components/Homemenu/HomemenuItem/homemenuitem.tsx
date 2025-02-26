@@ -74,7 +74,7 @@ interface IconButtonProps {
   btn_label: ReactNode;
   short_desc?: ReactNode;
   tooltip_desc: ReactNode;
-  modal_title: ReactNode;
+  modal_title?: ReactNode;
   modePresent: boolean;
   redirect_path?: string;
 }
@@ -83,7 +83,7 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
                                                   btn_label,
                                                   short_desc,
                                                   tooltip_desc,
-                                                  modal_title,
+                                                  modal_title = undefined,
                                                   modePresent,
                                                   redirect_path }) => {
                                                     
@@ -120,9 +120,9 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
                   }
                 </div>
               </TooltipTrigger>
-            <DialogContent className="sm:max-w-[425px] bg-background">
+            <DialogContent className="sm:max-w-[425px] bg-background max-sm:gap-2 rounded-lg" aria-describedby={undefined}>
             <DialogHeader>
-              <DialogTitle className="text-xl font-bold font-yt_font pb-0">{modal_title}</DialogTitle>
+              <DialogTitle className="text-xl font-bold font-yt_font text-center p-0">{modal_title}</DialogTitle>
             </DialogHeader>
             <DialogTitle className="text-center text-foreground font-yt_font font-semibold">Video Type</DialogTitle>
 
@@ -223,7 +223,6 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
             </Button>
             </DialogFooter>
             </DialogContent>
-            
             <TooltipContent 
                 className="tooltip_content" 
                 side={TooltipSide.TOP}
