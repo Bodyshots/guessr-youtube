@@ -1,8 +1,10 @@
 "use client"
 
 import { Home, CircleHelp, UserRound, ThumbsUp, Folder, LogIn, LogOut,
-         FileText, Settings, Grid3X3, LucideIcon, Gamepad2, Moon, Sun, Heart, Calendar } from "lucide-react"
-import { cn } from "@/lib/utils"
+         FileText, Settings, Grid3X3, LucideIcon, Gamepad2, Moon, Sun, Heart, Calendar,
+         ChevronRight} from "lucide-react"
+         import { cn } from "@/lib/utils"
+import { FaGithub } from "react-icons/fa";
 import React, { useEffect, useState } from "react"
 import {
   Sidebar,
@@ -21,7 +23,6 @@ import {
   SidebarInset
 } from "@/components/ui/sidebar"
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible"
-import { ChevronRight } from "lucide-react"
 import Link from "next/link"
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
@@ -43,6 +44,7 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 import { AuthConstants, AuthType } from "@/constants/auth"
 import { SidebarConstants } from "@/constants/sidebar"
 import { OtherConstants } from "@/constants/other"
+import { IconType } from "react-icons";
 
 // Menu items
 const modes = [
@@ -85,6 +87,12 @@ const other = [
     auth: AuthConstants.UNAUTH
   },
   {
+    title: "Contribute",
+    url: "https://github.com/Bodyshots/guessr-youtube",
+    icon: FaGithub,
+    auth: AuthConstants.UNAUTH
+  },
+  {
     title: "Donate",
     url: "https://buy.stripe.com/cN2fZ5aV05jc20U000",
     icon: Heart,
@@ -107,7 +115,7 @@ const other = [
 interface sidebarItem {
   title: string,
   url: string,
-  icon: LucideIcon,
+  icon: LucideIcon | IconType,
   auth: AuthType
 }
 
@@ -118,7 +126,7 @@ interface sidebarGroupCustomProps {
 
 interface sidebarCollapseCustomProps {
   label: string;
-  labelIcon: LucideIcon;
+  labelIcon: LucideIcon | IconType;
   items: sidebarItem[];
   status: AuthType;
   redirect_path?: string;
@@ -141,7 +149,6 @@ interface SidebarBtn {
 
 // Helper
 function AddSidebarBtn ( { item, className } : SidebarBtn) {
-
   return (
       <>
         <item.icon/>
