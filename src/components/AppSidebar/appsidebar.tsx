@@ -257,7 +257,7 @@ const SidebarCollapseCustom = ({ label, labelIcon: LabelIcon, items, status, cla
   return (
     <Collapsible 
     defaultOpen 
-    className={cn("font-yt_font outline-none ring-sidebar-ring transition-[margin,opa] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0 group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 text-base group/collapsible ", className)}>
+    className={cn("font-yt_font outline-none ring-sidebar-ring transition-[margin,opa] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0 group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 text-base group/collapsible", className)}>
       <CollapsibleTrigger asChild>
         <SidebarMenuButton className="text-base cursor-pointer">
           <LabelIcon/>
@@ -336,6 +336,7 @@ export function AppSidebar() {
             />
           </SidebarGroup>
         </SidebarContent>
+        <SidebarSeparator className="my-2"/>
         <SidebarFooter className={`flex flex-col transition-opacity duration-300 overflow-hidden pb-4 ` + 
           (state === SidebarConstants.COLLAPSED ? "opacity-0 pointer-events-none" : "opacity-100")}>
           {status === AuthConstants.AUTH && <span

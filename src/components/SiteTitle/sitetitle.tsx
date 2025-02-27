@@ -32,7 +32,7 @@ export default function SiteTitle() {
       {/* Small/Mobile screens */}
       <div className="flex-col gap-4 max-sm:block hidden font-logo">
         <div className="flex flex-row gap-4 justify-center align-center">
-          <YTicon width={80}/>
+          <YTicon width={80} className="max-[360px]:hidden" />
             <span className={`pt-2 inline-block text-5xl`}>
               {OtherConstants.SITETITLE.split("").map((char, index) => (
                 <span

@@ -5,6 +5,7 @@ import '../../../app/globals.css';
 import { ReactNode, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"
 import { Card } from '@/components/ui/card';
+import clsx from 'clsx';
 import {
   Tooltip,
   TooltipContent,
@@ -93,10 +94,18 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
     const mode = useAppSelector((state) => state.game_persist.mode);
     const timer = useAppSelector((state) => state.game_persist.timer);
     const router = useRouter();
+    const [windowHeight, setWindowHeight] = useState(0);
 
     const handleSelect = (e: ClipType) => {
       dispatch(setClips(e));
     }
+
+    useEffect(() => {
+      const handleResize = () => {setWindowHeight(window.innerHeight);};
+      window.addEventListener("resize", handleResize);
+      handleResize();
+      return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div>
@@ -120,11 +129,11 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
                   }
                 </div>
               </TooltipTrigger>
-            <DialogContent className="sm:max-w-[500px] bg-background max-sm:gap-0 gap-3 rounded-lg" aria-describedby={undefined}>
+            <DialogContent className={clsx(`sm:max-w-[500px] bg-background gap-0 rounded-lg`, windowHeight <= 845 && "max-h-[667px] overflow-y-scroll")} aria-describedby={undefined}>
             <DialogHeader>
               <DialogTitle className="text-xl font-bold font-yt_font text-center p-0">{modal_title}</DialogTitle>
             </DialogHeader>
-            <DialogTitle className="text-center text-foreground font-yt_font font-semibold">Video Type</DialogTitle>
+            <DialogTitle className="text-center text-foreground font-yt_font font-semibold px-0">Video Type</DialogTitle>
 
             {/* Video Types */}
             <ToggleGroup size={"lg"} type="single" className="gap-0 text-foreground font-roboto">
@@ -149,31 +158,31 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
             </ToggleGroup>
 
             {videoType === VideoConstants.VIDEO ? 
-            <span className="text-center text-sm text-foreground font-roboto">A random video will be picked for you each round. Videos may have ads</span>
-            : <span className="text-center text-sm text-foreground font-roboto">A random short (less than 60 seconds) will be picked for you each round. Shorts may have ads</span>}
+            <span className="text-center text-sm text-foreground font-roboto p-2">A random video will be picked for you each round. Videos may have ads</span>
+            : <span className="text-center text-sm text-foreground font-roboto p-2">A random short (less than 60 seconds) will be picked for you each round. Shorts may have ads</span>}
 
             {/* Shorts - clip collection */}
             {videoType === VideoConstants.SHORTS &&
-            <DialogTitle className="text-center font-normal text-foreground">Clip collection</DialogTitle>}
+            <DialogTitle className="text-center text-foreground px-0 font-roboto">Clip collection</DialogTitle>}
 
             {videoType === VideoConstants.SHORTS &&
             <Select onValueChange={handleSelect}>
-                <SelectTrigger className="w-[100%] flex m-auto p-auto">
+                <SelectTrigger className="w-[100%] flex m-auto p-auto font-roboto">
                 <SelectValue placeholder={clipSelect.replace('&lt;', '<').replace('&gt;', '>')}/>
                 </SelectTrigger>
                 <SelectContent>
                 <SelectGroup>
-                    <SelectItem value={ClipConstants.RANDOM}>{ClipConstants.RANDOM}</SelectItem>
-                    <SelectItem value={ClipConstants.SHORT}>{ClipConstants.SHORT.replace('&lt;', '<')}</SelectItem>
-                    <SelectItem value={ClipConstants.LONG}>{ClipConstants.LONG.replace('&gt;', '>')}</SelectItem>
-                    <SelectItem value={ClipConstants.POPULAR}>{ClipConstants.POPULAR}</SelectItem>
-                    <SelectItem value={ClipConstants.FORSEN}>{ClipConstants.FORSEN}</SelectItem>
+                    <SelectItem value={ClipConstants.RANDOM} className="font-roboto">{ClipConstants.RANDOM}</SelectItem>
+                    <SelectItem value={ClipConstants.SHORT} className="font-roboto">{ClipConstants.SHORT.replace('&lt;', '<')}</SelectItem>
+                    <SelectItem value={ClipConstants.LONG} className="font-roboto">{ClipConstants.LONG.replace('&gt;', '>')}</SelectItem>
+                    <SelectItem value={ClipConstants.POPULAR} className="font-roboto">{ClipConstants.POPULAR}</SelectItem>
+                    <SelectItem value={ClipConstants.FORSEN} className="font-roboto">{ClipConstants.FORSEN}</SelectItem>
                 </SelectGroup>
                 </SelectContent>
             </Select>}
 
             {/* Modes */}
-            <DialogTitle className="text-center text-foreground font-yt_font font-semibold">Modes</DialogTitle>
+            <DialogTitle className="text-center text-foreground font-yt_font font-semibold px-0">Modes</DialogTitle>
             <div>
               {modePresent && 
               <ToggleGroup size={"lg"} type="single" className="gap-0 text-foreground font-roboto">
@@ -207,24 +216,20 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
               </ToggleGroup>}
             </div>
             { mode === ModeConstants.NORMAL ?
-              <span className="text-center text-sm text-foreground font-roboto">Guess the exact count for 5 rounds - 5,000 points per round based on how close you are to the correct number</span>
-            : mode === ModeConstants.MC ? <span className="text-center text-sm text-foreground font-roboto">Pick 1 of 5 options - Keep playing till you get a wrong answer</span>
-            : <span className="text-center text-sm text-foreground font-roboto">Gues if the current video has a higher or lower count than the previous one - Keep playing till you get a wrong answer</span>}
+              <span className="text-center text-sm text-foreground font-roboto p-2">Guess the exact count for 5 rounds - 5,000 points per round based on how close you are to the correct number</span>
+            : mode === ModeConstants.MC ? <span className="text-center text-sm text-foreground font-roboto p-2">Pick 1 of 5 options - Keep playing till you get a wrong answer</span>
+            : <span className="text-center text-sm text-foreground font-roboto p-2">Gues if the current video has a higher or lower count than the previous one - Keep playing till you get a wrong answer</span>}
 
-            {/* {videoType === VideoConstants.VIDEO ? 
-            <span className="text-center text-sm text-foreground font-roboto">A random video will be picked for you each round. Videos may have ads</span>
-            : <span className="text-center text-sm text-foreground font-roboto">A random short (less than 60 seconds) will be picked for you each round. Shorts may have ads</span>} */}
-
-            <DialogTitle className="text-center text-foreground font-yt_font font-semibold">Round timer (minutes)</DialogTitle>
+            <DialogTitle className="text-center text-foreground font-yt_font font-semibold px-0">Round timer (minutes)</DialogTitle>
             <Input type="number"
                 placeholder={timer ? timer : "0"} 
                 min={"0"}
                 value={timer ? timer : ""} 
                 onChange={(e) => dispatch(setTimer(e.target.value))}/>
-            <span className="text-center text-sm text-foreground font-roboto">Your guess will be automatically submitted when the timer runs out. Set to 0 to disable</span>
-            <DialogTitle className="text-center text-foreground font-semibold font-yt_font">Play with chat (YouTube - Under Construction)</DialogTitle>
+            <span className="text-center text-sm text-foreground font-roboto p-2">Your guess will be automatically submitted when the timer runs out. Set to 0 to disable</span>
+            <DialogTitle className="text-center text-foreground font-semibold font-yt_font px-0">Play with chat (YouTube - Under Construction)</DialogTitle>
             <Input className="font-yt_font" type="url" placeholder="www.youtube.com/watch?v=..."/>
-            <span className="text-center text-sm text-foreground font-roboto">Your viewers will be able to play along by guessing in chat</span>
+            <span className="text-center text-sm text-foreground font-roboto p-2">Your viewers will be able to play along by guessing in chat</span>
             <DialogFooter>
             <Button
             type="submit"

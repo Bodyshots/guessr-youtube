@@ -1,19 +1,22 @@
-import React from 'react'
-import Image from 'next/image'
+import React from 'react';
+import Image from 'next/image';
 
 interface YTiconProps {
-  width?: number,
+  width?: number;
+  className?: string;
 }
 
-const YTicon = ({ width = 50 }: YTiconProps) => {
+const YTicon = ({ width = 50, className }: YTiconProps) => {
   return (
-    <Image 
-      src='/yt_logo.svg'
+    <Image
+      src="/yt_logo.svg"
       alt="yt_icon"
-      width="0"
-      height="0"
-    style={{ width: width, height: 'auto' }}/>
-  )
-}
+      width={0}
+      height={0}
+      className={className}
+      style={{ width, height: 'auto' }}
+    />
+  );
+};
 
 export default YTicon;
