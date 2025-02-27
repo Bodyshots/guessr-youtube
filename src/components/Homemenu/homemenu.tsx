@@ -12,7 +12,7 @@ const HomeMenu = () => {
         {/* Replace w/ redirect to bingo path */}
         <IconButton icon={Grid3X3} 
                     btn_label={GameModeConstants.BINGO} 
-                    tooltip_desc={<span>See if you&apos;ll score bingo throughout a series of YouTube videos!</span>}
+                    tooltip_desc={<span>Fill up a bingo card of any size and see if you can score bingo by watching a series of YouTube videos.</span>}
                     modePresent={true}
                     redirect_path='/bingo'
                     short_desc={<span>See if you&apos;ll score bingo throughout a series of YouTube videos!</span>}

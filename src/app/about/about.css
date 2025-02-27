@@ -1,0 +1,14 @@
+.about_title {
+    font-size: 1.875rem;
+    line-height: 2.25;
+    font-weight: 700;
+    padding: 0 0;
+}
+
+.about_subtitle {
+    font-size: 1.2rem;
+    line-height: 1.75;
+    font-weight: 500;
+    padding: 1rem 0;
+    padding-top: 0;
+}

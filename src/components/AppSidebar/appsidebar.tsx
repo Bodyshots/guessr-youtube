@@ -87,15 +87,15 @@ const other = [
     auth: AuthConstants.UNAUTH
   },
   {
-    title: "Contribute",
-    url: "https://github.com/Bodyshots/guessr-youtube",
-    icon: FaGithub,
-    auth: AuthConstants.UNAUTH
-  },
-  {
     title: "Donate",
     url: "https://buy.stripe.com/cN2fZ5aV05jc20U000",
     icon: Heart,
+    auth: AuthConstants.UNAUTH
+  },
+  {
+    title: "Contribute",
+    url: "https://github.com/Bodyshots/guessr-youtube",
+    icon: FaGithub,
     auth: AuthConstants.UNAUTH
   },
   {
@@ -347,7 +347,7 @@ export function AppSidebar() {
             <LogBtn status={status} className="w-1/2"/>
           </div>
           <span 
-            className="w-full flex justify-center text-xs pt-1 hover:cursor-pointer hover:underline text-muted-foreground font-yt_font"
+            className="hover:opacity-50 transition-opacity flex justify-center text-xs pt-1 hover:cursor-pointer text-muted-foreground font-yt_font"
             onClick={() => dispatch(setPrivacyAck(!privacy_ack))}>
             Privacy Policy
           </span>

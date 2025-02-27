@@ -10,7 +10,7 @@ import { GeistMonoFont, RobotoFont, GothicFont, YouTubeSansFont, YouTubeSansDark
 import { getServerSession } from 'next-auth';
 
 export const metadata: Metadata = {
-  title: "Guessr - YouTube Edition"
+  title: "Guessr.yt"
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode; }) {
