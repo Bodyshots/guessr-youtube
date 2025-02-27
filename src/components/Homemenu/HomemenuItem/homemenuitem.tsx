@@ -120,7 +120,7 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
                   }
                 </div>
               </TooltipTrigger>
-            <DialogContent className="sm:max-w-[425px] bg-background max-sm:gap-2 rounded-lg" aria-describedby={undefined}>
+            <DialogContent className="sm:max-w-[500px] bg-background max-sm:gap-0 gap-3 rounded-lg" aria-describedby={undefined}>
             <DialogHeader>
               <DialogTitle className="text-xl font-bold font-yt_font text-center p-0">{modal_title}</DialogTitle>
             </DialogHeader>
@@ -173,36 +173,47 @@ const IconButton: React.FC<IconButtonProps> = ({  icon: Icon,
             </Select>}
 
             {/* Modes */}
-            {modePresent && 
-            <ToggleGroup size={"lg"} type="single" className="gap-0 text-foreground font-roboto">
-            <ToggleGroupItem  data-state={mode === ModeConstants.NORMAL ? OtherConstants.ON : OtherConstants.OFF}  
-                                value={ModeConstants.NORMAL} 
-                                aria-label="Toggle normal"
-                                onClick={() => dispatch(setMode(ModeConstants.NORMAL))}
-                                disabled={mode === ModeConstants.NORMAL}
-                                className="rounded-r-none focus:z-10"
-                                variant="outline">
-                {ModeConstants.NORMAL}
-            </ToggleGroupItem>
-            <ToggleGroupItem  data-state={mode === ModeConstants.MC ? OtherConstants.ON : OtherConstants.OFF}  
-                                value={ModeConstants.MC} 
-                                aria-label="Toggle multiple choice" 
-                                onClick={() => dispatch(setMode(ModeConstants.MC))}
-                                disabled={mode === ModeConstants.MC}
-                                className="rounded-none focus:z-10"
-                                variant="outline">
-                {ModeConstants.MC}
-            </ToggleGroupItem>
-            <ToggleGroupItem  data-state={mode === ModeConstants.HL ? OtherConstants.ON : OtherConstants.OFF}  
-                                value={ModeConstants.HL}
-                                aria-label="Toggle higher lower" 
-                                onClick={() => dispatch(setMode(ModeConstants.HL))}
-                                disabled={mode === ModeConstants.HL}
-                                className="rounded-l-none focus:z-10"
-                                variant="outline">
-                {ModeConstants.HL}
-            </ToggleGroupItem>
-            </ToggleGroup>}
+            <DialogTitle className="text-center text-foreground font-yt_font font-semibold">Modes</DialogTitle>
+            <div>
+              {modePresent && 
+              <ToggleGroup size={"lg"} type="single" className="gap-0 text-foreground font-roboto">
+                <ToggleGroupItem  data-state={mode === ModeConstants.NORMAL ? OtherConstants.ON : OtherConstants.OFF}  
+                                  value={ModeConstants.NORMAL} 
+                                  aria-label="Toggle normal"
+                                  onClick={() => dispatch(setMode(ModeConstants.NORMAL))}
+                                  disabled={mode === ModeConstants.NORMAL}
+                                  className="rounded-r-none focus:z-10"
+                                  variant="outline">
+                  {ModeConstants.NORMAL}
+                </ToggleGroupItem>
+                <ToggleGroupItem  data-state={mode === ModeConstants.MC ? OtherConstants.ON : OtherConstants.OFF}  
+                                  value={ModeConstants.MC} 
+                                  aria-label="Toggle multiple choice" 
+                                  onClick={() => dispatch(setMode(ModeConstants.MC))}
+                                  disabled={mode === ModeConstants.MC}
+                                  className="rounded-none focus:z-10"
+                                  variant="outline">
+                  {ModeConstants.MC}
+                </ToggleGroupItem>
+                <ToggleGroupItem  data-state={mode === ModeConstants.HL ? OtherConstants.ON : OtherConstants.OFF}  
+                                  value={ModeConstants.HL}
+                                  aria-label="Toggle higher lower" 
+                                  onClick={() => dispatch(setMode(ModeConstants.HL))}
+                                  disabled={mode === ModeConstants.HL}
+                                  className="rounded-l-none focus:z-10"
+                                  variant="outline">
+                  {ModeConstants.HL}
+                </ToggleGroupItem>
+              </ToggleGroup>}
+            </div>
+            { mode === ModeConstants.NORMAL ?
+              <span className="text-center text-sm text-foreground font-roboto">Guess the exact count for 5 rounds - 5,000 points per round based on how close you are to the correct number</span>
+            : mode === ModeConstants.MC ? <span className="text-center text-sm text-foreground font-roboto">Pick 1 of 5 options - Keep playing till you get a wrong answer</span>
+            : <span className="text-center text-sm text-foreground font-roboto">Gues if the current video has a higher or lower count than the previous one - Keep playing till you get a wrong answer</span>}
+
+            {/* {videoType === VideoConstants.VIDEO ? 
+            <span className="text-center text-sm text-foreground font-roboto">A random video will be picked for you each round. Videos may have ads</span>
+            : <span className="text-center text-sm text-foreground font-roboto">A random short (less than 60 seconds) will be picked for you each round. Shorts may have ads</span>} */}
 
             <DialogTitle className="text-center text-foreground font-yt_font font-semibold">Round timer (minutes)</DialogTitle>
             <Input type="number"
