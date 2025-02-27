@@ -56,7 +56,6 @@ export const store = configureStore({
 export interface RootState {
   game_persist: PersistedState & GameState;
   privacy_persist: PersistedState & PrivacyState;
-  // convos_persist: PersistedState & ConvosState;
 }
 export type AppDispatch = typeof store.dispatch;
 

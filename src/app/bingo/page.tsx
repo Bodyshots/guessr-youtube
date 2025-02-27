@@ -1,14 +1,12 @@
 "use client";
 
-import BingoCard from '@/components/BingoCard/bingocard';
 import './bingo.css';
 import BingoMenu from "@/components/Bingomenu/bingomenu";
 
 export default function Bingo() {
   return (
-    <div className="bingo_page_container">
-      <BingoCard/>
-      <span className="text-4xl font-medium">Guessr - Bingo</span>
+    <div className="flex w-full align-center text-center flex-col flex-nowrap m-auto justify-between h-full p-4">
+      <span className="text-4xl font-bold font-yt_font p-4">Bingo</span>
       <BingoMenu/>
     </div>
   );
