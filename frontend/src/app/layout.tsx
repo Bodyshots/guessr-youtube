@@ -32,7 +32,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <SessionProvider session={session}>
             <AppSidebar />
             <PrivacyPop/>
-            <SidebarTrigger className="m-1 mt-3"/>
+            <SidebarTrigger className="m-2 cursor-pointer"/>
             {children}
           </SessionProvider>
           </ThemeProvider>
