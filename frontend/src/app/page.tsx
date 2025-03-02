@@ -1,6 +1,6 @@
 import './globals.css';
 import './home.css';
-import HomeMenu from '../components/Homemenu/homemenu';
+import HomeMenu from '@/components/Homemenu/homemenu';
 import SiteTitle from '@/components/SiteTitle/sitetitle';
 
 export default function Home() {

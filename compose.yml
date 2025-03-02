@@ -42,7 +42,7 @@ services:
     image: nextapp_guesser_yt:1.0.0
     stdin_open: true
     build:
-      context: ./src
+      context: ./frontend
       dockerfile: next.dockerfile
     ports:
       - 3000:3000

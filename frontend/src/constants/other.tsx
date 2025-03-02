@@ -7,5 +7,5 @@ export const OtherConstants = Object.freeze({
   ON: 'on',
   OFF: 'off',
   SITETITLE: 'Guessr.yt',
-  MOBILE_BREAKPOINT: 803,
+  MOBILE_BREAKPOINT: 814,
 })
