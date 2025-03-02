@@ -2,7 +2,7 @@
 FROM node:20 AS base
 
 # Set the working directory
-WORKDIR /frontend
+WORKDIR /app
 
 # Install pnpm globally
 RUN npm install -g pnpm
