@@ -1,5 +1,4 @@
 import './settings.css'
-import '../globals.css'
 
 const Settings = () => {
     return (
