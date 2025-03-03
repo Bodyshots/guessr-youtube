@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AppSidebar } from "@/components/AppSidebar/appsidebar";
@@ -8,12 +7,14 @@ import { SessionProvider } from '@/components/providers/SessionProvider';
 import PrivacyPop from '@/components/PrivacyPop/privacyPop';
 import { GeistMonoFont, RobotoFont, GothicFont, YouTubeSansFont, YouTubeSansDarkFont, } from "@/fonts";
 import { getServerSession } from 'next-auth';
+import { RootProvider } from 'fumadocs-ui/provider';
+import '../globals.css';
 
 export const metadata: Metadata = {
   title: "Guessr.yt"
 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode; }) {
+export default async function MainLayout({ children }: { children: React.ReactNode; }) {
   const session = await getServerSession();
 
   return (
@@ -21,6 +22,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <body
           className={`${GeistMonoFont.variable} ${RobotoFont.variable} ${GothicFont.variable} ${YouTubeSansFont.variable} ${YouTubeSansDarkFont.variable} antialiased body_container`}
         >
+          <RootProvider>
           <ReduxProvider>
           <SidebarProvider>
           <ThemeProvider
@@ -38,6 +40,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           </ThemeProvider>
           </SidebarProvider>
           </ReduxProvider>
+          </RootProvider>
         </body>
       </html>
   );

@@ -1,7 +1,6 @@
 "use client";
 
 import './homemenuitem.css';
-import '../../../app/globals.css';
 import { ReactNode, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"
 import { Card } from '@/components/ui/card';

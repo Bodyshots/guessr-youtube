@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "WATCHPACK_POLLING=true next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "fumadocs-mdx"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -28,9 +29,13 @@
     "@radix-ui/react-tooltip": "^1.1.8",
     "@reduxjs/toolkit": "latest",
     "@tailwindcss/postcss": "^4.0.9",
+    "@types/mdx": "^2.0.13",
     "@types/react": "^19.0.10",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "fumadocs-core": "^15.0.15",
+    "fumadocs-mdx": "^11.5.6",
+    "fumadocs-ui": "^15.0.15",
     "immer": "^10.1.1",
     "lucide-react": "^0.477.0",
     "next": "^15.2.0",

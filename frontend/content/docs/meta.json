@@ -1,0 +1,17 @@
+{
+    "title": "Documentation",
+    "root": true,
+    "pages": [
+        "---Introduction---",
+        "index",
+        "tech",
+        "---Setup---",
+        "setup",
+        "---App Structure---",
+        "pages",
+        "---Backend---",
+        "backend",
+        "---Redux---",
+        "redux"
+    ]
+}

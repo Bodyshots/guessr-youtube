@@ -82,7 +82,7 @@ const modes = [
 const other = [
   {
     title: "Documentation",
-    url: "/docs/getting_started/introduction",
+    url: "/docs",
     icon: FileText,
     auth: AuthConstants.UNAUTH
   },
@@ -336,13 +336,13 @@ export function AppSidebar() {
             />
           </SidebarGroup>
         </SidebarContent>
-        <SidebarSeparator className="my-2"/>
         <SidebarFooter className={`flex flex-col transition-opacity duration-300 overflow-hidden pb-4 ` + 
           (state === SidebarConstants.COLLAPSED ? "opacity-0 pointer-events-none" : "opacity-100")}>
           {status === AuthConstants.AUTH && <span
             className="w-full flex justify-center text-center text-xs pt-1 text-muted-foreground font-yt_font">
             Currently signed in as: {session?.user?.email}
           </span>}
+          <SidebarSeparator className="my-2"/>
           <div className="flex flex-row gap-2">
             <ModeToggle className="w-1/2"/>
             <LogBtn status={status} className="w-1/2"/>

@@ -1,7 +1,6 @@
 "use client";
 
 import './homemenu.css'
-import '../../app/globals.css';
 import { UserRound, Calendar, ThumbsUp, Folder, Grid3X3 } from "lucide-react"
 import IconButton from './HomemenuItem/homemenuitem';
 import { GameModeConstants } from '@/constants/gamemode';
