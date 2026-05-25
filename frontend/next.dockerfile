@@ -10,8 +10,10 @@ RUN npm install -g pnpm
 # Copy package manager files
 COPY package.json pnpm-lock.yaml ./
 
+RUN pnpm clean --lockfile
+
 # Install dependencies
-RUN pnpm install --frozen-lockfile --dangerously-allow-all-builds
+RUN pnpm install --dangerously-allow-all-builds
 
 # Copy the rest of your application code into the container
 COPY . .

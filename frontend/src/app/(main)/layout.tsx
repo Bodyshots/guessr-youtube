@@ -7,7 +7,6 @@ import { SessionProvider } from '@/components/providers/SessionProvider';
 import PrivacyPop from '@/components/PrivacyPop/privacyPop';
 import { GeistMonoFont, RobotoFont, GothicFont, YouTubeSansFont, YouTubeSansDarkFont, } from "@/fonts";
 import { getServerSession } from 'next-auth';
-import '../globals.css';
 
 export const metadata: Metadata = {
   title: "Guessr.yt"
@@ -17,28 +16,24 @@ export default async function MainLayout({ children }: { children: React.ReactNo
   const session = await getServerSession();
 
   return (
-    <html lang="en">
-      <body
-        className={`${GeistMonoFont.variable} ${RobotoFont.variable} ${GothicFont.variable} ${YouTubeSansFont.variable} ${YouTubeSansDarkFont.variable} antialiased body_container`}
-      >
-        <ReduxProvider>
-          <SidebarProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <SessionProvider session={session}>
-                <AppSidebar />
-                <PrivacyPop />
-                <SidebarTrigger className="m-2 cursor-pointer" />
-                {children}
-              </SessionProvider>
-            </ThemeProvider>
-          </SidebarProvider>
-        </ReduxProvider>
-      </body>
-    </html>
+    <>
+      <ReduxProvider>
+        <SidebarProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <SessionProvider session={session}>
+              <AppSidebar />
+              <PrivacyPop />
+              <SidebarTrigger className="m-2 cursor-pointer" />
+              {children}
+            </SessionProvider>
+          </ThemeProvider>
+        </SidebarProvider>
+      </ReduxProvider>
+    </>
   );
 }

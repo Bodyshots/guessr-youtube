@@ -19,6 +19,7 @@ node_modules
 /.next/
 /out/
 .next
+.pnpm-store
 
 # production
 /build
