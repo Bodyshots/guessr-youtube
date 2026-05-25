@@ -1,6 +1,4 @@
-import { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
- 
-export const baseOptions: BaseLayoutProps = {
+export const baseOptions = {
   nav: {
     title: 'Guessr.yt',
   },

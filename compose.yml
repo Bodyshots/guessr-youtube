@@ -1,5 +1,4 @@
 services:
-
   # db service
   db:
     container_name: db_guesser_yt
@@ -31,7 +30,7 @@ services:
       FLASK_APP: run.py
       DATABASE_URL: postgresql://postgres:postgres@db_guesser_yt:5432/postgres
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:4000/api/health"]  # Adjust the endpoint as necessary
+      test: ["CMD", "curl", "-f", "http://localhost:4000/api/health"] # Adjust the endpoint as necessary
       interval: 20s
       timeout: 20s
       retries: 5
@@ -49,7 +48,7 @@ services:
     volumes:
       - ./frontend:/app
       - /app/node_modules
-    command: ["npm", "run", "dev"]
+    command: ["pnpm", "run", "dev"]
 
 volumes:
   pgdata: {}

@@ -1,7 +1,5 @@
-import { RootProvider } from 'fumadocs-ui/provider';
 import type { ReactNode } from 'react';
-import 'fumadocs-ui/style.css'
- 
+
 export default function DocLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -13,7 +11,7 @@ export default function DocLayout({ children }: { children: ReactNode }) {
           minHeight: '100vh',
         }}
       >
-        <RootProvider>{children}</RootProvider>
+        {children}
       </body>
     </html>
   );
