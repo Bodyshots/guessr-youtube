@@ -10,11 +10,8 @@ RUN npm install -g pnpm
 # Copy package manager files
 COPY package.json pnpm-lock.yaml ./
 
-# Allow native dependency build scripts
-RUN printf "onlyBuiltDependencies[]=esbuild\nonlyBuiltDependencies[]=sharp\n" >> .npmrc
-
 # Install dependencies
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile --dangerously-allow-all-builds
 
 # Copy the rest of your application code into the container
 COPY . .
