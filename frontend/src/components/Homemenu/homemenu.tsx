@@ -18,7 +18,7 @@ const HomeMenu = () => {
             />
             <IconButton icon={UserRound}
                 btn_label={GameModeConstants.VIEWERS}
-                tooltip_desc={<span>A random YouTube video will be shown and you will have to guess how many <b>viewers</b> it has.
+                tooltip_desc={<span>A random YouTube video will be shown and you will have to guess how many <b>viewers </b>it has.
                     The closer you are to the target view count the more points you&apos;ll earn.</span>}
                 modal_title={GameModeConstants.VIEWERS + ": " + GameModeConstants.SETTINGS}
                 modePresent={true}
