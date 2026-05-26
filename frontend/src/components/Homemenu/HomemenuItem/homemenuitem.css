@@ -1,3 +1,7 @@
+h2 {
+    padding: 1em
+}
+
 .tooltip_content {
     max-width: 300px;
     white-space: normal;
