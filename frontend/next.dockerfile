@@ -4,16 +4,16 @@ FROM node:22-alpine AS base
 # Set the working directory
 WORKDIR /app
 
+ARG CI=true
+
 # Install pnpm globally
 RUN npm install -g pnpm
 
 # Copy package manager files
-COPY package.json pnpm-lock.yaml ./
-
-RUN pnpm clean --lockfile
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
 # Install dependencies
-RUN pnpm install --dangerously-allow-all-builds
+RUN pnpm install
 
 # Copy the rest of your application code into the container
 COPY . .
