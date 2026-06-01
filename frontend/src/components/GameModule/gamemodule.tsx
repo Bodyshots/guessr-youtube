@@ -9,11 +9,8 @@ import { ProgressConstants, ProgressState } from "@/constants/progresscircle";
 import { setGuess, processGuess, setProgressStates, setGameStartTime, setGameEndTime } from "@/redux/slices/gameSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import ResultsDialog from "./ResultsDialog/resultsdialog";
-<<<<<<< HEAD
 import { formatStatsTime } from "@/lib/utils";
 import GameModuleVideo from "./GameModuleVideo/gamemodulevideo";
-=======
->>>>>>> 691bbbc ((WIP) feat: dynamic viewer ytdle + supabase integration)
 
 const target = 5000; // temp
 
@@ -27,9 +24,6 @@ export interface GameModuleProps {
 }
 
 const GameModule = (props: GameModuleProps) => {
-
-<<<<<<< HEAD
-=======
 
 >>>>>>> 691bbbc ((WIP) feat: dynamic viewer ytdle + supabase integration)
   const videos: Video[] = props.videos;
@@ -63,7 +57,6 @@ const GameModule = (props: GameModuleProps) => {
     if (guess === null || currIndex >= counts.length) return;
 
     const count = counts[currIndex];
-<<<<<<< HEAD
     const higher = count > target;
     let currState: ProgressState = ProgressConstants.UNFINISHED;
 
@@ -71,19 +64,6 @@ const GameModule = (props: GameModuleProps) => {
       if ((higher && guess === true) || (!higher && !guess)) currState = ProgressConstants.CORRECT;
       else currState = ProgressConstants.INCORRECT;
     }
-=======
-    const isCorrect =
-      (count > target && guess === true) ||
-      (count < target && guess === false);
-
-    const isIncorrect =
-      (count > target && guess === false) ||
-      (count < target && guess === true);
-
-    let currState: ProgressState = ProgressConstants.UNFINISHED;
-    if (isCorrect) currState = ProgressConstants.CORRECT;
-    else if (isIncorrect) currState = ProgressConstants.INCORRECT;
->>>>>>> 691bbbc ((WIP) feat: dynamic viewer ytdle + supabase integration)
 
     // Update progress state for current index
     const newProgressStates = [...progressStates];
@@ -97,26 +77,13 @@ const GameModule = (props: GameModuleProps) => {
     (state) => state === ProgressConstants.CORRECT
   ).length;
 
-<<<<<<< HEAD
   const timeTaken = gameStartTime && gameEndTime ? formatStatsTime(gameEndTime - gameStartTime) : "0m 0s";
   const avgTimePerGuess = gameStartTime && gameEndTime ? formatStatsTime((gameEndTime - gameStartTime) / videos.length) : "0m 0s";
-=======
-  // Calculate timing stats
-  const formatTime = (ms: number): string => {
-    const seconds = Math.floor((ms / 1000) % 60);
-    const minutes = Math.floor((ms / (1000 * 60)) % 60);
-    return `${minutes}m ${seconds}s`;
-  };
-
-  const timeTaken = gameStartTime && gameEndTime ? formatTime(gameEndTime - gameStartTime) : "0m 0s";
-  const avgTimePerGuess = gameStartTime && gameEndTime ? formatTime((gameEndTime - gameStartTime) / videos.length) : "0m 0s";
->>>>>>> 691bbbc ((WIP) feat: dynamic viewer ytdle + supabase integration)
 
   return (
     <div className="flex flex-col justify-center items-center">
       {!gameEndTime ? (
         <>
-<<<<<<< HEAD
           <GameModuleVideo
             videoId={videos[currIndex]?.videoId}
             videoTitle={videos[currIndex]?.title}
@@ -127,13 +94,6 @@ const GameModule = (props: GameModuleProps) => {
               progressStates={progressStates}
             />
 
-=======
-          <iframe width="720" height="576" src={`https://www.youtube.com/embed/${videos[currIndex]?.videoId}`} title="Baby Steps Developers React to 7 Minute Speedrun" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-          <div className="videoFooter">
-            <GameProgress
-              progressStates={progressStates}
-            />
->>>>>>> 691bbbc ((WIP) feat: dynamic viewer ytdle + supabase integration)
             <GameModuleAnswers
               setGuess={(guess) => dispatch(setGuess(guess))}
             />
