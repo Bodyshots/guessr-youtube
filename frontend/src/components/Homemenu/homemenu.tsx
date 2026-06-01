@@ -21,6 +21,7 @@ const HomeMenu = () => {
 				tooltip_desc={<span>A random YouTube video will be shown and you will have to guess how many <b>viewers </b>it has.
 					The closer you are to the target view count the more points you&apos;ll earn.</span>}
 				gameMode={GameModeConstants.VIEWERS}
+				redirect_path='/viewers'
 				short_desc={<span>Guess how many viewers a YouTube video has</span>} // Extended option?
 			/>
 			<IconButton icon={Calendar}
@@ -28,6 +29,7 @@ const HomeMenu = () => {
 				tooltip_desc={<span>A random YouTube video will be shown and you will have to guess <b>when</b> the video was <b>publicly uploaded</b>.
 					The closer you are to the actual upload date, the more points you&apos;ll earn.</span>}
 				gameMode={GameModeConstants.UPLOAD}
+				redirect_path='/upload'
 				short_desc={<span>Guess when a YouTube video was uploaded</span>}
 			/>
 			<IconButton icon={ThumbsUp}
@@ -35,12 +37,14 @@ const HomeMenu = () => {
 				tooltip_desc={<span>A random YouTube video will be shown and you will have to guess how many <b>likes</b> it has.
 					The closer you are to the target <b>like</b> count the more points you&apos;ll earn.</span>}
 				gameMode={GameModeConstants.LIKES}
+				redirect_path='/likes'
 				short_desc={<span>Guess how the number of likes a YouTube video has</span>}
 			/>
 			<IconButton icon={Folder}
 				btn_label={GameModeConstants.GENRE}
 				tooltip_desc={<span>A random YouTube video will be shown and you will have to guess what <b>genre</b> the YouTube video is under.</span>}
 				gameMode={GameModeConstants.GENRE}
+				redirect_path='/genre'
 				short_desc={<span>Guess the YouTube genre of a YouTube video</span>}
 			/>
 		</div>
