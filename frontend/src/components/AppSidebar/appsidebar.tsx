@@ -90,7 +90,7 @@ const other = [
   },
   {
     title: "Donate",
-    url: "https://buy.stripe.com/cN2fZ5aV05jc20U000",
+    url: "https://ko-fi.com/macgabriel100",
     icon: Heart,
     auth: AuthConstants.UNAUTH
   },
