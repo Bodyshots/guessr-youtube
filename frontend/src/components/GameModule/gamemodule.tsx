@@ -25,7 +25,6 @@ export interface GameModuleProps {
 
 const GameModule = (props: GameModuleProps) => {
 
->>>>>>> d466093 ((WIP) feat: dynamic viewer ytdle + supabase integration)
   const videos: Video[] = props.videos;
   const counts = videos.map((video) => video.viewCount);
 
