@@ -1,4 +1,4 @@
-export const VideoConstants = Object.freeze({
+export const VideoTypeConstants = Object.freeze({
     VIDEO: 'Videos',
     SHORTS: 'Shorts',
 })

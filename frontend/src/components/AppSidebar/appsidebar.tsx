@@ -1,11 +1,13 @@
 "use client"
 
-import { Home, CircleHelp, UserRound, ThumbsUp, Folder, LogIn, LogOut,
-         FileText, Settings, Grid3X3, LucideIcon, Gamepad2, Moon, Sun, Heart, Calendar,
-         ChevronRight} from "lucide-react"
-         import { cn } from "@/lib/utils"
+import {
+  Home, CircleHelp, UserRound, ThumbsUp, Folder, LogIn, LogOut,
+  FileText, Settings, Grid3X3, LucideIcon, Gamepad2, Moon, Sun, Heart, Calendar,
+  ChevronRight
+} from "lucide-react"
+import { cn } from "@/lib/utils"
 import { FaGithub } from "react-icons/fa";
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import {
   Sidebar,
   SidebarContent,
@@ -148,12 +150,12 @@ interface SidebarBtn {
 }
 
 // Helper
-function AddSidebarBtn ( { item, className } : SidebarBtn) {
+function AddSidebarBtn({ item, className }: SidebarBtn) {
   return (
-      <>
-        <item.icon/>
-        <span className={className}>{item.title}</span>
-      </>)
+    <>
+      <item.icon />
+      <span className={className}>{item.title}</span>
+    </>)
 }
 
 // Temp function, replace later w/ better design
@@ -163,8 +165,8 @@ function capitalizeFirstLetter(val: string | undefined) {
 
 function ModeToggle({ className }: ModeToggleProps) {
   const { setTheme, theme } = useTheme();
-  const [ isMounted, setIsMounted ] = useState(false);
- 
+  const [isMounted, setIsMounted] = useState(false);
+
   useEffect(() => {
     setIsMounted(true);
   }, [])
@@ -179,8 +181,8 @@ function ModeToggle({ className }: ModeToggleProps) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className={cn("justify-start gap-3", className)}>
-          {(theme === ThemeConstants.LIGHT ? 
-            <Sun />:
+          {(theme === ThemeConstants.LIGHT ?
+            <Sun /> :
             <Moon />
           )}
           <span className="font-yt_font">{capitalizeFirstLetter(theme)}</span>
@@ -207,26 +209,26 @@ function LogBtn({ status, className }: LogProps) {
     <TooltipProvider delayDuration={TooltipConstants.DELAY_DURATION}>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button 
+          <Button
             variant="outline"
-            onClick={() => {signIn('google')}}
+            onClick={() => { signIn('google') }}
             className={cn("justify-start gap-3", className)}>
-              <LogIn />
+            <LogIn />
             <div className="font-yt_font">Log In</div>
           </Button>
         </TooltipTrigger>
         <TooltipContent
           sideOffset={TooltipConstants.HOME_SIDE_OFFSET}
-          className="text-center max-w-[250px] p-[10px] text-wrap whitespace-normal font-yt_font">
-          Log into your Google account to save your Bingo card and settings.
+          className="text-center max-w-62.5 p-2.5 text-wrap whitespace-normal font-yt_font">
+          Log into your Google account to save your Bingo card and stats.
         </TooltipContent>
       </Tooltip>
     </TooltipProvider> :
     <Button
-      variant="outline" 
-      onClick={() => {signOut()}}
+      variant="outline"
+      onClick={() => { signOut() }}
       className={cn("justify-start gap-3", className)}>
-        <LogOut />
+      <LogOut />
       <div className="font-yt_font">Log Out</div>
     </Button>)
 }
@@ -240,7 +242,7 @@ const SidebarGroupCustom = ({ items, status }: sidebarGroupCustomProps) => {
           <SidebarMenuItem key={item.title} className="py-0.5 cursor-pointer">
             <SidebarMenuButton asChild>
               <Link href={item.url}>
-                <AddSidebarBtn item={item} className="font-yt_font text-base"/>
+                <AddSidebarBtn item={item} className="font-yt_font text-base" />
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -255,37 +257,37 @@ const SidebarCollapseCustom = ({ label, labelIcon: LabelIcon, items, status, cla
   const sidebarbtn_class = "text-sidebar-foreground/70 font-yt_font"
 
   return (
-    <Collapsible 
-    defaultOpen 
-    className={cn("font-yt_font outline-hidden ring-sidebar-ring transition-[margin,opa] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0 group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 text-base group/collapsible", className)}>
+    <Collapsible
+      defaultOpen
+      className={cn("font-yt_font outline-hidden ring-sidebar-ring transition-[margin,opa] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0 group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 text-base group/collapsible", className)}>
       <CollapsibleTrigger asChild>
         <SidebarMenuButton className="text-base cursor-pointer">
-          <LabelIcon/>
+          <LabelIcon />
           {label}
           <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
         </SidebarMenuButton>
       </CollapsibleTrigger>
       <CollapsibleContent>
-      {items.map((item) => (
-        (item.auth === AuthConstants.UNAUTH || (item.auth === AuthConstants.AUTH && status === AuthConstants.AUTH)) && 
-        <SidebarMenuSub key={item.title}>
-          {item.url ?
-          <Link href={item.url}>
-            <SidebarMenuSubItem className={sidebar_class}>
-              <AddSidebarBtn item={item} className={sidebarbtn_class}/>
-            </SidebarMenuSubItem>
-          </Link>
-          :
-          <SidebarMenuSubItem className={sidebar_class}>
-            <AddSidebarBtn item={item} className={sidebarbtn_class}/>
-          </SidebarMenuSubItem>}
-        </SidebarMenuSub>
-      ))}
+        {items.map((item) => (
+          (item.auth === AuthConstants.UNAUTH || (item.auth === AuthConstants.AUTH && status === AuthConstants.AUTH)) &&
+          <SidebarMenuSub key={item.title}>
+            {item.url ?
+              <Link href={item.url}>
+                <SidebarMenuSubItem className={sidebar_class}>
+                  <AddSidebarBtn item={item} className={sidebarbtn_class} />
+                </SidebarMenuSubItem>
+              </Link>
+              :
+              <SidebarMenuSubItem className={sidebar_class}>
+                <AddSidebarBtn item={item} className={sidebarbtn_class} />
+              </SidebarMenuSubItem>}
+          </SidebarMenuSub>
+        ))}
       </CollapsibleContent>
     </Collapsible>
   )
 }
-  
+
 
 export function AppSidebar() {
   const { isMobile, state } = useSidebar()
@@ -297,9 +299,9 @@ export function AppSidebar() {
     <Sidebar variant="inset" collapsible="icon" className="py-0">
       <SidebarInset>
         <SidebarHeader className={`flex flex-row gap-x-3 text-center justify-center title-text font-logo mt-2 `}>
-          <Link href={"/"} 
-                className="flex flex-row gap-x-3 text-center justify-center title-text font-logo hover:opacity-50 transition-all duration-300">
-            <YTicon/>
+          <Link href={"/"}
+            className="flex flex-row gap-x-3 text-center justify-center title-text font-logo hover:opacity-50 transition-all duration-300">
+            <YTicon />
             <span className={`text-3xl ` + ((state === SidebarConstants.COLLAPSED && !isMobile) ? 'hidden' : "")}>{OtherConstants.SITETITLE}</span>
           </Link>
         </SidebarHeader>
@@ -336,18 +338,18 @@ export function AppSidebar() {
             />
           </SidebarGroup>
         </SidebarContent>
-        <SidebarFooter className={`flex flex-col transition-opacity duration-300 overflow-hidden pb-4 ` + 
+        <SidebarFooter className={`flex flex-col transition-opacity duration-300 overflow-hidden pb-4 ` +
           (state === SidebarConstants.COLLAPSED ? "opacity-0 pointer-events-none" : "opacity-100")}>
           {status === AuthConstants.AUTH && <span
             className="w-full flex justify-center text-center text-xs pt-1 text-muted-foreground font-yt_font">
             Currently signed in as: {session?.user?.email}
           </span>}
-          <SidebarSeparator className="my-2"/>
+          <SidebarSeparator className="my-2" />
           <div className="flex flex-row gap-2">
-            <ModeToggle className="w-1/2"/>
-            <LogBtn status={status} className="w-1/2"/>
+            <ModeToggle className="w-1/2" />
+            <LogBtn status={status} className="w-1/2" />
           </div>
-          <span 
+          <span
             className="hover:opacity-50 transition-opacity flex justify-center text-xs pt-1 hover:cursor-pointer text-muted-foreground font-yt_font"
             onClick={() => dispatch(setPrivacyAck(!privacy_ack))}>
             Privacy Policy

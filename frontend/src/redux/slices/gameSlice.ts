@@ -1,40 +1,51 @@
 "use client"
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { VideoConstants, VideoType } from '@/constants/videotypes';
-import { ClipConstants, ClipType } from '@/constants/clips';
-import { ModeConstants, ModeType } from '@/constants/modes';
+import { ProgressState } from '@/constants/progresscircle';
+import { GameState } from './types';
 
-const initialState: {video: VideoType, clips: ClipType, mode: ModeType, timer: string} = {
-    video: VideoConstants.VIDEO,
-    clips: ClipConstants.SHORT,
-    mode: ModeConstants.NORMAL,
-    timer: "0",
+const initialState: GameState = {
+	currIndex: 0,
+	guess: null,
+	progressStates: [],
+	gameStartTime: null,
+	gameEndTime: null,
+	showResults: null
 }
 
 const gameSlice = createSlice({
-    name: 'game',
-    initialState,
-    reducers: {
-        setVideo: (state, action: PayloadAction<VideoType>) => {
-            state.video = action.payload;
-        },
-        setClips: (state, action: PayloadAction<ClipType>) => {
-            state.clips = action.payload;
-        },
-        setMode: (state, action: PayloadAction<ModeType>) => {
-            state.mode = action.payload;
-        },
-        setTimer: (state, action: PayloadAction<string>) => {
-            if (Number.isNaN(action.payload)) {
-                state.timer = "0";
-            }
-            else {
-                state.timer = action.payload;
-            }
-        }
-    }
+	name: 'game',
+	initialState,
+	reducers: {
+		setGuess: (state, action: PayloadAction<boolean | null | undefined>) => {
+			state.guess = action.payload;
+		},
+		setProgressStates: (state, action: PayloadAction<ProgressState[]>) => {
+			state.progressStates = action.payload;
+		},
+		setGameStartTime: (state, action: PayloadAction<number | null | undefined>) => {
+			state.gameStartTime = action.payload;
+		},
+		setGameEndTime: (state, action: PayloadAction<number | null | undefined>) => {
+			state.gameEndTime = action.payload;
+		},
+		setShowResults: (state, action: PayloadAction<boolean | null | undefined>) => {
+			state.showResults = action.payload;
+		},
+		processGuess: (state, action: PayloadAction<ProgressState[]>) => {
+			state.currIndex += 1;
+			state.guess = null;
+			state.progressStates = action.payload;
+		}
+	}
 })
 
-export const { setVideo, setClips, setMode, setTimer } = gameSlice.actions;
+export const {
+	setGuess,
+	processGuess,
+	setProgressStates,
+	setGameStartTime,
+	setGameEndTime,
+	setShowResults
+} = gameSlice.actions;
 export default gameSlice.reducer;

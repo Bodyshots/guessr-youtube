@@ -6,6 +6,9 @@ WORKDIR /app
 
 ARG CI=true
 
+# Environment
+ENV NODE_ENV=production
+
 # Install pnpm globally
 RUN npm install -g pnpm
 

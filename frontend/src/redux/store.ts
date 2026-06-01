@@ -36,10 +36,17 @@ const createPersistConfig = (key: string, whitelist: string[]) => ({
 });
 
 // Helper to create persistent reducers
-const createPersistedReducer = (sliceReducer: any, persistConfig: any) => 
+const createPersistedReducer = (sliceReducer: any, persistConfig: any) =>
   persistReducer(persistConfig, sliceReducer);
 
-const gamePersistConfig = createPersistConfig('game', ['video', 'clips', 'mode', 'timer']);
+const gamePersistConfig = createPersistConfig('game', [
+  'currIndex',
+  'guess',
+  'progressStates',
+  'gameStartTime',
+  'gameEndTime',
+  'showResults'
+]);
 const privacyPersistConfig = createPersistConfig('privacy', ['privacy_ack']);
 
 const rootReducer = combineReducers({
@@ -48,9 +55,9 @@ const rootReducer = combineReducers({
 })
 
 export const store = configureStore({
-    reducer: rootReducer,
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({ serializableCheck: false }),
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
 })
 
 export interface RootState {

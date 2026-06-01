@@ -1,6 +1,4 @@
-import { ClipType } from "@/constants/clips";
-import { ModeType } from "@/constants/modes";
-import { VideoType } from "@/constants/videotypes";
+import { ProgressState } from "@/constants/progresscircle";
 
 export interface PrivacyState {
   privacy_ack: boolean;
@@ -17,8 +15,10 @@ export interface BingoState {
 }
 
 export interface GameState {
-    video: VideoType;
-    clips: ClipType;
-    mode: ModeType;
-    timer: string;
+  currIndex: number;
+  guess: boolean | null | undefined;
+  progressStates: ProgressState[];
+  gameStartTime: number | null | undefined;
+  gameEndTime: number | null | undefined;
+  showResults: boolean | null | undefined;
 }
