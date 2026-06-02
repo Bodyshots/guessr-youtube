@@ -27,3 +27,7 @@ export const getTimeUntilTheme = () => {
   const seconds = Math.floor((diff % (1000 * 60)) / 1000)
   return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
 }
+
+export function capitalizeString(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}

@@ -55,7 +55,7 @@ export default function SiteTitle() {
       {/* Desktop screens */}
       <div className="hero-section flex flex-col flex-nowrap w-full align-center justify-center 
                         lg:h-2/6 md:h-1/3 rounded-xl shadow-md shadow-black dark:shadow-white max-sm:hidden">
-        <div className="hero-content p-10">
+        <div className="hero-content p-4">
           <div
             className={`flex flex-row gap-x-3 text-center justify-center font-logo pb-2`}>
             <div className="flex flex-col">

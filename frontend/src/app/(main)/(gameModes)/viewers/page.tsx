@@ -12,7 +12,7 @@ export default async function Viewers() {
 
   return (
     <div className="flex w-full align-center text-center flex-col flex-nowrap mb-auto justify-between h-full p-4">
-      <GameModuleHeader />
+      <GameModuleHeader currentTheme={videoData[0]?.theme || ''} />
       <GameModule videos={videoData} />
     </div>
   );

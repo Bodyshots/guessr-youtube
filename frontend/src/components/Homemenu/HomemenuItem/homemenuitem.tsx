@@ -36,7 +36,7 @@ const IconButton = ({
       <Tooltip>
         <TooltipTrigger asChild>
           <Card
-            className="p-6 hover:bg-accent transition-colors group cursor-pointer shadow-md dark:shadow-white h-full min-h-56.75"
+            className="p-6 hover:bg-accent transition-colors group cursor-pointer shadow-md dark:shadow-white h-full min-h-54.75"
             onClick={redirect_path ? () => router.push(redirect_path) : undefined}>
             <div className="space-y-4">
               <div className="p-3 w-fit rounded-lg bg-primary/5 group-hover:bg-primary/10 transition-colors">

@@ -58,25 +58,25 @@ const modes = [
   },
   {
     title: GameModeConstants.VIEWERS,
-    url: "",
+    url: "/viewers",
     icon: UserRound,
     auth: AuthConstants.UNAUTH
   },
   {
     title: GameModeConstants.UPLOAD,
-    url: "",
+    url: "/date",
     icon: Calendar,
     auth: AuthConstants.UNAUTH
   },
   {
     title: GameModeConstants.LIKES,
-    url: "",
+    url: "/like",
     icon: ThumbsUp,
     auth: AuthConstants.UNAUTH
   },
   {
     title: GameModeConstants.GENRE,
-    url: "",
+    url: "/genre",
     icon: Folder,
     auth: AuthConstants.UNAUTH
   },
@@ -168,7 +168,8 @@ function ModeToggle({ className }: ModeToggleProps) {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
+    const t = setTimeout(() => setIsMounted(true), 0);
+    return () => clearTimeout(t);
   }, [])
 
   if (!isMounted) return (
