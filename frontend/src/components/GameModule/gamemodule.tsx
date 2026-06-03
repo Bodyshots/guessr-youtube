@@ -6,32 +6,26 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import GameModuleAnswers from "./GameModuleAnswers/gamemoduleanswers";
 import { ProgressConstants, ProgressState } from "@/constants/progresscircle";
-import { setGuess, processGuess, setProgressStates, setGameStartTime, setGameEndTime } from "@/redux/slices/gameSlice";
+import { setGuess, processGuess, setProgressStates, setGameStartTime, setGameEndTime, setTarget } from "@/redux/slices/gameSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
-import ResultsDialog from "./ResultsDialog/resultsdialog";
+import GameModuleResults from "./GameModuleResults/GameModuleResults";
 import { formatStatsTime } from "@/lib/utils";
 import GameModuleVideo from "./GameModuleVideo/gamemodulevideo";
+import { GameMode, GameModeConstants } from "@/constants/gamemode";
 
-const target = 5000; // temp
-
-export interface getProgressStateProps {
-  count: number;
-  index: number;
-}
-
-export interface GameModuleProps {
+interface GameModuleProps {
   videos: Video[];
+  gameMode: GameMode;
 }
 
-const GameModule = (props: GameModuleProps) => {
-  const videos: Video[] = props.videos;
-  const counts = videos.map((video) => video.viewCount);
-
-  const guess = useAppSelector((state) => state.game_persist.guess);
+const GameModule = ({ videos, gameMode }: GameModuleProps) => {
   const currIndex = useAppSelector((state) => state.game_persist.currIndex);
+  const target = useAppSelector((state) => state.game_persist.target);
+  const guess = useAppSelector((state) => state.game_persist.guess);
   const progressStates = useAppSelector((state) => state.game_persist.progressStates);
   const gameStartTime = useAppSelector((state) => state.game_persist.gameStartTime);
   const gameEndTime = useAppSelector((state) => state.game_persist.gameEndTime);
+
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -52,23 +46,50 @@ const GameModule = (props: GameModuleProps) => {
 
   // Handle guess updates
   useEffect(() => {
-    if (guess === null || currIndex >= counts.length) return;
 
-    const count = counts[currIndex];
-    const higher = count > target;
+    // No guess made or end of game
+    if (guess === null || currIndex >= videos.length) return;
+
     let currState: ProgressState = ProgressConstants.UNFINISHED;
 
-    if (guess != null) { // A guess was made
-      if ((higher && guess === true) || (!higher && !guess)) currState = ProgressConstants.CORRECT;
-      else currState = ProgressConstants.INCORRECT;
+    switch (gameMode) {
+      // Number target - Higher/Lower
+      case GameModeConstants.VIEWERS:
+      case GameModeConstants.LIKES:
+
+        const viewers = gameMode === GameModeConstants.VIEWERS
+        const count = (viewers) ? videos[currIndex].viewCount : videos[currIndex].likeCount;
+        const higher = count > target;
+
+        // Guess made
+        if (guess != null) {
+          if ((higher && guess === true) || (!higher && !guess)) {
+            currState = ProgressConstants.CORRECT;
+          }
+          else currState = ProgressConstants.INCORRECT;
+        }
+
+        // Set new target
+        if (viewers) dispatch(setTarget(videos[currIndex].viewCount));
+        else dispatch(setTarget(videos[currIndex].likeCount));
+
+        break;
+
+      // Date target - Get closest to date
+      case (GameModeConstants.UPLOAD): // Date target (TODO)
+        return;
+
+      // Category target - Guess the category
+      case (GameModeConstants.GENRE): // Category target (TODO)
+        return;
     }
 
     // Update progress state for current index
     const newProgressStates = [...progressStates];
     newProgressStates[currIndex] = currState;
-
     dispatch(processGuess(newProgressStates));
-  }, [guess, currIndex, progressStates, counts, dispatch]);
+
+  }, [guess, currIndex, progressStates, dispatch, target, gameMode, videos]);
 
   // Calculate correct guesses
   const correctGuesses = progressStates.filter(
@@ -94,11 +115,12 @@ const GameModule = (props: GameModuleProps) => {
 
             <GameModuleAnswers
               setGuess={(guess) => dispatch(setGuess(guess))}
+              gameMode={gameMode}
             />
           </div>
         </>
       ) : (
-        <ResultsDialog
+        <GameModuleResults
           correctGuesses={correctGuesses}
           totalGuesses={videos.length}
           onDone={() => router.push('/')}

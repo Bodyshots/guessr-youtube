@@ -15,9 +15,9 @@ export const getTimeUntilTheme = () => {
   const now = new Date()
   const targetTime = new Date()
 
-  targetTime.setHours(2, 55, 0, 0) // Resets 2:55AM (EST) every day
+  targetTime.setHours(0, 0, 0, 0) // Resets 12:00AM (EST) every day
 
-  if (now >= targetTime) { // If past 2:55AM alr, target next day
+  if (now >= targetTime) { // If past 12:00AM alr, target next day
     targetTime.setDate(targetTime.getDate() + 1)
   }
 

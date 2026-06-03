@@ -16,6 +16,8 @@ export interface BingoState {
 
 export interface GameState {
   currIndex: number;
+  target: number;
+  targetDate: Date;
   guess: boolean | null | undefined;
   progressStates: ProgressState[];
   gameStartTime: number | null | undefined;

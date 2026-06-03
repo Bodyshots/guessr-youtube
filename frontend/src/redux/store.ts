@@ -41,6 +41,8 @@ const createPersistedReducer = (sliceReducer: any, persistConfig: any) =>
 
 const gamePersistConfig = createPersistConfig('game', [
   'currIndex',
+  'target',
+  'targetDate',
   'guess',
   'progressStates',
   'gameStartTime',

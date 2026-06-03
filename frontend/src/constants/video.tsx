@@ -13,6 +13,7 @@ export interface Video {
   category: number | null;
   videoId: string;
   theme: string;
+  publishedAt: Date;
 }
 
 export const VideoConstants = Object.freeze({

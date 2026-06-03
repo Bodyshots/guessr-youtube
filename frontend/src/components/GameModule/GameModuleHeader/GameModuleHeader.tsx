@@ -7,24 +7,15 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
 } from '@/components/ui/dropdown-menu'
-import { CalendarIcon, ChevronDown, FolderIcon, Grid3x3Icon, ThumbsUpIcon, UserRound, Home } from 'lucide-react'
 import { DropdownMenuItem } from '@radix-ui/react-dropdown-menu'
-import { GameModeConstants } from '@/constants/gamemode'
 import { useRouter, usePathname } from 'next/navigation'
 import { Separator } from '@/components/ui/separator'
+import { ChevronDownIcon } from 'lucide-react'
+import { GameModeMenuItems } from '@/constants/menuitems'
 
 interface GameModuleHeaderProps {
   currentTheme: string
 }
-
-const GAME_MODES = [
-  { path: '/', label: 'Home', icon: Home },
-  { path: '/bingo', label: GameModeConstants.BINGO, icon: Grid3x3Icon },
-  { path: '/viewers', label: GameModeConstants.VIEWERS, icon: UserRound },
-  { path: '/date', label: GameModeConstants.UPLOAD, icon: CalendarIcon },
-  { path: '/likes', label: GameModeConstants.LIKES, icon: ThumbsUpIcon },
-  { path: '/genre', label: GameModeConstants.GENRE, icon: FolderIcon },
-]
 
 const GameModuleHeader = ({ currentTheme }: GameModuleHeaderProps) => {
   const [timeUntilTheme, setTimeUntilTheme] = useState<string>('')
@@ -53,22 +44,22 @@ const GameModuleHeader = ({ currentTheme }: GameModuleHeaderProps) => {
           <DropdownMenuTrigger asChild>
             <button className="flex items-center gap-2 cursor-pointer outline-none">
               <span className="text-4xl font-bold font-yt_font">Guessr.yt</span>
-              <ChevronDown className='mt-4 ml-2' size={20} />
+              <ChevronDownIcon className='mt-4 ml-2' size={20} />
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
-            {GAME_MODES.map((mode, index) => {
+            {GameModeMenuItems.map((mode, index) => {
               const Icon = mode.icon
-              const isActive = pathname === mode.path || (pathname.startsWith(mode.path) && mode.path !== '/')
+              const isActive = pathname === mode.url || (pathname.startsWith(mode.url) && mode.url !== '/')
               return (
-                <div key={mode.path}>
+                <div key={mode.url}>
                   <DropdownMenuItem
-                    onClick={() => router.push(mode.path)}
+                    onClick={() => router.push(mode.url)}
                     data-active={isActive}
                     className="flex items-center gap-2 p-2 my-1 data-[state=open]:hover:bg-sidebar-accent data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground data-[active=true]:font-medium cursor-pointer rounded-md outline-none hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                   >
                     <Icon size={18} />
-                    <span>{mode.label}</span>
+                    <span>{mode.title}</span>
                   </DropdownMenuItem>
                   {index === 0 && <Separator />}
                 </div>

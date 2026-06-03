@@ -1,12 +1,11 @@
 "use client"
 
 import {
-  Home, CircleHelp, UserRound, ThumbsUp, Folder, LogIn, LogOut,
-  FileText, Settings, Grid3X3, LucideIcon, Gamepad2, Moon, Sun, Heart, Calendar,
-  ChevronRight
+  HomeIcon, LogInIcon, LogOutIcon,
+  LucideIcon, Gamepad2Icon, MoonIcon, SunIcon,
+  ChevronRightIcon
 } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { FaGithub } from "react-icons/fa";
+import { capitalizeString, cn } from "@/lib/utils"
 import { useEffect, useState } from "react"
 import {
   Sidebar,
@@ -39,7 +38,6 @@ import { useAppDispatch, useAppSelector } from '@/redux/store'
 import { setPrivacyAck } from '@/redux/slices/privacySlice'
 import YTicon from "@/components/YTIcon/yticon"
 import { ThemeConstants } from "@/constants/theme"
-import { GameModeConstants } from "@/constants/gamemode"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { TooltipConstants } from "@/constants/tooltip"
 import { signIn, signOut, useSession } from 'next-auth/react'
@@ -47,89 +45,24 @@ import { AuthConstants, AuthType } from "@/constants/auth"
 import { SidebarConstants } from "@/constants/sidebar"
 import { OtherConstants } from "@/constants/other"
 import { IconType } from "react-icons";
+import { GameModeMenuItems, OtherMenuItems } from "@/constants/menuitems";
 
-// Menu items
-const modes = [
-  {
-    title: GameModeConstants.BINGO,
-    url: "/bingo",
-    icon: Grid3X3,
-    auth: AuthConstants.UNAUTH
-  },
-  {
-    title: GameModeConstants.VIEWERS,
-    url: "/viewers",
-    icon: UserRound,
-    auth: AuthConstants.UNAUTH
-  },
-  {
-    title: GameModeConstants.UPLOAD,
-    url: "/date",
-    icon: Calendar,
-    auth: AuthConstants.UNAUTH
-  },
-  {
-    title: GameModeConstants.LIKES,
-    url: "/like",
-    icon: ThumbsUp,
-    auth: AuthConstants.UNAUTH
-  },
-  {
-    title: GameModeConstants.GENRE,
-    url: "/genre",
-    icon: Folder,
-    auth: AuthConstants.UNAUTH
-  },
-]
-const other = [
-  {
-    title: "Documentation",
-    url: "/docs",
-    icon: FileText,
-    auth: AuthConstants.UNAUTH
-  },
-  {
-    title: "Donate",
-    url: "https://ko-fi.com/macgabriel100",
-    icon: Heart,
-    auth: AuthConstants.UNAUTH
-  },
-  {
-    title: "Contribute",
-    url: "https://github.com/Bodyshots/guessr-youtube",
-    icon: FaGithub,
-    auth: AuthConstants.UNAUTH
-  },
-  {
-    title: "Settings",
-    url: "/settings",
-    icon: Settings,
-    auth: AuthConstants.AUTH
-  },
-  {
-    title: "About",
-    url: "/about",
-    icon: CircleHelp,
-    auth: AuthConstants.UNAUTH
-  },
-]
-
-interface sidebarItem {
+interface SidebarItem {
   title: string,
   url: string,
   icon: LucideIcon | IconType,
   auth: AuthType
 }
 
-interface sidebarGroupCustomProps {
-  items: sidebarItem[];
+interface SidebarGroupCustomProps {
+  items: SidebarItem[];
   status: AuthType;
 }
 
-interface sidebarCollapseCustomProps {
+interface SidebarCollapseCustomProps {
   label: string;
   labelIcon: LucideIcon | IconType;
-  items: sidebarItem[];
+  items: SidebarItem[];
   status: AuthType;
   redirect_path?: string;
   className?: string;
@@ -145,7 +78,7 @@ interface LogProps {
 }
 
 interface SidebarBtn {
-  item: sidebarItem;
+  item: SidebarItem;
   className?: string;
 }
 
@@ -156,11 +89,6 @@ function AddSidebarBtn({ item, className }: SidebarBtn) {
       <item.icon />
       <span className={className}>{item.title}</span>
     </>)
-}
-
-// Temp function, replace later w/ better design
-function capitalizeFirstLetter(val: string | undefined) {
-  return String(val).charAt(0).toUpperCase() + String(val).slice(1);
 }
 
 function ModeToggle({ className }: ModeToggleProps) {
@@ -183,10 +111,10 @@ function ModeToggle({ className }: ModeToggleProps) {
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className={cn("justify-start gap-3", className)}>
           {(theme === ThemeConstants.LIGHT ?
-            <Sun /> :
-            <Moon />
+            <SunIcon /> :
+            <MoonIcon />
           )}
-          <span className="font-yt_font">{capitalizeFirstLetter(theme)}</span>
+          <span className="font-yt_font">{capitalizeString(theme ?? '')}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className={cn("font-yt_font", className)}>
@@ -214,7 +142,7 @@ function LogBtn({ status, className }: LogProps) {
             variant="outline"
             onClick={() => { signIn('google') }}
             className={cn("justify-start gap-3", className)}>
-            <LogIn />
+            <LogInIcon />
             <div className="font-yt_font">Log In</div>
           </Button>
         </TooltipTrigger>
@@ -229,12 +157,13 @@ function LogBtn({ status, className }: LogProps) {
       variant="outline"
       onClick={() => { signOut() }}
       className={cn("justify-start gap-3", className)}>
-      <LogOut />
+      <LogOutIcon />
       <div className="font-yt_font">Log Out</div>
-    </Button>)
+    </Button>
+  )
 }
 
-const SidebarGroupCustom = ({ items, status }: sidebarGroupCustomProps) => {
+const SidebarGroupCustom = ({ items, status }: SidebarGroupCustomProps) => {
   return (
     <SidebarGroupContent>
       <SidebarMenu>
@@ -253,7 +182,7 @@ const SidebarGroupCustom = ({ items, status }: sidebarGroupCustomProps) => {
   )
 }
 
-const SidebarCollapseCustom = ({ label, labelIcon: LabelIcon, items, status, className }: sidebarCollapseCustomProps) => {
+const SidebarCollapseCustom = ({ label, labelIcon: LabelIcon, items, status, className }: SidebarCollapseCustomProps) => {
   const sidebar_class = "py-0.5 text-base flex items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-hidden ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground h-8"
   const sidebarbtn_class = "text-sidebar-foreground/70 font-yt_font"
 
@@ -265,7 +194,7 @@ const SidebarCollapseCustom = ({ label, labelIcon: LabelIcon, items, status, cla
         <SidebarMenuButton className="text-base cursor-pointer">
           <LabelIcon />
           {label}
-          <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+          <ChevronRightIcon className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
         </SidebarMenuButton>
       </CollapsibleTrigger>
       <CollapsibleContent>
@@ -313,15 +242,15 @@ export function AppSidebar() {
                 <SidebarMenuItem key={"Home"} className="py-0.5">
                   <SidebarMenuButton asChild>
                     <Link href={"/"}>
-                      <Home />
+                      <HomeIcon />
                       <span className="font-yt_font text-base">{"Home"}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 {(state !== SidebarConstants.COLLAPSED || isMobile) && <SidebarCollapseCustom
                   label={"Modes"}
-                  labelIcon={Gamepad2}
-                  items={modes}
+                  labelIcon={Gamepad2Icon}
+                  items={GameModeMenuItems}
                   status={status}
                   className="py-0.5"
                 />}
@@ -334,7 +263,7 @@ export function AppSidebar() {
               Other
             </SidebarGroupLabel>)}
             <SidebarGroupCustom
-              items={other}
+              items={OtherMenuItems}
               status={status}
             />
           </SidebarGroup>

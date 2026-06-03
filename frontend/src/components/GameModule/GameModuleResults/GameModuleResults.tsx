@@ -3,9 +3,9 @@
 import { useState } from 'react'
 import { Video } from "@/constants/video";
 import { Button } from '@/components/ui/button'
-import StatsPanel from './StatsPanel/statspanel';
+import GameModuleResultsStats from './GameModuleResultsStats/GameModuleResultsStats';
 
-interface ResultsDialogProps {
+interface GameModuleResultsProps {
   correctGuesses: number
   totalGuesses: number
   onDone: () => void
@@ -14,28 +14,27 @@ interface ResultsDialogProps {
   videos: Video[]
 }
 
-const ResultsDialog = ({
+const GameModuleResults = ({
   correctGuesses,
   totalGuesses,
   onDone,
   timeTaken,
   avgTimePerGuess,
   videos
-}: ResultsDialogProps) => {
+}: GameModuleResultsProps) => {
   const [showStats, setShowStats] = useState(false);
 
   // Temporary values
   const visitorAverage = 4250
   const visitorTotal = 15000
-  const timeUntilNextTheme = "5m 30s"
 
   return (
     <div className="w-full flex flex-col justify-center items-center py-8">
       <div className="w-full max-w-2xl bg-background border border-border rounded-lg p-8">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-yt_font font-bold">
+          <div className="text-3xl font-yt_font font-bold p-4">
             {showStats ? "Your Stats" : "Game Over"}
-          </h2>
+          </div>
         </div>
 
         {!showStats ? (
@@ -61,7 +60,7 @@ const ResultsDialog = ({
             </div>
 
             {/* Timing Section */}
-            <div className="grid grid-cols-3 gap-4 text-center">
+            <div className="grid grid-cols-2 gap-4 text-center">
               <div>
                 <p className="text-xs font-semibold text-muted-foreground mb-1">
                   Time Taken
@@ -74,16 +73,10 @@ const ResultsDialog = ({
                 </p>
                 <p className="text-lg font-bold">{avgTimePerGuess}</p>
               </div>
-              <div>
-                <p className="text-xs font-semibold text-muted-foreground mb-1">
-                  Next Theme In
-                </p>
-                <p className="text-lg font-bold">{timeUntilNextTheme}</p>
-              </div>
             </div>
           </div>
         ) : (
-          <StatsPanel
+          <GameModuleResultsStats
             correctGuesses={correctGuesses}
             totalGuesses={totalGuesses}
             timeTaken={timeTaken}
@@ -112,4 +105,4 @@ const ResultsDialog = ({
   )
 }
 
-export default ResultsDialog
+export default GameModuleResults

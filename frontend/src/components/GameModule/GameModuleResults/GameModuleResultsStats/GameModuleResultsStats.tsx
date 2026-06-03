@@ -10,7 +10,7 @@ interface GuessRecord {
   correct: boolean
 }
 
-interface StatsPanelProps {
+interface GameModuleResultsStatsProps {
   correctGuesses: number
   totalGuesses: number
   timeTaken: string
@@ -18,13 +18,13 @@ interface StatsPanelProps {
   videos: Video[]
 }
 
-const StatsPanel = ({
+const GameModuleResultsStats = ({
   correctGuesses,
   totalGuesses,
   timeTaken,
   avgTimePerGuess,
   videos
-}: StatsPanelProps) => {
+}: GameModuleResultsStatsProps) => {
   // Map videos to guess records with actual data
   const guessRecords: GuessRecord[] = videos.map((video, index) => ({
     videoTitle: video.title,
@@ -112,4 +112,4 @@ const StatsPanel = ({
   )
 }
 
-export default StatsPanel
+export default GameModuleResultsStats

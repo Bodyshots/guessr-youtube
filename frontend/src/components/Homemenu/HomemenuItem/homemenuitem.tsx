@@ -1,6 +1,5 @@
 "use client";
 
-import './homemenuitem.css';
 import { ReactNode } from "react";
 import { Card } from '@/components/ui/card';
 import {
@@ -16,9 +15,9 @@ import { useRouter } from 'next/navigation'
 interface IconButtonProps {
   icon: LucideIcon;
   btn_label: ReactNode;
-  short_desc?: ReactNode;
+  short_desc: ReactNode;
   tooltip_desc: ReactNode;
-  gameMode?: ReactNode;
+  gameMode: ReactNode;
   redirect_path: string;
 }
 
@@ -50,7 +49,7 @@ const IconButton = ({
           </Card>
         </TooltipTrigger>
         <TooltipContent
-          className="tooltip_content"
+          className="tooltip_content p-2.5 max-w-75 whitespace-normal break-normal max-[570px]:w-[min(50vw,300px)]"
           side={TooltipSide.TOP}
           sideOffset={TooltipConstants.HOME_SIDE_OFFSET}>
           {tooltip_desc}

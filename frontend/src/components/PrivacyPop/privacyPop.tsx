@@ -1,6 +1,5 @@
 "use client";
 
-import React from 'react'
 import {
   Dialog,
   DialogContent,
@@ -23,7 +22,7 @@ const PrivacyPop = () => {
   }
 
   return (
-    <Dialog 
+    <Dialog
       open={!privacy_ack} onOpenChange={() => onOpenChange()}>
       <DialogContent
         onInteractOutside={(e) => e.preventDefault()} hideClose>
@@ -32,7 +31,7 @@ const PrivacyPop = () => {
             Privacy Policy
           </DialogTitle>
         </DialogHeader>
-        <PrivacyDesc/>
+        <PrivacyDesc />
         <DialogFooter className="flex flex-col justify-center sm:justify-center">
           <DialogTrigger asChild>
             <Button className="w-auto font-roboto">
