@@ -92,7 +92,7 @@ const gameSlice = createSlice({
 
 					const viewers = gameMode === GameModeConstants.VIEWERS
 					const currVideoStat = (viewers) ? videos[currIndex].viewCount : videos[currIndex].likeCount;
-					const higher = currVideoStat > target; // 
+					const higher = currVideoStat >= target;
 
 					// Guess made
 					if (userGuess != null && (typeof (userGuess) === "number")) {
