@@ -1,0 +1,22 @@
+export const TAGLINES = [
+  "Because everyone needs another daily.",
+  "forsen",
+  "Elephants have really long trunks.",
+  "macGabriel100 was here.",
+  "Wh-wha-what's going on?",
+  "i guess",
+  "Why is the rum gone?",
+  "Because YouTube is where the poop is.",
+  "I wonder what's for dinner?",
+  "I have no strong feelings one way or the other.",
+  "Where are they taking the hobbits to?",
+  "To this day, no one knows why he's still getting hate.",
+  "Doo yooh rhemnmmembhur vodka?",
+  "Balla-da-li-di-la...",
+  "What is that mysterious ticking noise...?",
+  "FINISH HIM!",
+  "And now back to George Lopez...",
+  "Remember to rate 5 stars!",
+  "Wazgul is?",
+  "FOV slider not included"
+]

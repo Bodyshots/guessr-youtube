@@ -40,6 +40,7 @@ const createPersistedReducer = (sliceReducer: any, persistConfig: any) =>
   persistReducer(persistConfig, sliceReducer);
 
 const gamePersistConfig = createPersistConfig('game', [
+  'theme',
   'currIndex',
   'target',
   'targetDate',

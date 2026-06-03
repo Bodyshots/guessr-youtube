@@ -1,7 +1,7 @@
 "use client"
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ProgressState } from '@/constants/progresscircle';
+import { ProgressConstants, ProgressState } from '@/constants/progresscircle';
 import { GameState } from './types';
 
 interface RandomDateProps {
@@ -15,6 +15,7 @@ const getRandomDate = ({ start, end }: RandomDateProps) => {
 }
 
 const initialState: GameState = {
+	theme: '',
 	currIndex: 0,
 	target: getRandomCount(),
 	// Arbitrary starting date - guessing videos before 2016 would be obv to guess based on video quality
@@ -30,6 +31,12 @@ const gameSlice = createSlice({
 	name: 'game',
 	initialState,
 	reducers: {
+		setCurrIndex: (state, action: PayloadAction<number>) => {
+			state.currIndex = action.payload;
+		},
+		setTheme: (state, action: PayloadAction<string>) => {
+			state.theme = action.payload;
+		},
 		setTarget: (state, action: PayloadAction<number>) => {
 			state.target = action.payload;
 		},
@@ -62,10 +69,25 @@ const gameSlice = createSlice({
 			state.guess = null;
 			state.progressStates = action.payload;
 		},
+		resetGame: (state, action: PayloadAction<{ videosLength: number, newTheme: string }>) => {
+			const videosLength = action.payload.videosLength;
+			const newTheme = action.payload.newTheme;
+
+			state.currIndex = 0;
+			state.progressStates = Array.from({ length: videosLength }, (_, i) => ProgressConstants.UNFINISHED);
+			state.guess = null;
+			state.theme = newTheme;
+			state.gameStartTime = Date.now();
+			state.gameEndTime = null;
+			state.showResults = false;
+		}
 	}
 })
 
 export const {
+	resetGame,
+	setCurrIndex,
+	setTheme,
 	setTarget,
 	setTargetDate,
 	setGuess,

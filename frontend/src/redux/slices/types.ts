@@ -15,6 +15,7 @@ export interface BingoState {
 }
 
 export interface GameState {
+  theme: string;
   currIndex: number;
   target: number;
   targetDate: Date;

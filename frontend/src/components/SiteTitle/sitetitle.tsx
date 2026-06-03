@@ -5,6 +5,9 @@ import './sitetitle.css';
 import { useEffect, useState } from 'react';
 import { OtherConstants } from "@/constants/other";
 import { ClipLoader } from "react-spinners";
+import { TAGLINES } from "@/constants/taglines";
+
+const randTaglineIndex = Math.random();
 
 export default function SiteTitle() {
   const [isMounted, setIsMounted] = useState(false);
@@ -20,11 +23,11 @@ export default function SiteTitle() {
       <div className="hero-section flex flex-col flex-nowrap w-full align-center justify-center 
         lg:h-2/6 md:h-1/3 rounded-xl shadow-md shadow-black dark:shadow-white max-sm:hidden">
         <div className="hero-content p-10">
-          <ClipLoader size={145} color="white" />
+          <ClipLoader size={60} color="white" />
         </div>
       </div>
       <div className="justify-center max-sm:block hidden">
-        <ClipLoader size={100} color="foreground" />
+        <ClipLoader size={60} color="foreground" />
       </div>
     </>
   );
@@ -47,14 +50,13 @@ export default function SiteTitle() {
             ))}
           </span>
         </div>
-        <span className="font-yt_font font-semibold text-muted-foreground/90 subtitle pt-2">
-          Click one of the buttons below to prepare a game!<br />
-          Alternatively, hover over a button to see a game mode in more detail.
+        <span className="font-yt_font font-semibold text-muted-foreground/90 subtitle pt-1">
+          {TAGLINES[Math.floor(randTaglineIndex * TAGLINES.length)]}
         </span>
       </div>
       {/* Desktop screens */}
       <div className="hero-section flex flex-col flex-nowrap w-full align-center justify-center 
-                        lg:h-2/6 md:h-1/3 rounded-xl shadow-md shadow-black dark:shadow-white max-sm:hidden">
+                        lg:h-2/10 md:h-1/3 rounded-xl shadow-md shadow-black dark:shadow-white max-sm:hidden">
         <div className="hero-content p-4">
           <div
             className={`flex flex-row gap-x-3 text-center justify-center font-logo pb-2`}>
@@ -73,9 +75,8 @@ export default function SiteTitle() {
                   ))}
                 </span>
               </div>
-              <span className="font-yt_font font-semibold text-white/90 pt-4 subtitle">
-                Click one of the buttons below to prepare a game!<br />
-                Alternatively, hover over a button to see a game mode in more detail.
+              <span className="font-yt_font font-semibold text-white/90 pt-2 subtitle">
+                {TAGLINES[Math.floor(randTaglineIndex * TAGLINES.length)]}
               </span>
             </div>
           </div>

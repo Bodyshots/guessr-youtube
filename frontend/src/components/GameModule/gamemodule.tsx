@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import GameModuleAnswers from "./GameModuleAnswers/gamemoduleanswers";
 import { ProgressConstants, ProgressState } from "@/constants/progresscircle";
-import { setGuess, processGuess, setProgressStates, setGameStartTime, setGameEndTime, setTarget } from "@/redux/slices/gameSlice";
+import { setGuess, processGuess, setProgressStates, setGameStartTime, setGameEndTime, setTarget, setTheme, setCurrIndex, resetGame, setShowResults } from "@/redux/slices/gameSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import GameModuleResults from "./GameModuleResults/GameModuleResults";
 import { formatStatsTime } from "@/lib/utils";
@@ -25,17 +25,19 @@ const GameModule = ({ videos, gameMode }: GameModuleProps) => {
   const progressStates = useAppSelector((state) => state.game_persist.progressStates);
   const gameStartTime = useAppSelector((state) => state.game_persist.gameStartTime);
   const gameEndTime = useAppSelector((state) => state.game_persist.gameEndTime);
+  const theme = useAppSelector((state) => state.game_persist.theme);
 
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  // Config initial states based on whether new data has been enterred
+  // Set initial states based on whether new data has been entered
   useEffect(() => {
-    if (progressStates.length === 0) {
-      dispatch(setProgressStates(videos.map(() => ProgressConstants.UNFINISHED)));
-      dispatch(setGameStartTime(Date.now()));
+    const videoTheme = videos[0].theme;
+
+    if (progressStates.length === 0 || theme != videoTheme) {
+      dispatch(resetGame({ videosLength: videos.length, newTheme: videos[0].theme }))
     }
-  }, [dispatch, progressStates.length, videos])
+  }, [dispatch, progressStates.length, videos, currIndex, theme])
 
   // Check if game is finished
   useEffect(() => {

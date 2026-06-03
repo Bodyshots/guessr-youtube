@@ -19,7 +19,7 @@ export const GameModeMenuItems: MenuItem[] = [
     title: GameModeConstants.BINGO,
     url: "/bingo",
     description:
-      <span>Fill up a bingo card of any size and see if you can score bingo by watching a series of YouTube videos.</span>,
+      <span>!UNDER CONSTRUCTION! Fill up a bingo card of any size and see if you can score bingo by watching a series of YouTube videos.</span>,
     tooltipDesc:
       <span>See if you&apos;ll score bingo throughout a series of YouTube videos!</span>,
     icon: Grid3X3Icon,
@@ -32,8 +32,7 @@ export const GameModeMenuItems: MenuItem[] = [
       <span>Guess how many viewers a YouTube video has</span>,
     tooltipDesc:
       <span>
-        A random YouTube video will be shown and you will have to guess how many <b>viewers </b>it has.
-        The closer you are to the target view count the more points you&apos;ll earn.
+        Given a random YouTube video, you&apos;ll have to guess whether a video is <b>higher</b> or <b>lower</b> than a certain viewer count.
       </span>,
     icon: UserRoundIcon,
     auth: AuthConstants.UNAUTH
@@ -42,7 +41,7 @@ export const GameModeMenuItems: MenuItem[] = [
     title: GameModeConstants.UPLOAD,
     url: "/date",
     description:
-      <span>Guess when a YouTube video was uploaded</span>,
+      <span>!UNDER CONSTRUCTION! Guess when a YouTube video was uploaded</span>,
     tooltipDesc:
       <span>
         A random YouTube video will be shown and you will have to guess <b>when</b> the video was <b>publicly uploaded</b>.
@@ -55,7 +54,7 @@ export const GameModeMenuItems: MenuItem[] = [
     title: GameModeConstants.LIKES,
     url: "/like",
     description:
-      <span>Guess how the number of likes a YouTube video has</span>,
+      <span>!UNDER CONSTRUCTION! Guess how the number of likes a YouTube video has</span>,
     tooltipDesc:
       <span>
         A random YouTube video will be shown and you will have to guess how many <b>likes</b> it has.
@@ -68,7 +67,7 @@ export const GameModeMenuItems: MenuItem[] = [
     title: GameModeConstants.GENRE,
     url: "/genre",
     description:
-      <span>Guess the YouTube genre of a YouTube video</span>,
+      <span>!UNDER CONSTRUCTION! Guess the YouTube genre of a YouTube video</span>,
     tooltipDesc:
       <span>
         A random YouTube video will be shown and you will have to guess what <b>genre</b> the YouTube video is under.
