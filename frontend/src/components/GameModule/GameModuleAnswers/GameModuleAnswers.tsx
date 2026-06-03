@@ -1,9 +1,9 @@
 import { GameMode } from "@/constants/gamemode";
-import GameModuleAnswersBtn from "./GameModuleAnswersBtn/gamemoduleanswersbtn";
+import HigherLowerBtn from "./HigherLowerBtn/HigherLowerBtn";
 import { useAppSelector } from "@/redux/store";
 
 interface GameModuleAnswersProps {
-  setGuess: (guess: boolean | null) => void;
+  setGuess: (guess: number | Date | null) => void;
   gameMode: GameMode;
 }
 
@@ -15,16 +15,15 @@ const GameModuleAnswers = ({ setGuess, gameMode }: GameModuleAnswersProps) => {
       Does this video have a view count higher or lower than {target.toLocaleString('en-US')} views?
       <div className="answerBtns flex flex-row flex-wrap gap-4 w-full">
         <div className="flex-1">
-          <GameModuleAnswersBtn
-            setGuess={setGuess}
-            higher={true}
+          {/* TODO: Make Btn applicable for multiple game modes */}
+          <HigherLowerBtn
+            setGuess={() => setGuess(target + 1)}
             btnTxt="Higher"
           />
         </div>
         <div className="flex-1">
-          <GameModuleAnswersBtn
-            setGuess={setGuess}
-            higher={false}
+          <HigherLowerBtn
+            setGuess={() => setGuess(target - 1)}
             btnTxt="Lower"
           />
         </div>

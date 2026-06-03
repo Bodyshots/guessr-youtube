@@ -1,32 +1,31 @@
 "use client"
 
 import { useState } from 'react'
-import { Video } from "@/constants/video";
 import { Button } from '@/components/ui/button'
 import GameModuleResultsStats from './GameModuleResultsStats/GameModuleResultsStats';
+import { useAppSelector } from '@/redux/store';
+import { getGuessResults } from '@/lib/utils';
 
 interface GameModuleResultsProps {
-  correctGuesses: number
-  totalGuesses: number
   onDone: () => void
   timeTaken: string
   avgTimePerGuess: string
-  videos: Video[]
 }
 
 const GameModuleResults = ({
-  correctGuesses,
-  totalGuesses,
   onDone,
   timeTaken,
   avgTimePerGuess,
-  videos
 }: GameModuleResultsProps) => {
+  const progressCircles = useAppSelector((state) => state.game_persist.progressCircles);
+  const videos = useAppSelector((state) => state.game_persist.videos);
+
+  const [correctGuesses, totalGuesses] = getGuessResults(progressCircles);
   const [showStats, setShowStats] = useState(false);
 
   // Temporary values
-  const visitorAverage = 4250
-  const visitorTotal = 15000
+  const visitorAverage = 6969
+  const visitorTotal = 420
 
   return (
     <div className="w-full flex flex-col justify-center items-center py-8">
@@ -77,11 +76,8 @@ const GameModuleResults = ({
           </div>
         ) : (
           <GameModuleResultsStats
-            correctGuesses={correctGuesses}
-            totalGuesses={totalGuesses}
             timeTaken={timeTaken}
             avgTimePerGuess={avgTimePerGuess}
-            videos={videos}
           />
         )}
 

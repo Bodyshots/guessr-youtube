@@ -1,17 +1,17 @@
-import { ProgressState, ProgressColors } from '@/constants/progresscircle';
+import { ProgressColor } from "@/constants/progresscircle";
+
 
 interface ProgressCircleProps {
-  progressState: ProgressState;
-  index: number;
+  progressColor: ProgressColor;
 }
 
-export const ProgressCircle = ({ progressState, index }: ProgressCircleProps) => {
+export const ProgressCircle = ({ progressColor }: ProgressCircleProps) => {
   return (
     <div
       className={`
         w-9 h-9
         rounded-full border-2
-        ${ProgressColors[progressState]}
+        ${progressColor}
         shrink-0
       `}
     />

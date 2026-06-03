@@ -1,4 +1,5 @@
-import { ProgressState } from "@/constants/progresscircle";
+import { ProgressCircle } from "@/constants/progresscircle";
+import { Video } from "@/constants/video";
 
 export interface PrivacyState {
   privacy_ack: boolean;
@@ -19,8 +20,9 @@ export interface GameState {
   currIndex: number;
   target: number;
   targetDate: Date;
-  guess: boolean | null | undefined;
-  progressStates: ProgressState[];
+  guess: number | Date | null;
+  progressCircles: ProgressCircle[];
+  videos: Video[];
   gameStartTime: number | null | undefined;
   gameEndTime: number | null | undefined;
   showResults: boolean | null | undefined;

@@ -1,5 +1,5 @@
 import { fetchVideos } from '@/actions/videos';
-import ThemeHeader from '@/components/ThemeHeader/ThemeHeader';
+import ThemeHeader from '@/components/HomeFooter/ThemeHeader';
 import HomeMenu from '@/components/Homemenu/homemenu';
 import SiteTitle from '@/components/SiteTitle/sitetitle';
 

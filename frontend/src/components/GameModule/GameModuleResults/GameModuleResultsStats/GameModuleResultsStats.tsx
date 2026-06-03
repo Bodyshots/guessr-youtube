@@ -1,7 +1,9 @@
 "use client"
 
-import { Video } from "@/constants/video";
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { useAppSelector } from "@/redux/store";
+import { PROGRESS_HIGHLIGHT_COLORS, ProgressConstants } from "@/constants/progresscircle";
+import { getGuessResults } from "@/lib/utils";
 
 interface GuessRecord {
   videoTitle: string
@@ -11,27 +13,18 @@ interface GuessRecord {
 }
 
 interface GameModuleResultsStatsProps {
-  correctGuesses: number
-  totalGuesses: number
   timeTaken: string
   avgTimePerGuess: string
-  videos: Video[]
 }
 
 const GameModuleResultsStats = ({
-  correctGuesses,
-  totalGuesses,
   timeTaken,
   avgTimePerGuess,
-  videos
 }: GameModuleResultsStatsProps) => {
   // Map videos to guess records with actual data
-  const guessRecords: GuessRecord[] = videos.map((video, index) => ({
-    videoTitle: video.title,
-    videoId: video.videoId,
-    guess: index % 2 === 0 ? "Higher" : "Lower",
-    correct: index !== 1 && index !== 4 // Temporarily marking specific ones as incorrect
-  }))
+  const progressCircles = useAppSelector((state) => state.game_persist.progressCircles);
+  const [correctGuesses, totalGuesses] = getGuessResults(progressCircles);
+  const videos = useAppSelector((state) => state.game_persist.videos);
 
   const accuracy = totalGuesses > 0 ? ((correctGuesses / totalGuesses) * 100).toFixed(1) : 0
 
@@ -65,21 +58,18 @@ const GameModuleResultsStats = ({
         </h4>
         <ScrollArea className="h-96 w-full rounded-lg border p-4">
           <div className="flex flex-col gap-4">
-            {guessRecords.map((record, index) => (
+            {progressCircles.map((progressCircle, index) => (
               <div
                 key={index}
-                className={`p-3 rounded-lg border-l-4 ${record.correct
-                  ? "bg-green-500/10 border-l-green-500"
-                  : "bg-red-500/10 border-l-red-500"
-                  }`}
+                className={`p-3 rounded-lg border-l-4 ${progressCircle.highlightColor}`}
               >
                 {/* Video Embed */}
                 <div className="mb-3 rounded overflow-hidden">
                   <iframe
                     width="100%"
                     height="150"
-                    src={`https://www.youtube.com/embed/${record.videoId}`}
-                    title={record.videoTitle}
+                    src={`https://www.youtube.com/embed/${videos[index].videoId}`}
+                    title={videos[index].title}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     referrerPolicy="strict-origin-when-cross-origin"
                     allowFullScreen
@@ -88,19 +78,26 @@ const GameModuleResultsStats = ({
 
                 {/* Video Title */}
                 <p className="text-sm font-medium line-clamp-2 mb-2">
-                  {record.videoTitle}
+                  {videos[index].title}
                 </p>
 
                 {/* Guess Info */}
                 <div className="flex items-center justify-between">
                   <p className="text-xs text-muted-foreground">
-                    Guess: <span className="font-semibold">{record.guess}</span>
+                    Guess:
+                    <span className="font-semibold">
+                      {((typeof progressCircle.guess === "number")
+                        ? ((progressCircle.guess > videos[index].viewCount)
+                          ? "Higher"
+                          : "Lower")
+                        : (progressCircle.guess instanceof Date ? progressCircle.guess.toLocaleDateString() : progressCircle.guess)
+                      )}
+                    </span>
                   </p>
                   <span
-                    className={`text-xs font-bold ${record.correct ? "text-green-600" : "text-red-600"
-                      }`}
+                    className={`text-xs font-bold ${progressCircle.textColor}`}
                   >
-                    {record.correct ? "✓" : "✗"}
+                    {progressCircle.status === ProgressConstants.CORRECT ? "✓" : "✗"}
                   </span>
                 </div>
               </div>

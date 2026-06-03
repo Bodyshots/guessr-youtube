@@ -45,10 +45,11 @@ const gamePersistConfig = createPersistConfig('game', [
   'target',
   'targetDate',
   'guess',
-  'progressStates',
+  'progressCircles',
   'gameStartTime',
   'gameEndTime',
-  'showResults'
+  'showResults',
+  'videos'
 ]);
 const privacyPersistConfig = createPersistConfig('privacy', ['privacy_ack']);
 

@@ -1,3 +1,4 @@
+import { ProgressCircle, ProgressConstants } from "@/constants/progresscircle";
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -30,4 +31,13 @@ export const getTimeUntilTheme = () => {
 
 export function capitalizeString(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export const getGuessResults = (progressCircles: ProgressCircle[]) => {
+  return [progressCircles.reduce(
+    (total, item) =>
+      (item.status === ProgressConstants.CORRECT)
+        ? total + 1
+        : total,
+    0), progressCircles.length]
 }
