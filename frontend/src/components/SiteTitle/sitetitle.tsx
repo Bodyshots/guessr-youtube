@@ -5,9 +5,7 @@ import './sitetitle.css';
 import { useEffect, useState } from 'react';
 import { OtherConstants } from "@/constants/other";
 import { ClipLoader } from "react-spinners";
-import { TAGLINES } from "@/constants/taglines";
-
-const randTaglineIndex = Math.random();
+import SiteTitleSubtitle from "./SiteTitleSubtitle/SiteTitleSubtitle";
 
 export default function SiteTitle() {
   const [isMounted, setIsMounted] = useState(false);
@@ -50,9 +48,9 @@ export default function SiteTitle() {
             ))}
           </span>
         </div>
-        <span className="font-yt_font font-semibold text-muted-foreground/90 subtitle pt-1">
-          {TAGLINES[Math.floor(randTaglineIndex * TAGLINES.length)]}
-        </span>
+        <SiteTitleSubtitle
+          mobile={true}
+        />
       </div>
       {/* Desktop screens */}
       <div className="hero-section flex flex-col flex-nowrap w-full align-center justify-center 
@@ -75,9 +73,9 @@ export default function SiteTitle() {
                   ))}
                 </span>
               </div>
-              <span className="font-yt_font font-semibold text-white/90 pt-2 subtitle">
-                {TAGLINES[Math.floor(randTaglineIndex * TAGLINES.length)]}
-              </span>
+              <SiteTitleSubtitle
+                mobile={false}
+              />
             </div>
           </div>
         </div>

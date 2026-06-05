@@ -28,12 +28,6 @@
   animation: fadeSlide 0.35s ease-out forwards;
 }
 
-.subtitle {
-  opacity: 0;
-  display: inline-block;
-  animation: fadeRight 0.5s ease-out forwards;
-}
-
 .hero-section {
   background-image: url('/hero_page3_blurred.avif');
   background-repeat: no-repeat;

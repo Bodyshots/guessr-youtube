@@ -1,9 +1,9 @@
-import { CalendarIcon, FolderIcon, Grid3X3Icon, ThumbsUpIcon, UserRoundIcon, LucideIcon, FileTextIcon, HeartIcon, SettingsIcon, CircleHelpIcon } from "lucide-react";
+import { CalendarIcon, FolderIcon, Grid3X3Icon, ThumbsUpIcon, UserRoundIcon, LucideIcon, FileTextIcon, HeartIcon, SettingsIcon, CircleHelpIcon, ImageIcon } from "lucide-react";
 import { ReactNode } from "react";
 import { IconType } from "react-icons";
 import { AuthConstants, AuthType } from "./auth";
 import { GameModeConstants } from "./gamemode";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaYoutube } from "react-icons/fa";
 
 interface MenuItem {
   title: string,
@@ -32,7 +32,7 @@ export const GameModeMenuItems: MenuItem[] = [
       <span>Guess how many viewers a YouTube video has</span>,
     tooltipDesc:
       <span>
-        Given a random YouTube video, you&apos;ll have to guess whether a video is <b>higher</b> or <b>lower</b> than a certain viewer count.
+        Given a random YouTube <b>video</b>, you&apos;ll have to guess whether a video is <b>higher</b> or <b>lower</b> than a certain viewer count.
       </span>,
     icon: UserRoundIcon,
     auth: AuthConstants.UNAUTH
@@ -44,8 +44,8 @@ export const GameModeMenuItems: MenuItem[] = [
       <span>!UNDER CONSTRUCTION! Guess when a YouTube video was uploaded</span>,
     tooltipDesc:
       <span>
-        A random YouTube video will be shown and you will have to guess <b>when</b> the video was <b>publicly uploaded</b>.
-        The closer you are to the actual upload date, the more points you&apos;ll earn.
+        Given a random YouTube <b>video</b>, you&apos;ll have to guess <b>when</b> the video was <b>publicly uploaded</b> (Month, year).
+        More details will be revealed for incorrect answers.
       </span>,
     icon: CalendarIcon,
     auth: AuthConstants.UNAUTH
@@ -57,22 +57,34 @@ export const GameModeMenuItems: MenuItem[] = [
       <span>!UNDER CONSTRUCTION! Guess how the number of likes a YouTube video has</span>,
     tooltipDesc:
       <span>
-        A random YouTube video will be shown and you will have to guess how many <b>likes</b> it has.
-        The closer you are to the target <b>like</b> count the more points you&apos;ll earn.
+        Given a random YouTube <b>video</b>, you&apos;ll have to guess whether has a <b>higher</b> or <b>lower</b> number of likes than a certain number.
       </span>,
     icon: ThumbsUpIcon,
     auth: AuthConstants.UNAUTH
   },
   {
-    title: GameModeConstants.GENRE,
-    url: "/genre",
+    title: GameModeConstants.CHANNEL,
+    url: "/channel",
     description:
-      <span>!UNDER CONSTRUCTION! Guess the YouTube genre of a YouTube video</span>,
+      <span>!UNDER CONSTRUCTION! Progressively guess aspects of a YouTube channel, starting from its channel picture</span>,
     tooltipDesc:
       <span>
-        A random YouTube video will be shown and you will have to guess what <b>genre</b> the YouTube video is under.
+        Given a random YouTube <b>channel picture</b>, you&apos;ll have to
+        guess various aspects about the channel, including viewer and subscriber counts.
       </span>,
-    icon: FolderIcon,
+    icon: FaYoutube,
+    auth: AuthConstants.UNAUTH
+  },
+  {
+    title: GameModeConstants.THUMBNAIL,
+    url: "/thumbnail",
+    description:
+      <span>!UNDER CONSTRUCTION! Guess the thumbnail, based on its video title</span>,
+    tooltipDesc:
+      <span>
+        Given a random YouTube <b>video title</b>, you&apos;ll have to choose the correct YouTube thumbnail from selection of 3 others.
+      </span>,
+    icon: ImageIcon,
     auth: AuthConstants.UNAUTH
   },
 ];

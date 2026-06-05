@@ -1,9 +1,10 @@
 export const GameModeConstants = Object.freeze({
-  BINGO: 'Bingo',
-  VIEWERS: 'Viewers',
-  UPLOAD: 'Date',
-  LIKES: 'Likes',
-  GENRE: 'Genre'
+  BINGO: 'Bingo',         // TBD
+  VIEWERS: 'Viewers',     // Higher/Lower
+  UPLOAD: 'Date',         // Guess the date, progressive hints
+  LIKES: 'Likes',         // Higher/Lower
+  CHANNEL: "Channel",     // Guess channel characteristics from picture (use channels from video search)
+  THUMBNAIL: 'Thumbnail', // Guess the thumbnail based on the video title
 })
 
 export type GameMode =
@@ -11,4 +12,5 @@ export type GameMode =
   | 'Viewers'
   | 'Date'
   | 'Likes'
-  | 'Genre';
+  | 'Channel'
+  | 'Thumbnail';

@@ -87,6 +87,7 @@ const gameSlice = createSlice({
 
 			switch (gameMode) {
 				// Number target - Higher/Lower
+				// LIKES + VIEWERS game modes
 				case GameModeConstants.VIEWERS:
 				case GameModeConstants.LIKES:
 
@@ -108,12 +109,16 @@ const gameSlice = createSlice({
 
 					break;
 
-				// Date target - Get closest to date
-				case (GameModeConstants.UPLOAD): // Date target (TODO)
+				// Guess video upload date, w/ multiple hints - TODO
+				case (GameModeConstants.UPLOAD):
 					return;
 
-				// Category target - Guess the category
-				case (GameModeConstants.GENRE): // Category target (TODO)
+				// Guess channel aspects, given pic - TODO
+				case (GameModeConstants.CHANNEL):
+					return;
+
+				// Guess the YouTube title, given a set of thumbnails - TODO
+				case (GameModeConstants.THUMBNAIL):
 					return;
 			}
 
