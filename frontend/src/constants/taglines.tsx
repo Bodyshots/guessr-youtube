@@ -20,7 +20,6 @@ export const TAGLINES = [
   "FOV slider not included.",
   "Bob is building an army...",
   "I wonder what's for dinner?",
-  "DR OCTAGONAPUS, BLARGGGGGGGH!",
   "Weeaboos are not welcome.",
   "LOS!!!",
   "FIRST!",
@@ -40,7 +39,7 @@ export const TAGLINES = [
   "WE FOUND AN OCTAGON!!!",
   "Green is not a creative color.",
   "WE'LL DO IT LIVE!",
-  "Yes! Yes!",
+  "Our lawyers say 'YES! YES!'",
   "=3",
   "I'm on the weird side of... Wait a minute...",
   "hi, welcome to my utube tutorial.",
@@ -55,5 +54,6 @@ export const TAGLINES = [
   "*This comment has received too many negative votes*",
   "I don't get it.",
   "Not fake. Possibly gay.",
-  "op"
+  "op",
+  "[Insert funny tagline here]"
 ]
