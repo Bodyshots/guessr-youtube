@@ -11,7 +11,7 @@ export const GameProgress = ({ copyBtn }: GameProgressProps) => {
   const progressCircles = useAppSelector((state) => state.game_persist.progressCircles);
 
   return (
-    <div className='flex flex-row'>
+    <div className='flex flex-row justify-center'>
       {copyBtn &&
         <GameModuleResultsCopyBtn
           gameNum={1}

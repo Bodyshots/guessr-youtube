@@ -47,7 +47,7 @@ export const GameModuleResultsCopyBtn = ({
       onClick={handleCopy}
       className="rounded-full px-2 mx-2 hover:opacity-50 transition-all duration-150"
     >
-      <ClipboardIcon size={25} />
+      <ClipboardIcon size={20} />
     </button>
   );
 };
