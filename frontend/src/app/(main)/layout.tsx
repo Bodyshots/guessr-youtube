@@ -5,8 +5,8 @@ import { AppSidebar } from "@/components/AppSidebar/appsidebar";
 import { ReduxProvider } from "@/redux/reduxprovider";
 import { SessionProvider } from '@/components/providers/SessionProvider';
 import PrivacyPop from '@/components/PrivacyPop/privacyPop';
-import { GeistMonoFont, RobotoFont, GothicFont, YouTubeSansFont, YouTubeSansDarkFont, } from "@/fonts";
 import { getServerSession } from 'next-auth';
+import { Toaster } from '@/components/ui/sonner';
 
 export const metadata: Metadata = {
   title: "Guessr.yt"
@@ -26,9 +26,10 @@ export default async function MainLayout({ children }: { children: React.ReactNo
             disableTransitionOnChange
           >
             <SessionProvider session={session}>
+              <Toaster />
               <AppSidebar />
               <PrivacyPop />
-              <SidebarTrigger className="m-2 cursor-pointer" />
+              <SidebarTrigger className="m-2 z-50 cursor-pointer" />
               {children}
             </SessionProvider>
           </ThemeProvider>

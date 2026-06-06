@@ -5,12 +5,17 @@ import { Button } from '@/components/ui/button'
 import GameModuleResultsStats from './GameModuleResultsStats/GameModuleResultsStats';
 import { useAppSelector } from '@/redux/store';
 import { getGuessResults } from '@/lib/utils';
+import { GameProgress } from '../GameModuleProgress/gamemoduleprogress';
+import { SCORE_LINES } from '@/constants/scorelines';
+import GameModuleResultsScores from './GameModuleResultsScores/GameModuleResultsScores';
 
 interface GameModuleResultsProps {
   onDone: () => void
   timeTaken: string
   avgTimePerGuess: string
 }
+
+const randNum = Math.random();
 
 const GameModuleResults = ({
   onDone,
@@ -21,53 +26,27 @@ const GameModuleResults = ({
   const videos = useAppSelector((state) => state.game_persist.videos);
 
   const [correctGuesses, totalGuesses] = getGuessResults(progressCircles);
+  const scoreLineGroup = SCORE_LINES[correctGuesses as keyof typeof SCORE_LINES];
   const [showStats, setShowStats] = useState(false);
-
-  // Temporary values
-  const visitorAverage = 6969
-  const visitorTotal = 420
+  const getRandomScorelineIndex = () => {
+    return Math.floor(randNum * scoreLineGroup.length);
+  }
 
   return (
-    <div className="w-auto h-full flex flex-col justify-center items-center py-8">
+    <div className="w-2/3 h-full m-auto flex flex-col justify-center items-center p-auto align-middle top-0 bottom-0 left-0 right-0 py-15">
+      <GameProgress copyBtn={true} />
 
       {!showStats ? (
-        <div className="flex flex-col gap-8 py-6">
-          {/* Score Section */}
-          <div className="text-center">
-            <span className="text-sm p-4 font-semibold text-muted-foreground mb-2">
-              Your Score
-            </span>
-            <p className="text-4xl font-bold">
-              {correctGuesses}/{totalGuesses}
-            </p>
-          </div>
+        <>
+          <GameModuleResultsScores
+            correctGuesses={correctGuesses}
+            totalGuesses={totalGuesses}
+          />
 
-          {/* Visitor Average Section */}
-          <div className="text-center">
-            <div className="text-sm p-4 font-semibold text-muted-foreground mb-2">
-              Visitor Average Guesses
-            </div>
-            <p className="text-3xl font-bold">
-              {visitorAverage.toLocaleString()} / {visitorTotal.toLocaleString()}
-            </p>
+          <div className='text-muted-foreground italic text-lg'>
+            {scoreLineGroup[getRandomScorelineIndex()]}
           </div>
-
-          {/* Timing Section */}
-          <div className="grid grid-cols-2 gap-4 text-center">
-            <div>
-              <p className="text-xs font-semibold text-muted-foreground mb-1">
-                Time Taken
-              </p>
-              <p className="text-lg font-bold">{timeTaken}</p>
-            </div>
-            <div>
-              <p className="text-xs font-semibold text-muted-foreground mb-1">
-                Avg per Guess
-              </p>
-              <p className="text-lg font-bold">{avgTimePerGuess}</p>
-            </div>
-          </div>
-        </div>
+        </>
       ) : (
         <GameModuleResultsStats
           timeTaken={timeTaken}

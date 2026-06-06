@@ -19,7 +19,7 @@ export default function SiteTitle() {
   if (!isMounted) return (
     <>
       <div className="hero-section flex flex-col flex-nowrap w-full align-center justify-center 
-        lg:h-2/6 md:h-1/3 rounded-xl shadow-md shadow-black dark:shadow-white max-sm:hidden">
+        lg:h-1/6 md:h-1/3 rounded-xl shadow-md shadow-black dark:shadow-white max-sm:hidden">
         <div className="hero-content p-10">
           <ClipLoader size={60} color="white" />
         </div>

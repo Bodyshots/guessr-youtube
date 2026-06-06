@@ -1,5 +1,7 @@
-import GameModuleResultsHistory from './GameModuleResultsHistory/GameModuleResultsHistory';
-import GameModuleResultsPersonal from './GameModuleResultsPersonal/GameModuleResultsPersonal';
+import { useAppSelector } from '@/redux/store';
+import GameModuleResultsGraph from './GameModuleResultsGraph/GameModuleResultsGraph';
+import { getGuessResults } from '@/lib/utils';
+import GameModuleResultsScores from '../GameModuleResultsScores/GameModuleResultsScores';
 
 interface GameModuleResultsStatsProps {
   timeTaken: string
@@ -11,14 +13,19 @@ const GameModuleResultsStats = ({
   avgTimePerGuess,
 }: GameModuleResultsStatsProps) => {
 
-  return (
-    <div className="flex flex-row justify-center gap-4 py-4">
-      <GameModuleResultsPersonal
-        timeTaken={timeTaken}
-        avgTimePerGuess={avgTimePerGuess}
-      />
+  const progressCircles = useAppSelector((state) => state.game_persist.progressCircles);
+  const [correctGuesses, totalGuesses] = getGuessResults(progressCircles);
 
-      <GameModuleResultsHistory />
+  return (
+    <div className="flex flex-col justify-center w-full">
+      <GameModuleResultsScores
+        correctGuesses={correctGuesses}
+        totalGuesses={totalGuesses}
+      />
+      <GameModuleResultsGraph
+        userScore={1}
+      />
+      {/* <GameModuleResultsHistory /> */}
     </div>
   )
 }

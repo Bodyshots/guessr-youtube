@@ -53,6 +53,7 @@ const GameModule = ({ videos, gameMode }: GameModuleProps) => {
 
   }, [dispatch, guess, gameMode]);
 
+  // TODO: May add to slice
   const timeTaken = gameStartTime && gameEndTime ? formatStatsTime(gameEndTime - gameStartTime) : "0m 0s";
   const avgTimePerGuess = gameStartTime && gameEndTime ? formatStatsTime((gameEndTime - gameStartTime) / videos.length) : "0m 0s";
 
