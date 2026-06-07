@@ -2,6 +2,12 @@ import { ProgressCircle, ProgressConstants } from "@/constants/progresscircle";
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
+interface roundNearestXProps {
+  num: number;
+  x: number;
+}
+
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
@@ -40,4 +46,8 @@ export const getGuessResults = (progressCircles: ProgressCircle[]) => {
         ? total + 1
         : total,
     0), progressCircles.length]
+}
+
+export const wholeFloorX = ({ num, x }: roundNearestXProps) => {
+  return (x <= num) ? num - (num % x) : x
 }

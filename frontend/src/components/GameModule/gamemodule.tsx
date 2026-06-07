@@ -2,7 +2,7 @@
 
 import { Video } from "@/constants/video";
 import { GameProgress } from "./GameModuleProgress/gamemoduleprogress"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import GameModuleAnswers from "./GameModuleAnswers/GameModuleAnswers";
 import { setGuess, processGuess, setGameEndTime, resetGame } from "@/redux/slices/gameSlice";
@@ -11,6 +11,7 @@ import GameModuleResults from "./GameModuleResults/GameModuleResults";
 import { formatStatsTime } from "@/lib/utils";
 import GameModuleVideo from "./GameModuleVideo/gamemodulevideo";
 import { GameMode } from "@/constants/gamemode";
+import { ClipLoader } from "react-spinners";
 
 interface GameModuleProps {
   videos: Video[];
@@ -18,6 +19,8 @@ interface GameModuleProps {
 }
 
 const GameModule = ({ videos, gameMode }: GameModuleProps) => {
+  const [isMounted, setIsMounted] = useState(false);
+
   const currIndex = useAppSelector((state) => state.game_persist.currIndex);
   const guess = useAppSelector((state) => state.game_persist.guess);
   const progressCircles = useAppSelector((state) => state.game_persist.progressCircles);
@@ -35,6 +38,9 @@ const GameModule = ({ videos, gameMode }: GameModuleProps) => {
     if (progressCircles.length === 0 || theme != videoTheme) {
       dispatch(resetGame({ videos: videos, newTheme: videos[0].theme }))
     }
+
+    const t = setTimeout(() => setIsMounted(true), 0);
+    return () => clearTimeout(t);
   }, [dispatch, progressCircles.length, videos, currIndex, theme])
 
   // Check if game is finished
@@ -57,6 +63,17 @@ const GameModule = ({ videos, gameMode }: GameModuleProps) => {
   const timeTaken = gameStartTime && gameEndTime ? formatStatsTime(gameEndTime - gameStartTime) : "0m 0s";
   const avgTimePerGuess = gameStartTime && gameEndTime ? formatStatsTime((gameEndTime - gameStartTime) / videos.length) : "0m 0s";
 
+  if (!isMounted) {
+    return (
+      <div className="flex flex-col flex-nowrap w-full align-center justify-center p-20">
+        <div className="p-14 flex flex-col items-center gap-8">
+          <ClipLoader size={100} color="white" />
+          <span className="text-xl">Loading...</span>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="flex flex-col justify-center items-center">
       {!gameEndTime ? (
@@ -67,7 +84,9 @@ const GameModule = ({ videos, gameMode }: GameModuleProps) => {
           />
 
           <div className="videoFooter flex flex-col m-4">
-            <GameProgress />
+            <GameProgress
+              copyBtn={false}
+            />
             <GameModuleAnswers
               setGuess={(guess) => dispatch(setGuess(guess))}
               gameMode={gameMode}

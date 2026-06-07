@@ -23,17 +23,17 @@ export default function GameModuleResultsGraph({
   useEffect(() => { // TODO: Temp, later use backend. First update scores, then fetch
     const getScores = () => {
       const data = [
-        { score: 0, users: 0 },
-        { score: 1, users: 1 },
-        { score: 2, users: 1 },
-        { score: 3, users: 2 },
-        { score: 4, users: 8 },
-        { score: 5, users: 25 },
-        { score: 6, users: 70 },
-        { score: 7, users: 120 },
-        { score: 8, users: 132 },
-        { score: 9, users: 92 },
-        { score: 10, users: 28 },
+        { score: 0, Users: 0 },
+        { score: 1, Users: 1 },
+        { score: 2, Users: 1 },
+        { score: 3, Users: 2 },
+        { score: 4, Users: 8 },
+        { score: 5, Users: 25 },
+        { score: 6, Users: 70 },
+        { score: 7, Users: 120 },
+        { score: 8, Users: 132 },
+        { score: 9, Users: 92 },
+        { score: 10, Users: 28 },
       ];
       return data
     }
@@ -56,7 +56,7 @@ export default function GameModuleResultsGraph({
           />
           <Area
             type="monotone"
-            dataKey="users"
+            dataKey="Users"
             stroke="#198754"
             fill="#198754"
             fillOpacity={0.25}

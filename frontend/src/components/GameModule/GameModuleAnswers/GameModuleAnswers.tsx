@@ -1,6 +1,7 @@
 import { GameMode } from "@/constants/gamemode";
 import HigherLowerBtn from "./HigherLowerBtn/HigherLowerBtn";
 import { useAppSelector } from "@/redux/store";
+import { wholeFloorX } from "@/lib/utils";
 
 interface GameModuleAnswersProps {
   setGuess: (guess: number | Date | null) => void;
@@ -12,7 +13,7 @@ const GameModuleAnswers = ({ setGuess, gameMode }: GameModuleAnswersProps) => {
 
   return (
     <div className="text-xl m-4 flex flex-col gap-4">
-      Does this video have a view count higher or lower than {target.toLocaleString('en-US')} views?
+      Does this video have a view count higher or lower than {wholeFloorX({ num: target, x: 100 }).toLocaleString('en-US')} views?
       <div className="answerBtns flex flex-row flex-wrap gap-4 w-full">
         <div className="flex-1">
           {/* TODO: Make Btn applicable for multiple game modes */}

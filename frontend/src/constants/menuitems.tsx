@@ -120,7 +120,7 @@ export const OtherMenuItems: MenuItem[] = [
     description: null,
     tooltipDesc: null,
     icon: SettingsIcon,
-    auth: AuthConstants.AUTH
+    auth: AuthConstants.UNAUTH
   },
   {
     title: "About",

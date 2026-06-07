@@ -36,7 +36,7 @@ export const TAGLINES = [
   "I am Painis Cupcake.",
   "Song name?",
   "I am very hungry.",
-  "WE FOUND AN OCTAGON!!!",
+  "Come on. Let's go find an octagon.",
   "Green is not a creative color.",
   "WE'LL DO IT LIVE!",
   "Our lawyers say 'YES! YES!'",
@@ -44,16 +44,15 @@ export const TAGLINES = [
   "I'm on the weird side of... Wait a minute...",
   "hi, welcome to my utube tutorial.",
   "Music by Kevin MacLeod.",
-  "1v1 me rust rn.",
   "You want this cake?",
   "BARRELS!",
   "I'm a lyrical spiritual miracle individual.",
   "Matei is highly intelligent.",
   "I'm 12 years old and what is this?",
   "Subscribed.",
-  "*This comment has received too many negative votes*",
-  "I don't get it.",
+  "*This tagline has received too many negative votes*",
   "Not fake. Possibly gay.",
   "op",
-  "[Insert funny tagline here]"
+  "[Insert funny tagline here]",
+  "In a perfect world, this site would not exist. But, this is not a perfect world."
 ]
