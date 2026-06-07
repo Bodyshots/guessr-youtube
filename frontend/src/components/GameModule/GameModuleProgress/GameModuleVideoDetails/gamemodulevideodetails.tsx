@@ -39,7 +39,12 @@ const GameModuleVideoDetails = ({ selectedIndex, selectedCircle, selectedVideo, 
 
   const getVideoActual = () => {
     switch (gameMode) {
-
+      case GameModeConstants.VIEWERS:
+        return `${selectedVideo?.viewCount.toLocaleString("en-US")} views`
+      case GameModeConstants.LIKES:
+        return `${selectedVideo?.likeCount.toLocaleString("en-US")} likes`
+      case GameModeConstants.UPLOAD:
+        return `${selectedVideo?.publishedAt.toLocaleString("en-US")}`
     }
   }
 
@@ -83,7 +88,7 @@ const GameModuleVideoDetails = ({ selectedIndex, selectedCircle, selectedVideo, 
             <span className="font-semibold">
               Actual:{" "}
               <span className="font-normal">
-                {selectedVideo?.viewCount.toLocaleString("en-US")} views
+                {getVideoActual()}
               </span>
             </span>
 
