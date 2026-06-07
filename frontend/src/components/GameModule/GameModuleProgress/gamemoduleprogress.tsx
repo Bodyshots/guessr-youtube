@@ -1,31 +1,70 @@
-"use client"
+"use client";
 
-import { ProgressCircle } from '@/components/ProgressCircle/progresscircle';
-import { useAppSelector } from '@/redux/store';
-import { GameModuleResultsCopyBtn } from './GameModuleResultsCopyBtn/GameModuleResultsCopyBtn';
+import { useState } from "react";
+import { ProgressCircle } from "@/components/ProgressCircle/progresscircle";
+import { useAppSelector } from "@/redux/store";
+import { GameModuleResultsCopyBtn } from "./GameModuleResultsCopyBtn/GameModuleResultsCopyBtn";
+import GameModuleVideoDetails from "./GameModuleVideoDetails/gamemodulevideodetails";
+
 interface GameProgressProps {
   copyBtn: boolean;
+  interactable: boolean;
+  gameMode?: string;
 }
 
-export const GameProgress = ({ copyBtn }: GameProgressProps) => {
-  const progressCircles = useAppSelector((state) => state.game_persist.progressCircles);
+export const GameProgress = ({ copyBtn, interactable, gameMode }: GameProgressProps) => {
+  const progressCircles = useAppSelector(
+    (state) => state.game_persist.progressCircles
+  );
+
+  const videos = useAppSelector((state) => state.game_persist.videos);
+
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  const selectedCircle =
+    selectedIndex !== null ? progressCircles[selectedIndex] : null;
+
+  const selectedVideo =
+    selectedIndex !== null ? videos[selectedIndex] : null;
+
+  const handleSetSelectedIndex = (index: number) => {
+    selectedIndex !== index
+      ? setSelectedIndex(index)
+      : setSelectedIndex(null);
+  };
 
   return (
-    <div className='flex flex-row justify-center'>
-      {copyBtn &&
-        <GameModuleResultsCopyBtn
-          gameNum={1}
-          siteName={"Guessr.yt"}
-          url={"siteUrl"}
-        />}
-      <div className="flex gap-2 justify-center">
-        {progressCircles.map((state, index) => (
-          <ProgressCircle
-            key={index}
-            progressColor={state.circleColor}
+    <div className="flex flex-col items-center gap-4 w-full">
+      <div className="flex flex-row justify-center items-center gap-2 mb-2">
+        {copyBtn && (
+          <GameModuleResultsCopyBtn
+            gameNum={1}
+            siteName={"Guessr.yt"}
+            url={"siteUrl"}
           />
-        ))}
+        )}
+
+        <div className="flex gap-2 justify-center">
+          {progressCircles.map((state, index) => (
+            <ProgressCircle
+              key={index}
+              progressColor={state.circleColor}
+              interactable={interactable}
+              selected={selectedIndex === index}
+              onClick={() => handleSetSelectedIndex(index)}
+            />
+          ))}
+        </div>
       </div>
+
+      {interactable && selectedVideo && (
+        <GameModuleVideoDetails
+          selectedIndex={selectedIndex}
+          selectedCircle={selectedCircle}
+          selectedVideo={selectedVideo}
+          gameMode={gameMode}
+        />
+      )}
     </div>
   );
 };

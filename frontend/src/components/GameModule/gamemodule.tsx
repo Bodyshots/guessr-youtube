@@ -86,6 +86,7 @@ const GameModule = ({ videos, gameMode }: GameModuleProps) => {
           <div className="videoFooter flex flex-col m-4">
             <GameProgress
               copyBtn={false}
+              interactable={false}
             />
             <GameModuleAnswers
               setGuess={(guess) => dispatch(setGuess(guess))}
@@ -98,6 +99,7 @@ const GameModule = ({ videos, gameMode }: GameModuleProps) => {
           onDone={() => router.push('/')}
           timeTaken={timeTaken}
           avgTimePerGuess={avgTimePerGuess}
+          gameMode={gameMode}
         />
       )}
     </div>

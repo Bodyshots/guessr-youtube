@@ -10,9 +10,10 @@ import { SCORE_LINES } from '@/constants/scorelines';
 import GameModuleResultsScores from './GameModuleResultsScores/GameModuleResultsScores';
 
 interface GameModuleResultsProps {
-  onDone: () => void
-  timeTaken: string
-  avgTimePerGuess: string
+  onDone: () => void;
+  timeTaken: string;
+  avgTimePerGuess: string;
+  gameMode: string;
 }
 
 const randNum = Math.random();
@@ -21,6 +22,7 @@ const GameModuleResults = ({
   onDone,
   timeTaken,
   avgTimePerGuess,
+  gameMode
 }: GameModuleResultsProps) => {
   const progressCircles = useAppSelector((state) => state.game_persist.progressCircles);
   const videos = useAppSelector((state) => state.game_persist.videos);
@@ -34,7 +36,11 @@ const GameModuleResults = ({
 
   return (
     <div className="w-2/3 h-full m-auto flex flex-col justify-center items-center p-auto align-middle top-0 bottom-0 left-0 right-0 py-15">
-      <GameProgress copyBtn={true} />
+      <GameProgress
+        copyBtn={true}
+        interactable={true}
+        gameMode={gameMode}
+      />
 
       {!showStats ? (
         <>
