@@ -3,6 +3,7 @@
 import { TAGLINES } from "@/constants/taglines";
 import { useState } from "react";
 import "./sitetitlesubtitle.css";
+import { OtherConstants } from "@/constants/other";
 
 interface SiteTitleSubtitleProps {
   mobile: boolean;
@@ -20,8 +21,11 @@ const SiteTitleSubtitle = ({ mobile }: SiteTitleSubtitleProps) => {
   const [animationKey, setAnimationKey] = useState(0);
 
   const handleOnClick = () => {
+    // Set previous tagline to fade out
     setPreviousTagline(tagline);
     setShowPrevious(true);
+
+    // Get new tagline
     const newTagline = TAGLINES[getRandomTaglineIndex()];
     setTagline(newTagline);
     setAnimationKey(prev => prev + 1);
@@ -29,7 +33,7 @@ const SiteTitleSubtitle = ({ mobile }: SiteTitleSubtitleProps) => {
     // Clear previous tagline after animation completes
     setTimeout(() => {
       setShowPrevious(false);
-    }, 500);
+    }, OtherConstants.SUBTITLE_FADE_DURATION);
   }
 
   return (

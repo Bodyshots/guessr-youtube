@@ -1,10 +1,10 @@
 "use client"
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ProgressConstants, ProgressCircle, ProgressStatus, PROGRESS_CIRCLE_COLORS, PROGRESS_HIGHLIGHT_COLORS, PROGRESS_TEXT_COLORS } from '@/constants/progresscircle';
-import { GameState } from './types';
+import { ProgressConstants, ProgressStatus, PROGRESS_CIRCLE_COLORS, PROGRESS_HIGHLIGHT_COLORS, PROGRESS_TEXT_COLORS } from '@/constants/progresscircle';
+import { GameState, Guess } from './types';
 import { Video } from "@/constants/video";
-import { GameModeConstants } from '@/constants/gamemode';
+import { GameMode, GameModeConstants } from '@/constants/game';
 
 interface RandomDateProps {
 	start: Date;
@@ -12,8 +12,8 @@ interface RandomDateProps {
 }
 
 interface ProcessGuessProps {
-	gameMode: string;
-	guess: number | Date | null;
+	gameMode: GameMode;
+	userAnswer: number | Date | null;
 }
 
 const getRandomCount = () => Math.floor(Math.random() * 1000)
@@ -27,7 +27,10 @@ const initialState: GameState = {
 	target: getRandomCount(),
 	// Arbitrary starting date - guessing videos before 2016 would be obv to guess based on video quality
 	targetDate: getRandomDate({ start: new Date(2016, 0, 1), end: new Date() }),
-	guess: null,
+	guess: {
+		correct: null,
+		userAnswer: null
+	},
 	progressCircles: [],
 	videos: [],
 	gameStartTime: null,
@@ -57,8 +60,8 @@ const gameSlice = createSlice({
 		setRandomTargetDate: (state) => {
 			state.targetDate = getRandomDate({ start: new Date(2016, 0, 1), end: new Date() })
 		},
-		setGuess: (state, action: PayloadAction<number | Date | null>) => {
-			state.guess = action.payload;
+		setUserAnswer: (state, action: PayloadAction<number | Date | null>) => {
+			state.guess.userAnswer = action.payload;
 		},
 		setVideos: (state, action: PayloadAction<Video[]>) => {
 			state.videos = action.payload;
@@ -72,13 +75,23 @@ const gameSlice = createSlice({
 		setShowResults: (state, action: PayloadAction<boolean | null | undefined>) => {
 			state.showResults = action.payload;
 		},
+		resetGuess: (state) => {
+			state.guess = {
+				userAnswer: null,
+				correct: null
+			}
+		},
 		processGuess: (state, action: PayloadAction<ProcessGuessProps>) => {
 			const gameMode = action.payload.gameMode;
-			const userGuess = action.payload.guess;
+			const userGuess = action.payload.userAnswer;
 
 			const videos = state.videos;
 			const currIndex = state.currIndex;
 			const target = state.target;
+			const guess: Guess = {
+				correct: null,
+				userAnswer: null
+			}
 			const targetDate = state.targetDate;
 
 			if (userGuess === null || state.currIndex >= state.videos.length) return;
@@ -99,8 +112,12 @@ const gameSlice = createSlice({
 					if (userGuess != null && (typeof (userGuess) === "number")) {
 						if ((higher && (userGuess >= target)) || (!higher && (userGuess < target))) {
 							currStatus = ProgressConstants.CORRECT;
+							guess.correct = true;
 						}
-						else currStatus = ProgressConstants.INCORRECT;
+						else {
+							currStatus = ProgressConstants.INCORRECT;
+							guess.correct = false;
+						}
 					}
 
 					// Set new target
@@ -131,7 +148,7 @@ const gameSlice = createSlice({
 			}
 
 			state.currIndex += 1;
-			state.guess = null;
+			state.guess = guess;
 		},
 		resetGame: (state, action: PayloadAction<{ videos: Video[], newTheme: string }>) => {
 			const videos = action.payload.videos;
@@ -146,7 +163,10 @@ const gameSlice = createSlice({
 				textColor: PROGRESS_TEXT_COLORS[currStatus],
 				guess: null,
 			}));
-			state.guess = null;
+			state.guess = {
+				correct: null,
+				userAnswer: null
+			};
 			state.theme = newTheme;
 			state.gameStartTime = Date.now();
 			state.gameEndTime = null;
@@ -162,7 +182,8 @@ export const {
 	setTheme,
 	setTarget,
 	setTargetDate,
-	setGuess,
+	setUserAnswer,
+	resetGuess,
 	processGuess,
 	setVideos,
 	setGameStartTime,

@@ -3,16 +3,16 @@
 import { useState } from "react";
 import { ProgressCircle } from "@/components/ProgressCircle/progresscircle";
 import { useAppSelector } from "@/redux/store";
-import { GameModuleResultsCopyBtn } from "./GameModuleResultsCopyBtn/GameModuleResultsCopyBtn";
-import GameModuleVideoDetails from "./GameModuleVideoDetails/gamemodulevideodetails";
+import { GameModuleHLResultsCopyBtn } from "./GameModuleHLResultsCopyBtn/GameModuleHLResultsCopyBtn";
+import GameModuleHLVideoDetails from "./GameModuleHLVideoDetails/GameModuleHLVideoDetails";
 
-interface GameProgressProps {
+interface GameModuleHLProgressProps {
   copyBtn: boolean;
   interactable: boolean;
   gameMode?: string;
 }
 
-export const GameProgress = ({ copyBtn, interactable, gameMode }: GameProgressProps) => {
+export const GameModuleHLProgress = ({ copyBtn, interactable, gameMode }: GameModuleHLProgressProps) => {
   const progressCircles = useAppSelector(
     (state) => state.game_persist.progressCircles
   );
@@ -37,7 +37,7 @@ export const GameProgress = ({ copyBtn, interactable, gameMode }: GameProgressPr
     <div className="flex flex-col items-center gap-4 w-full">
       <div className="flex flex-row justify-center items-center gap-2 mb-2">
         {copyBtn && (
-          <GameModuleResultsCopyBtn
+          <GameModuleHLResultsCopyBtn
             gameNum={1}
             siteName={"Guessr.yt"}
             url={"siteUrl"}
@@ -58,7 +58,7 @@ export const GameProgress = ({ copyBtn, interactable, gameMode }: GameProgressPr
       </div>
 
       {interactable && selectedVideo && (
-        <GameModuleVideoDetails
+        <GameModuleHLVideoDetails
           selectedIndex={selectedIndex}
           selectedCircle={selectedCircle}
           selectedVideo={selectedVideo}

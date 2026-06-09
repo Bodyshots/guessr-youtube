@@ -1,8 +1,8 @@
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { ProgressCircle, ProgressConstants } from '@/constants/progresscircle'
+import { ProgressConstants } from '@/constants/progresscircle'
 import { useAppSelector } from '@/redux/store';
 
-const GameModuleResultsHistory = () => {
+const GameModuleHLResultsHistory = () => {
   const progressCircles = useAppSelector((state) => state.game_persist.progressCircles);
   const videos = useAppSelector((state) => state.game_persist.videos);
 
@@ -63,4 +63,4 @@ const GameModuleResultsHistory = () => {
   )
 }
 
-export default GameModuleResultsHistory
+export default GameModuleHLResultsHistory

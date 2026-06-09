@@ -1,8 +1,8 @@
-import { CalendarIcon, FolderIcon, Grid3X3Icon, ThumbsUpIcon, UserRoundIcon, LucideIcon, FileTextIcon, HeartIcon, SettingsIcon, CircleHelpIcon, ImageIcon } from "lucide-react";
+import { CalendarIcon, Grid3X3Icon, ThumbsUpIcon, UserRoundIcon, LucideIcon, FileTextIcon, HeartIcon, SettingsIcon, CircleHelpIcon, ImageIcon } from "lucide-react";
 import { ReactNode } from "react";
 import { IconType } from "react-icons";
 import { AuthConstants, AuthType } from "./auth";
-import { GameModeConstants } from "./gamemode";
+import { GameModeConstants } from "./game";
 import { FaGithub, FaYoutube } from "react-icons/fa";
 
 interface MenuItem {

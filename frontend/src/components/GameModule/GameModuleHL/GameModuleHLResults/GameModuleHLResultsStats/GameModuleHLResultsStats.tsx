@@ -1,28 +1,28 @@
 import { useAppSelector } from '@/redux/store';
-import GameModuleResultsGraph from './GameModuleResultsGraph/GameModuleResultsGraph';
+import GameModuleHLResultsGraph from './GameModuleHLResultsGraph/GameModuleHLResultsGraph';
 import { getGuessResults } from '@/lib/utils';
-import GameModuleResultsScores from '../GameModuleResultsScores/GameModuleResultsScores';
+import GameModuleHLResultsScores from '../GameModuleHLResultsScores/GameModuleHLResultsScores';
 
-interface GameModuleResultsStatsProps {
+interface GameModuleHLResultsStatsProps {
   timeTaken: string
   avgTimePerGuess: string
 }
 
-const GameModuleResultsStats = ({
+const GameModuleHLResultsStats = ({
   timeTaken,
   avgTimePerGuess,
-}: GameModuleResultsStatsProps) => {
+}: GameModuleHLResultsStatsProps) => {
 
   const progressCircles = useAppSelector((state) => state.game_persist.progressCircles);
   const [correctGuesses, totalGuesses] = getGuessResults(progressCircles);
 
   return (
     <div className="flex flex-col justify-center w-full">
-      <GameModuleResultsScores
+      <GameModuleHLResultsScores
         correctGuesses={correctGuesses}
         totalGuesses={totalGuesses}
       />
-      <GameModuleResultsGraph
+      <GameModuleHLResultsGraph
         userScore={1}
       />
       <div className='flex flex-row justify-center gap-4'>
@@ -47,4 +47,4 @@ const GameModuleResultsStats = ({
   )
 }
 
-export default GameModuleResultsStats
+export default GameModuleHLResultsStats

@@ -15,12 +15,17 @@ export interface BingoState {
   board: BingoCell[][] | null;
 }
 
+export interface Guess {
+  correct: boolean | null;
+  userAnswer: number | Date | null;
+}
+
 export interface GameState {
   theme: string;
   currIndex: number;
   target: number;
   targetDate: Date;
-  guess: number | Date | null;
+  guess: Guess;
   progressCircles: ProgressCircle[];
   videos: Video[];
   gameStartTime: number | null | undefined;

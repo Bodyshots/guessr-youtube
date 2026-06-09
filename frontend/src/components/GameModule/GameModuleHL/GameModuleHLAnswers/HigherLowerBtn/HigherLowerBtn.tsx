@@ -1,21 +1,23 @@
 import { Button } from "@/components/ui/button"
 
-interface GameModuleAnswersBtnProps {
+interface GameModuleHLAnswersBtnProps {
   setGuess: () => void;
   btnTxt: string;
+  disabled: boolean;
 }
 
-const GameModuleAnswersBtn = ({ setGuess, btnTxt }: GameModuleAnswersBtnProps) => {
+const GameModuleHLAnswersBtn = ({ setGuess, btnTxt, disabled }: GameModuleHLAnswersBtnProps) => {
   return (
     <Button
       variant="outline"
       size="lg"
       onClick={() => setGuess()}
       className="w-full text-md"
+      disabled={disabled}
     >
       {btnTxt}
     </Button>
   )
 }
 
-export default GameModuleAnswersBtn
+export default GameModuleHLAnswersBtn

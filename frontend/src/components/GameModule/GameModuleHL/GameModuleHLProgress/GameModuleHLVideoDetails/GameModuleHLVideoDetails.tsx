@@ -1,17 +1,19 @@
 import { Separator } from "@/components/ui/separator";
-import { GameModeConstants } from "@/constants/gamemode";
+import { GameModeConstants } from "@/constants/game";
+import { OtherConstants } from "@/constants/other";
 import { ProgressCircle } from "@/constants/progresscircle";
 import { Video } from "@/constants/video";
+import { formatDate } from "@/lib/utils";
 import { useState } from "react";
 
-interface GameModuleVideoDetailsProps {
+interface GameModuleHLVideoDetailsProps {
   selectedIndex?: number | null;
   selectedCircle?: ProgressCircle | null;
   selectedVideo?: Video | null;
   gameMode?: string;
 }
 
-const GameModuleVideoDetails = ({ selectedIndex, selectedCircle, selectedVideo, gameMode }: GameModuleVideoDetailsProps) => {
+const GameModuleHLVideoDetails = ({ selectedIndex, selectedCircle, selectedVideo, gameMode }: GameModuleHLVideoDetailsProps) => {
   const [showDescription, setShowDescription] = useState(false);
 
   const getGuess = () => {
@@ -20,7 +22,6 @@ const GameModuleVideoDetails = ({ selectedIndex, selectedCircle, selectedVideo, 
     switch (gameMode) {
       case GameModeConstants.VIEWERS:
         if (userGuess != null && (typeof (userGuess) === "number")) {
-          // User guessed higher
           if (selectedVideo?.viewCount && (userGuess >= selectedVideo.viewCount)) {
             return "Higher"
           }
@@ -28,7 +29,6 @@ const GameModuleVideoDetails = ({ selectedIndex, selectedCircle, selectedVideo, 
         }
       case GameModeConstants.LIKES:
         if (userGuess != null && (typeof (userGuess) === "number")) {
-          // User guessed higher
           if (selectedVideo?.likeCount && (userGuess >= selectedVideo.likeCount)) {
             return "Higher"
           }
@@ -40,11 +40,11 @@ const GameModuleVideoDetails = ({ selectedIndex, selectedCircle, selectedVideo, 
   const getVideoActual = () => {
     switch (gameMode) {
       case GameModeConstants.VIEWERS:
-        return `${selectedVideo?.viewCount.toLocaleString("en-US")} views`
+        return `${selectedVideo?.viewCount.toLocaleString(OtherConstants.LOCALE)} views`
       case GameModeConstants.LIKES:
-        return `${selectedVideo?.likeCount.toLocaleString("en-US")} likes`
+        return `${selectedVideo?.likeCount.toLocaleString(OtherConstants.LOCALE)} likes`
       case GameModeConstants.UPLOAD:
-        return `${selectedVideo?.publishedAt.toLocaleString("en-US")}`
+        return `${formatDate(selectedVideo?.publishedAt)}`
     }
   }
 
@@ -95,7 +95,7 @@ const GameModuleVideoDetails = ({ selectedIndex, selectedCircle, selectedVideo, 
             <span className="font-semibold">
               Published:{" "}
               <span className="font-normal">
-                {selectedVideo?.publishedAt.toLocaleString("en-US")}
+                {formatDate(selectedVideo?.publishedAt)}
               </span>
             </span>
           </div>
@@ -141,4 +141,4 @@ const GameModuleVideoDetails = ({ selectedIndex, selectedCircle, selectedVideo, 
   )
 }
 
-export default GameModuleVideoDetails
+export default GameModuleHLVideoDetails

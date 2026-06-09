@@ -1,9 +1,9 @@
-interface GameModuleResultsScoresProps {
+interface GameModuleHLResultsScoresProps {
   correctGuesses: number;
   totalGuesses: number;
 }
 
-const GameModuleResultsScores = ({ correctGuesses, totalGuesses }: GameModuleResultsScoresProps) => {
+const GameModuleHLResultsScores = ({ correctGuesses, totalGuesses }: GameModuleHLResultsScoresProps) => {
 
   // Temporary values
   const visitorAverage = 4
@@ -34,4 +34,4 @@ const GameModuleResultsScores = ({ correctGuesses, totalGuesses }: GameModuleRes
   )
 }
 
-export default GameModuleResultsScores
+export default GameModuleHLResultsScores

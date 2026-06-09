@@ -5,17 +5,17 @@ import { PROGRESS_CIRCLE_COLORS, ProgressConstants } from "@/constants/progressc
 import { ClipboardIcon } from "lucide-react";
 import { toast } from "sonner";
 
-interface GameModuleResultsCopyBtnProps {
+interface GameModuleHLResultsCopyBtnProps {
   gameNum: number;
   siteName: string;
   url: string;
 }
 
-export const GameModuleResultsCopyBtn = ({
+export const GameModuleHLResultsCopyBtn = ({
   gameNum,
   siteName,
   url,
-}: GameModuleResultsCopyBtnProps) => {
+}: GameModuleHLResultsCopyBtnProps) => {
 
   const progressCircles = useAppSelector(
     (state) => state.game_persist.progressCircles

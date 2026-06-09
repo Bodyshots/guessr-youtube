@@ -24,7 +24,7 @@ export const TAGLINES = [
   "LOS!!!",
   "FIRST!",
   "Fegelein! Fegelein!",
-  "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  "dQw4w9WgXcQ",
   "Gingers have souls!",
   "Today, we'll be talking about that PS triple.",
   "Don't use the dye.",

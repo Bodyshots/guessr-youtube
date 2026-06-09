@@ -141,7 +141,8 @@ const SidebarProvider = React.forwardRef<
               } as React.CSSProperties
             }
             className={cn(
-              "group/sidebar-wrapper flex min-h-svh w-full has-data-[variant=inset]:bg-sidebar",
+              "group/sidebar-wrapper min-h-svh w-full has-data-[variant=inset]:bg-sidebar",
+              !isMobile && "flex",
               className
             )}
             ref={ref}
@@ -264,7 +265,7 @@ const SidebarTrigger = React.forwardRef<
   React.ComponentRef<typeof Button>,
   React.ComponentProps<typeof Button>
 >(({ className, onClick, ...props }, ref) => {
-  const { toggleSidebar } = useSidebar()
+  const { isMobile, toggleSidebar } = useSidebar()
 
   return (
     <Button
@@ -272,7 +273,9 @@ const SidebarTrigger = React.forwardRef<
       data-sidebar="trigger"
       variant="ghost"
       size="icon"
-      className={cn("h-7 w-7 p-5 m-6 rounded-full", className)}
+      className={isMobile
+        ? cn("px-12 mb-0 rounded-sm", className)
+        : cn("h-7 w-7 p-5 m-6 rounded-full", className)}
       onClick={(event) => {
         onClick?.(event)
         toggleSidebar()
@@ -280,6 +283,11 @@ const SidebarTrigger = React.forwardRef<
       {...props}
     >
       <Menu className="sidebarTrigger" />
+      {isMobile && (
+        <span className="ml-2 text-sm font-medium">
+          Menu
+        </span>
+      )}
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   )

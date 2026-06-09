@@ -1,28 +1,30 @@
 "use client"
 
 import { Video } from "@/constants/video";
-import { GameProgress } from "./GameModuleProgress/gamemoduleprogress"
+import { GameModuleHLProgress } from "./GameModuleHLProgress/GameModuleHLProgress"
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import GameModuleAnswers from "./GameModuleAnswers/GameModuleAnswers";
-import { setGuess, processGuess, setGameEndTime, resetGame } from "@/redux/slices/gameSlice";
+import GameModuleHLAnswers from "./GameModuleHLAnswers/GameModuleAnswers";
+import { processGuess, setGameEndTime, resetGame } from "@/redux/slices/gameSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
-import GameModuleResults from "./GameModuleResults/GameModuleResults";
+import GameModuleHLResults from "./GameModuleHLResults/GameModuleHLResults";
 import { formatStatsTime } from "@/lib/utils";
-import GameModuleVideo from "./GameModuleVideo/gamemodulevideo";
-import { GameMode } from "@/constants/gamemode";
+import GameModuleHLVideo from "../GameModuleHLVideo/GameModuleHLVideo";
+import { GameMode } from "@/constants/game";
 import { ClipLoader } from "react-spinners";
+import { OtherConstants } from "@/constants/other";
 
-interface GameModuleProps {
+interface GameModuleHLProps {
   videos: Video[];
   gameMode: GameMode;
 }
 
-const GameModule = ({ videos, gameMode }: GameModuleProps) => {
+const GameModuleHL = ({ videos, gameMode }: GameModuleHLProps) => {
   const [isMounted, setIsMounted] = useState(false);
+  const [isEval, setIsEval] = useState<boolean | null>(null);
+  const [showOverlay, setShowOverlay] = useState<boolean | null>(null);
 
   const currIndex = useAppSelector((state) => state.game_persist.currIndex);
-  const guess = useAppSelector((state) => state.game_persist.guess);
   const progressCircles = useAppSelector((state) => state.game_persist.progressCircles);
   const gameStartTime = useAppSelector((state) => state.game_persist.gameStartTime);
   const gameEndTime = useAppSelector((state) => state.game_persist.gameEndTime);
@@ -30,6 +32,8 @@ const GameModule = ({ videos, gameMode }: GameModuleProps) => {
 
   const dispatch = useAppDispatch();
   const router = useRouter();
+
+  const currTime = (gameEndTime ? gameEndTime : 0) - (gameStartTime ? gameStartTime : 0);
 
   // Set initial states based on whether new data has been entered
   useEffect(() => {
@@ -50,18 +54,27 @@ const GameModule = ({ videos, gameMode }: GameModuleProps) => {
     }
   }, [dispatch, currIndex, progressCircles.length, gameEndTime, videos.length])
 
-  // Handle guess updates
-  useEffect(() => {
+  const handleProcessGuess = (userAnswer: number) => {
+    if (isEval) return;
+
+    setIsEval(true);
+
     dispatch(processGuess({
       gameMode: gameMode,
-      guess: guess
-    }));
+      userAnswer: userAnswer
+    }))
 
-  }, [dispatch, guess, gameMode]);
+    setShowOverlay(true);
+
+    setTimeout(() => {
+      setIsEval(false);
+      setShowOverlay(false);
+    }, OtherConstants.ANSWER_STAY_DURATION);
+  }
 
   // TODO: May add to slice
-  const timeTaken = gameStartTime && gameEndTime ? formatStatsTime(gameEndTime - gameStartTime) : "0m 0s";
-  const avgTimePerGuess = gameStartTime && gameEndTime ? formatStatsTime((gameEndTime - gameStartTime) / videos.length) : "0m 0s";
+  const timeTaken = formatStatsTime(currTime);
+  const avgTimePerGuess = formatStatsTime((currTime) / videos.length);
 
   if (!isMounted) {
     return (
@@ -78,24 +91,25 @@ const GameModule = ({ videos, gameMode }: GameModuleProps) => {
     <div className="flex flex-col justify-center items-center">
       {!gameEndTime ? (
         <>
-          <GameModuleVideo
-            videoId={videos[currIndex]?.videoId}
-            videoTitle={videos[currIndex]?.title}
+          <GameModuleHLVideo
+            video={videos[currIndex]}
+            gameMode={gameMode}
+            showOverlay={showOverlay}
           />
 
           <div className="videoFooter flex flex-col m-4">
-            <GameProgress
+            <GameModuleHLProgress
               copyBtn={false}
               interactable={false}
             />
-            <GameModuleAnswers
-              setGuess={(guess) => dispatch(setGuess(guess))}
-              gameMode={gameMode}
+            <GameModuleHLAnswers
+              handleProcessGuess={(userAnswer) => handleProcessGuess(userAnswer)}
+              disabled={isEval ? true : false}
             />
           </div>
         </>
       ) : (
-        <GameModuleResults
+        <GameModuleHLResults
           onDone={() => router.push('/')}
           timeTaken={timeTaken}
           avgTimePerGuess={avgTimePerGuess}
@@ -106,4 +120,4 @@ const GameModule = ({ videos, gameMode }: GameModuleProps) => {
   )
 }
 
-export default GameModule
+export default GameModuleHL

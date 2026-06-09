@@ -10,19 +10,24 @@ import {
 } from "recharts";
 import { useEffect, useState } from "react";
 
-interface GameModuleResultsGraphProps {
+interface GameModuleHLResultsGraphProps {
   userScore: number;
 }
 
-export default function GameModuleResultsGraph({
+type ScoreData = {
+  score: number;
+  Users: number;
+};
+
+export default function GameModuleHLResultsGraph({
   userScore,
-}: GameModuleResultsGraphProps) {
+}: GameModuleHLResultsGraphProps) {
+  const [usersData, setUsersData] = useState<ScoreData[]>([]);
 
-  const [usersData, setUsersData] = useState([]);
-
-  useEffect(() => { // TODO: Temp, later use backend. First update scores, then fetch
-    const getScores = () => {
-      const data = [
+  useEffect(() => {
+    // TODO: Temp, later use backend. First update scores, then fetch
+    const getScores = (): ScoreData[] => {
+      return [
         { score: 0, Users: 0 },
         { score: 1, Users: 1 },
         { score: 2, Users: 1 },
@@ -35,25 +40,18 @@ export default function GameModuleResultsGraph({
         { score: 9, Users: 92 },
         { score: 10, Users: 28 },
       ];
-      return data
-    }
-    setUsersData(getScores());
+    };
 
-  }, [])
+    setUsersData(getScores());
+  }, []);
 
   return (
     <div className="w-full">
-
       <ResponsiveContainer className="w-full" height={350}>
-        <AreaChart
-          data={usersData}
-          responsive
-        >
+        <AreaChart data={usersData}>
           <XAxis dataKey="score" domain={[0, 10]} />
           <YAxis hide />
-          <Tooltip
-            labelClassName="text-black"
-          />
+          <Tooltip labelClassName="text-black" />
           <Area
             type="monotone"
             dataKey="Users"
