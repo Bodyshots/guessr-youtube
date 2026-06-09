@@ -1,5 +1,5 @@
 export const TooltipConstants = Object.freeze({
-    HOME_SIDE_OFFSET: 20,
+    HOME_SIDE_OFFSET: 10,
     DELAY_DURATION: 200,
 })
 

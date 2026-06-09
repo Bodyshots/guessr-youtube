@@ -2,8 +2,6 @@
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { BingoState, BingoCell } from './types';
-import { useState, useRef } from 'react';
-import Draggable from 'react-draggable';
 
 const initialState: BingoState = {
   width: 5,
