@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Instructions
 
-## Getting Started
+A "-dle" website, but for videos!
 
-First, run the development server:
+## Requirements
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Docker
+- Node JS (22+)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Backend
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+#### Development
 
-## Learn More
+1. `cd ./backend`
+2. `pnpm install`
+3. `pnpm run dev`
+4. In a new terminal, run `pnpm run db:migrations`
+5. Navigate to <http://localhost:3001/status>
 
-To learn more about Next.js, take a look at the following resources:
+Notes:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Step 4 is necessary to create the backend's tables. These will be empty. Therefore, ensure you call the `/initialize/` route to populate them with sample entries (see `routes/initializer/initializer.route.ts` for more details)
+- As the backend is dockerized, the Express server will be running on port 3001. Similarly, the PostgreSQL DB will be running on port 5433
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### Production
 
-## Deploy on Vercel
+##### .env
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+For production, we'll be directly interacting with the DB hosted by Supabase via Sequelize. Ensure you have the following variables defined in a `.env` file for the backend:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `DATABASE_HOST`
+- `DATABASE_PORT`
+- `DATABASE_USERNAME`
+- `DATABASE_PASSWORD`
+
+##### Running Steps
+
+1. `cd ./backend`
+2. `pnpm install`
+3. `pnpm run prod`
+
+Notes:
+
+- For production, the backend will be running on port 3000 if a port has not been provided.
+
+### Frontend
+
+TODO

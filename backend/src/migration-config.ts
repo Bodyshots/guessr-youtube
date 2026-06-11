@@ -1,0 +1,7 @@
+export default {
+  DB_HOST: 'localhost',
+  DB_PORT: 5433,
+  DB_NAME: 'postgres',
+  DB_USERNAME: 'postgres',
+  DB_PASSWORD: 'postgres'
+}

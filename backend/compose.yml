@@ -1,0 +1,34 @@
+services:
+  # db service
+  db-dev:
+    image: postgres:16
+    container_name: viddle-db
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    networks:
+      - dev-db
+
+  # flask service
+  viddle-backend:
+    container_name: viddle-backend
+    build:
+      context: ../
+      dockerfile: ./backend/express.dockerfile
+    ports:
+      - 3001:3000
+    volumes:
+      - ./:/app/backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 20s
+      timeout: 20s
+      retries: 5
+    networks:
+      - dev-db
+
+networks:
+  dev-db:

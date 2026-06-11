@@ -1,0 +1,36 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "docker compose up --build",
+    "prod": "ENVIRONMENT=production nodemon src/app.ts",
+    "app:dev": "ENVIRONMENT=development nodemon --inspect=0.0.0.0:9229 --signal SIGINT --nolazy src/app.ts",
+    "db:migrations": "ENVIRONMENT=migration ts-node ./src/migrations/runner-cli.ts up",
+    "db:migrations:down": "ENVIRONMENT=migration ts-node ./src/migrations/runner-cli.ts down",
+    "db:migrations:status": "ENVIRONMENT=migration ts-node ./src/migrations/runner-cli.ts status"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devEngines": {},
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-async-handler": "^1.2.0",
+    "pg": "^8.21.0",
+    "sequelize": "^6.37.8",
+    "ts-node": "^10.9.2",
+    "umzug": "^3.8.3",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.6",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "body-parser": "^2.2.2",
+    "nodemon": "^3.1.14"
+  }
+}
