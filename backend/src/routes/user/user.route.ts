@@ -71,6 +71,10 @@ const getUserById = asyncHandler(async (req: Request, res: Response) => {
   const userId = req.params.userId;
   const user = await getUserByIdHelper(Array.isArray(userId) ? userId[0] : userId);
 
+  if (!user) {
+    res.status(404).json({ message: 'User not found' });
+  }
+
   res.json({ message: 'Success', user });
 });
 

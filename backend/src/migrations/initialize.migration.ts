@@ -19,6 +19,10 @@ export const up = async ({ context: queryInterface }: { context: QueryInterface 
         allowNull: false,
         defaultValue: Sequelize.fn('now')
       },
+      refresh_token: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
       admin: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
