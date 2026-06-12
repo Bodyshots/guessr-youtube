@@ -3,8 +3,8 @@ import fs from 'fs';
 import { Sequelize } from 'sequelize';
 import type { Dialect } from 'sequelize';
 
-import CONFIG from '../config';
-import MIGRATION_CONFIG from '../migration-config';
+import CONFIG from '../config/config';
+import MIGRATION_CONFIG from '../config/migration-config';
 
 export class SequelizeInit {
   private static instance: SequelizeInit; // Singleton

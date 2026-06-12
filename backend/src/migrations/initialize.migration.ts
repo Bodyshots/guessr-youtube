@@ -37,10 +37,10 @@ export const up = async ({ context: queryInterface }: { context: QueryInterface 
         type: DataTypes.TEXT,
         allowNull: false
       },
-      game_history: {
-        type: DataTypes.JSON,
+      game_history_id: {
+        type: DataTypes.UUID,
         allowNull: true,
-        defaultValue: {}
+        defaultValue: null
       }
     }, { transaction });
 
@@ -102,11 +102,81 @@ export const up = async ({ context: queryInterface }: { context: QueryInterface 
         allowNull: false,
       }
     }, { transaction });
+
+    await queryInterface.createTable('Games', {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV1,
+        allowNull: false,
+        primaryKey: true
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.fn('now')
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.fn('now')
+      },
+      user_id: {
+        type: DataTypes.UUID,
+        allowNull: false,
+      },
+      theme: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      game_start_time: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.fn('now')
+      },
+      game_end_time: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
+      progress: {
+        type: DataTypes.ARRAY(DataTypes.BOOLEAN),
+        allowNull: true,
+      }
+    }, { transaction })
+
+    await queryInterface.createTable('GameHistories', {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV1,
+        allowNull: false,
+        primaryKey: true
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.fn('now')
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.fn('now')
+      },
+      user_id: {
+        type: DataTypes.UUID,
+        allowNull: false,
+      },
+      games: {
+        type: DataTypes.ARRAY(DataTypes.JSON),
+        allowNull: true
+      }
+    }, { transaction })
   })
 }
 
+
 export const down = async ({ context: queryInterface }: { context: QueryInterface }) => {
   await queryInterface.sequelize.transaction(async (transaction: Transaction) => {
+    await queryInterface.dropTable('Games', { transaction })
+    await queryInterface.dropTable('GameHistories', { transaction })
     await queryInterface.dropTable('Videos', { transaction })
     await queryInterface.dropTable('Users', { transaction })
   })

@@ -1,4 +1,4 @@
-import { Model, InferAttributes, InferCreationAttributes, CreationOptional, DataTypes } from 'sequelize';
+import { Model, InferAttributes, InferCreationAttributes, CreationOptional, DataTypes, ForeignKey } from 'sequelize';
 import CVSequelize from '../init';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
@@ -9,10 +9,11 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare admin: CreationOptional<boolean>;
 
   // Attributes
+  declare refreshToken: CreationOptional<string | null>;
+  declare gameHistoryId: CreationOptional<ForeignKey<string>>;
   declare username: string;
   declare email: string;
   declare password: string;
-  declare gameHistory: Record<number, number>; // temp
 }
 
 User.init({
@@ -31,6 +32,11 @@ User.init({
     allowNull: false,
     field: 'updated_at'
   },
+  refreshToken: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+    field: 'refresh_token'
+  },
   admin: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
@@ -48,11 +54,11 @@ User.init({
     type: DataTypes.TEXT,
     allowNull: false
   },
-  gameHistory: {
-    type: DataTypes.JSON,
+  gameHistoryId: {
+    type: DataTypes.UUID,
     allowNull: true,
-    defaultValue: {},
-    field: 'game_history'
+    defaultValue: null,
+    field: 'game_history_id'
   }
 }, {
   tableName: 'Users',

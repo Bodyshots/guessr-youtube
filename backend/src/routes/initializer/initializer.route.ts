@@ -2,6 +2,8 @@ import asyncHandler from 'express-async-handler';
 import express, { Request, Response } from 'express';
 import User from '../../models/User';
 import Video from '../../models/Video';
+import GameHistory from '../../models/GameHistory/GameHistory.model';
+import Game from '../../models/Game';
 
 const router = express.Router();
 
@@ -25,13 +27,11 @@ const initialize = asyncHandler(async (req: Request, res: Response) => {
       username: 'Bob',
       email: 'test@test.com',
       password: 'abc123',
-      gameHistory: {}
     });
     await User.create({
       username: 'Alice',
       email: 'test1@test1.com',
-      password: 'testtest',
-      gameHistory: {}
+      password: 'testtest'
     });
 
   } catch (err) {
@@ -45,6 +45,8 @@ const initialize = asyncHandler(async (req: Request, res: Response) => {
 
 const clear = asyncHandler(async (req: Request, res: Response) => {
   try {
+    await Game.destroy({ where: {} });
+    await GameHistory.destroy({ where: {} });
     await Video.destroy({ where: {} });
     await User.destroy({ where: {} });
   } catch (err) {
