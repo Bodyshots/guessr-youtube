@@ -128,6 +128,7 @@ const login = asyncHandler(async (req: Request, res: Response) => {
     const refreshToken = generateToken({ refresh: true, userId: user.id })
 
     user.refreshToken = refreshToken; // Store refresh in DB
+    user.save();
 
     res.cookie("accessToken", accessToken, getCookieOptions(false))
     res.cookie("refreshToken", refreshToken, getCookieOptions(true))
@@ -144,20 +145,20 @@ const login = asyncHandler(async (req: Request, res: Response) => {
 
 const logOut = asyncHandler(async (req: Request, res: Response) => {
   try {
-    const userId = (req as any).user?.id;
+    const { userId } = req.body;
     if (userId) {
       const user = await getUserByIdHelper(userId);
       if (user) {
         user.refreshToken = null;
         await user.save();
       }
-
-      // Remove "cookie tokens"
-      res.clearCookie("accessToken");
-      res.clearCookie("refreshToken");
-
-      res.json({ message: "Logged out successfully" });
     }
+
+    // Remove "cookie tokens"
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
+
+    res.json({ message: "Logged out successfully" });
   }
   catch (error) {
     console.error("Error logging out", error);
@@ -167,7 +168,8 @@ const logOut = asyncHandler(async (req: Request, res: Response) => {
 
 const refreshToken = asyncHandler(async (req: AuthRequest, res: Response) => {
   try {
-    const userId = (req as any).id;
+    console.log("refreshhing")
+    const { userId } = req.body;
     const refreshToken = req.cookies.refreshToken;
 
     const user = await getUserByIdHelper(userId);
