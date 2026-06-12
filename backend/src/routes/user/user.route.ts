@@ -168,7 +168,6 @@ const logOut = asyncHandler(async (req: Request, res: Response) => {
 
 const refreshToken = asyncHandler(async (req: AuthRequest, res: Response) => {
   try {
-    console.log("refreshhing")
     const { userId } = req.body;
     const refreshToken = req.cookies.refreshToken;
 
