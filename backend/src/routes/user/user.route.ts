@@ -9,6 +9,7 @@ import User from '../../models/User';
 import authSchema from '../../validations/user.schema';
 import AuthMiddleware from '../../middleware/auth.middleware';
 import ValidationMiddleware from '../../middleware/validation.middleware';
+import { Token } from '../../types';
 
 const router = express.Router();
 
@@ -18,7 +19,7 @@ interface AuthRequest extends Request {
 
 interface generateTokenProps {
   userId: string;
-  refresh: boolean;
+  token: Token;
 }
 
 // Helpers
@@ -30,10 +31,21 @@ const getBasicUserInfo = (user: User) => {
   }
 }
 
-const generateToken = ({ userId, refresh }: generateTokenProps) => {
-  return jwt.sign({ userId: userId },
-    (refresh ? config.REFRESH_TOKEN_SECRET : config.ACCESS_TOKEN_SECRET) as string,
-    { expiresIn: (refresh ? config.REFRESH_EXPIRY_TIME : config.ACCESS_EXPIRY_TIME) as any });
+const generateToken = ({ userId, token }: generateTokenProps) => {
+  switch (token) {
+    case 'access':
+      return jwt.sign({ userId: userId },
+        config.ACCESS_TOKEN_SECRET as string,
+        { expiresIn: config.ACCESS_EXPIRY_TIME as any }
+      );
+    case 'refresh':
+      return jwt.sign({ userId: userId },
+        config.REFRESH_TOKEN_SECRET as string,
+        { expiresIn: config.REFRESH_EXPIRY_TIME as any }
+      );
+    default:
+      return null;
+  }
 }
 
 const getUserByIdHelper = async (id: string) => {
@@ -107,6 +119,43 @@ const createUser = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
+const deleteUser = asyncHandler(async (req: Request, res: Response) => {
+  // TODO - create deleteSchema
+  const { email, password } = req.body;
+  const userId = (req as any).userId;
+
+  try {
+    const user = await getUserByEmail(email);
+    if (!user) {
+      res.status(404).json({ message: 'User not found' });
+      return;
+    }
+    if (user.id !== userId) {
+      res.status(404).json({ message: 'Users can only delete their own account' });
+      return;
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      res.status(404).json({ message: "Invalid password" });
+      return;
+    }
+
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
+    await User.destroy({ where: { email: email } });
+
+    res.json({
+      message: 'User successfully deleted',
+    });
+
+  } catch (error) {
+    console.error('Error registering user', error);
+    res.status(500).json({ message: 'Error registering user' });
+    return;
+  }
+});
+
 const login = asyncHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
@@ -124,8 +173,8 @@ const login = asyncHandler(async (req: Request, res: Response) => {
     }
 
     // Valid user, give access + refresh tokens
-    const accessToken = generateToken({ refresh: false, userId: user.id })
-    const refreshToken = generateToken({ refresh: true, userId: user.id })
+    const accessToken = generateToken({ userId: user.id, token: 'access' })
+    const refreshToken = generateToken({ userId: user.id, token: 'refresh' })
 
     user.refreshToken = refreshToken; // Store refresh in DB
     user.save();
@@ -145,7 +194,7 @@ const login = asyncHandler(async (req: Request, res: Response) => {
 
 const logOut = asyncHandler(async (req: Request, res: Response) => {
   try {
-    const { userId } = req.body;
+    const userId = (req as any).userId;
     if (userId) {
       const user = await getUserByIdHelper(userId);
       if (user) {
@@ -168,7 +217,7 @@ const logOut = asyncHandler(async (req: Request, res: Response) => {
 
 const refreshToken = asyncHandler(async (req: AuthRequest, res: Response) => {
   try {
-    const { userId } = req.body;
+    const userId = (req as any).userId;
     const refreshToken = req.cookies.refreshToken;
 
     const user = await getUserByIdHelper(userId);
@@ -181,7 +230,7 @@ const refreshToken = asyncHandler(async (req: AuthRequest, res: Response) => {
       res.status(401).json({ message: "Invalid refresh token" })
     }
 
-    const newAccessToken = generateToken({ userId: userId, refresh: false })
+    const newAccessToken = generateToken({ userId: userId, token: 'access' })
 
     res.cookie("accessToken", newAccessToken, getCookieOptions(false));
     res.json({ message: "Access token refreshed successfully" })
@@ -200,29 +249,34 @@ router.get(
 router.get(
   '/:userId',
   getUserById,
-  AuthMiddleware.authenticateUser
 );
 
 // POST
 router.post(
   '/',
+  ValidationMiddleware.validateBody(authSchema.register),
   createUser,
-  ValidationMiddleware.validateBody(authSchema.register)
 );
 router.post(
   '/login',
+  ValidationMiddleware.validateBody(authSchema.login),
   login,
-  ValidationMiddleware.validateBody(authSchema.login)
 );
 router.post(
   '/logout',
+  AuthMiddleware.authenticateUser, // Check if logged in
   logOut,
-  AuthMiddleware.authenticateUser // Check if logged in
 )
 router.post(
   "/token",
+  AuthMiddleware.refreshTokenValidation, // Check if valid refreshToken
   refreshToken,
-  AuthMiddleware.refreshTokenValidation // Check if valid refreshToken
 );
+router.delete(
+  "/delete",
+  AuthMiddleware.refreshTokenValidation,
+  AuthMiddleware.authenticateUser,
+  deleteUser,
+)
 
 export default router;

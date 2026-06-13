@@ -7,7 +7,8 @@ class Video extends Model<InferAttributes<Video>, InferCreationAttributes<Video>
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 
-  // Attributes
+  //// Attributes
+  // Video-related
   declare title: string;
   declare description: string;
   declare thumbnail: string;
@@ -16,20 +17,25 @@ class Video extends Model<InferAttributes<Video>, InferCreationAttributes<Video>
   declare likeCount: number;
   declare commentCount: number;
   declare category: number;
-  declare theme: string;
   declare publishedAt: Date;
+
+  // Game-related
+  declare theme: string;
+  declare active: boolean; // only changed by cron
+  declare gameMode: string;
 }
 
 Video.init({
   id: {
     type: DataTypes.UUID,
-    primaryKey: true,
     defaultValue: DataTypes.UUIDV1,
+    primaryKey: true
   },
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
-    field: 'created_at'
+    field: 'created_at',
+    primaryKey: true
   },
   updatedAt: {
     type: DataTypes.DATE,
@@ -37,7 +43,7 @@ Video.init({
     field: 'updated_at'
   },
   title: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   description: {
@@ -49,7 +55,7 @@ Video.init({
     allowNull: false,
   },
   channelTitle: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
     allowNull: false,
     field: 'channel_title'
   },
@@ -72,14 +78,25 @@ Video.init({
     type: DataTypes.BIGINT,
     allowNull: true
   },
-  theme: {
-    type: DataTypes.TEXT,
-    allowNull: false
-  },
   publishedAt: {
     type: DataTypes.DATE,
     allowNull: false,
     field: 'published_at'
+  },
+  theme: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    primaryKey: true
+  },
+  active: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+  },
+  gameMode: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    field: 'game_mode',
+    primaryKey: true
   }
 }, {
   tableName: 'Videos',

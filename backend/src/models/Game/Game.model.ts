@@ -1,5 +1,6 @@
 import { Model, InferAttributes, InferCreationAttributes, CreationOptional, DataTypes, ForeignKey } from 'sequelize';
 import CVSequelize from '../init';
+import User from '../User/User.model'
 
 class Game extends Model<InferAttributes<Game>, InferCreationAttributes<Game>> {
   // Defaults
@@ -11,8 +12,10 @@ class Game extends Model<InferAttributes<Game>, InferCreationAttributes<Game>> {
   // Attributes
   declare userId: ForeignKey<string>;
   declare theme: string;
-  declare gameEndTime: Date;
-  declare progress: Array<boolean>;
+  declare gameMode: string;
+  declare gameEndTime: CreationOptional<Date>;
+  declare guesses: Array<String>;
+  declare statuses: Array<Boolean>
 }
 
 Game.init({
@@ -34,10 +37,16 @@ Game.init({
   userId: {
     type: DataTypes.UUID,
     allowNull: false,
+    field: 'user_id'
   },
   theme: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
     allowNull: false,
+  },
+  gameMode: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    field: 'game_mode',
   },
   gameStartTime: {
     type: DataTypes.DATE,
@@ -49,9 +58,13 @@ Game.init({
     allowNull: true,
     field: 'game_end_time'
   },
-  progress: {
+  guesses: {
+    type: DataTypes.ARRAY(DataTypes.STRING),
+    allowNull: false
+  },
+  statuses: {
     type: DataTypes.ARRAY(DataTypes.BOOLEAN),
-    allowNull: true
+    allowNull: false
   }
 }, {
   tableName: 'Games',

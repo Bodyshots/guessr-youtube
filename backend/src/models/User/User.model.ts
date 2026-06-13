@@ -10,7 +10,7 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
 
   // Attributes
   declare refreshToken: CreationOptional<string | null>;
-  declare gameHistoryId: CreationOptional<ForeignKey<string>>;
+  declare consentToken: CreationOptional<string>;
   declare username: string;
   declare email: string;
   declare password: string;
@@ -37,6 +37,12 @@ User.init({
     allowNull: true,
     field: 'refresh_token'
   },
+  consentToken: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+    defaultValue: DataTypes.UUIDV1,
+    field: "consent_token"
+  },
   admin: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
@@ -47,22 +53,17 @@ User.init({
     allowNull: false,
   },
   email: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
     allowNull: false,
+    unique: true,
   },
   password: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
     allowNull: false
-  },
-  gameHistoryId: {
-    type: DataTypes.UUID,
-    allowNull: true,
-    defaultValue: null,
-    field: 'game_history_id'
   }
 }, {
   tableName: 'Users',
-  sequelize: CVSequelize
+  sequelize: CVSequelize,
 });
 
 export default User; 

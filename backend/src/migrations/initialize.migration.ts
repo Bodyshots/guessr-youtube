@@ -23,6 +23,11 @@ export const up = async ({ context: queryInterface }: { context: QueryInterface 
         type: DataTypes.TEXT,
         allowNull: true,
       },
+      consent_token: {
+        type: DataTypes.TEXT,
+        defaultValue: DataTypes.UUIDV1,
+        allowNull: false,
+      },
       admin: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
@@ -31,20 +36,16 @@ export const up = async ({ context: queryInterface }: { context: QueryInterface 
       username: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       email: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true,
       },
       password: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: false
-      },
-      game_history_id: {
-        type: DataTypes.UUID,
-        allowNull: true,
-        defaultValue: null
       }
     }, { transaction });
 
@@ -66,7 +67,7 @@ export const up = async ({ context: queryInterface }: { context: QueryInterface 
         defaultValue: Sequelize.fn('now')
       },
       title: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       description: {
@@ -78,7 +79,7 @@ export const up = async ({ context: queryInterface }: { context: QueryInterface 
         allowNull: false,
       },
       channel_title: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       view_count: {
@@ -97,12 +98,20 @@ export const up = async ({ context: queryInterface }: { context: QueryInterface 
         type: DataTypes.BIGINT,
         allowNull: true
       },
-      theme: {
-        type: DataTypes.TEXT,
-        allowNull: false
-      },
       published_at: {
         type: DataTypes.DATE,
+        allowNull: false,
+      },
+      theme: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      active: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+      },
+      game_mode: {
+        type: DataTypes.STRING,
         allowNull: false,
       }
     }, { transaction });
@@ -127,8 +136,17 @@ export const up = async ({ context: queryInterface }: { context: QueryInterface 
       user_id: {
         type: DataTypes.UUID,
         allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onDelete: 'CASCADE'
       },
       theme: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      game_mode: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -141,46 +159,47 @@ export const up = async ({ context: queryInterface }: { context: QueryInterface 
         type: DataTypes.DATE,
         allowNull: true,
       },
-      progress: {
+      guesses: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: false
+      },
+      statuses: {
         type: DataTypes.ARRAY(DataTypes.BOOLEAN),
-        allowNull: true,
+        allowNull: false
       }
-    }, { transaction })
+    }, { transaction });
 
-    await queryInterface.createTable('GameHistories', {
-      id: {
+    await queryInterface.createTable('GameVideos', {
+      gameId: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV1,
         allowNull: false,
+        references: {
+          model: 'Games',
+          key: 'id'
+        },
+        onDelete: 'CASCADE',
         primaryKey: true
       },
-      created_at: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.fn('now')
-      },
-      updated_at: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.fn('now')
-      },
-      user_id: {
+
+      videoId: {
         type: DataTypes.UUID,
         allowNull: false,
-      },
-      games: {
-        type: DataTypes.ARRAY(DataTypes.JSON),
-        allowNull: true
+        references: {
+          model: 'Videos',
+          key: 'id'
+        },
+        onDelete: 'CASCADE',
+        primaryKey: true
       }
-    }, { transaction })
+    }, { transaction });
   })
 }
 
 
 export const down = async ({ context: queryInterface }: { context: QueryInterface }) => {
   await queryInterface.sequelize.transaction(async (transaction: Transaction) => {
+    await queryInterface.dropTable('GameVideos', { transaction })
     await queryInterface.dropTable('Games', { transaction })
-    await queryInterface.dropTable('GameHistories', { transaction })
     await queryInterface.dropTable('Videos', { transaction })
     await queryInterface.dropTable('Users', { transaction })
   })

@@ -17,7 +17,6 @@ const initializeSequelize = async () => {
   console.log('Initializing sequelize');
   await SequelizeInit.run();
   console.log('Initializing sequelize completed');
-  console.log("MODELS LOADED:", Object.keys(SequelizeInit.getSequelizeInstance().models));
 };
 
 const expressAppStart = () => {
