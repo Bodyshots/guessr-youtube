@@ -4,11 +4,7 @@ import { z } from "zod";
 const server = {
   // Environment
   NODE_ENV: z.enum(["development", "production", "test"]),
-
-  // Database (Supabase)
-  DATABASE_URL: z.url(),
-  DATABASE_KEY: z.string(),
-
+  BACKEND_URL: z.string()
 } as const;
 
 const client = {
@@ -23,9 +19,7 @@ export const env = createEnv({
     // Environment
     NODE_ENV: process.env.NODE_ENV,
 
-    // Database (Supabase)
-    DATABASE_URL: process.env.DATABASE_URL,
-    DATABASE_KEY: process.env.DATABASE_KEY,
+    BACKEND_URL: process.env.BACKEND_URL,
 
     // Public
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,

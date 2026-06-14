@@ -170,7 +170,15 @@ export const up = async ({ context: queryInterface }: { context: QueryInterface 
     }, { transaction });
 
     await queryInterface.createTable('GameVideos', {
-      gameId: {
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      game_id: {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
@@ -180,8 +188,7 @@ export const up = async ({ context: queryInterface }: { context: QueryInterface 
         onDelete: 'CASCADE',
         primaryKey: true
       },
-
-      videoId: {
+      video_id: {
         type: DataTypes.UUID,
         allowNull: false,
         references: {

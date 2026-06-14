@@ -43,7 +43,7 @@ For production, we'll be directly interacting with the DB hosted by Supabase via
 
 Notes:
 
-- For production, the backend will be running on port 3000 if a port has not been provided.
+- For production, the backend will be running on port 4000 if a port has not been provided.
 
 ### Frontend
 

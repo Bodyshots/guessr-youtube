@@ -35,9 +35,9 @@ export type ProgressTextColor =
   typeof PROGRESS_TEXT_COLORS[keyof typeof PROGRESS_TEXT_COLORS];
 
 export interface ProgressCircle {
+  guess: number | Date | null;
   status: ProgressStatus;
   circleColor: ProgressCircleColor;
   highlightColor: ProgressHighlightColor;
   textColor: ProgressTextColor;
-  guess: number | Date | null;
 }

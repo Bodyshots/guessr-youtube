@@ -19,14 +19,9 @@ services:
       context: ../
       dockerfile: ./backend/express.dockerfile
     ports:
-      - 3001:3000
+      - 4001:4000
     volumes:
       - ./:/app/backend
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
-      interval: 20s
-      timeout: 20s
-      retries: 5
     networks:
       - dev-db
 

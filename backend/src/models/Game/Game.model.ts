@@ -1,6 +1,5 @@
 import { Model, InferAttributes, InferCreationAttributes, CreationOptional, DataTypes, ForeignKey } from 'sequelize';
 import CVSequelize from '../init';
-import User from '../User/User.model'
 
 class Game extends Model<InferAttributes<Game>, InferCreationAttributes<Game>> {
   // Defaults

@@ -1,8 +1,8 @@
-import Game from "../Game/Game.model";
+import GameVideo from "../GameVideo/GameVideo.model";
 import Video from "./Video.model";
 
-Video.belongsToMany(Game, {
-  through: "GameVideos",
-  foreignKey: "videoId",
-  otherKey: "gameId"
-})
+Video.hasMany(GameVideo,
+  {
+    foreignKey: "videoId"
+  }
+);

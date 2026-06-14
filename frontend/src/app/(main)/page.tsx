@@ -1,12 +1,17 @@
-import { fetchVideos } from '@/actions/videos';
+import { getVideos } from '@/actions/videos';
 import ThemeHeader from '@/components/HomeFooter/ThemeHeader';
 import HomeMenu from '@/components/Homemenu/homemenu';
 import SiteTitle from '@/components/SiteTitle/sitetitle';
+import { getQueryClient } from '@/providers/getQueryClient';
 
 export default async function Home() {
-  let videoData: any[] = [];
+  let videos: any[] = [];
   try {
-    videoData = await fetchVideos();
+    const queryClient = getQueryClient();
+    videos = await queryClient.fetchQuery({
+      queryKey: ['videos'],
+      queryFn: getVideos
+    })
   } catch (error) {
     console.error('Error fetching videos:', error);
   }
@@ -15,7 +20,7 @@ export default async function Home() {
     <div className="flex flex-col align-center text-center sm:ml-0 sm:align-left w-full p-8">
       <SiteTitle />
       <ThemeHeader
-        theme={videoData[0]?.theme || ''}
+        theme={videos[0]?.theme || ''}
       />
       <div className="w-full sm:ml-0 py-4">
         <HomeMenu />

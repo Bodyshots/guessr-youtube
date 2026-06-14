@@ -1,7 +1,8 @@
 import express, { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
-import Game from '../../models/Game';
-import Video from '../../models/Video';
+import Game from '../../models/Game/Game.model';
+import Video from '../../models/Video/Video.model';
+import GameVideo from '../../models/GameVideo/GameVideo.model';
 
 const router = express.Router();
 
@@ -10,11 +11,30 @@ const getGames = asyncHandler(async (req: Request, res: Response) => {
   res.json({ message: 'Success', games });
 });
 
+const getVideos = asyncHandler(async (req: Request, res: Response) => {
+  try {
+    console.log("test")
+    const gameId = req.params.gameId;
+    const gameVideos = await GameVideo.findAll({ where: { gameId: gameId } });
+    const videoIds = gameVideos.map(video => video.videoId);
+    const videos = await Video.findAll({ where: { id: videoIds } });
+
+    res.json({
+      message: "Success",
+      videos: videos
+    })
+  }
+  catch (error) {
+    console.error("Error getting videos");
+    res.status(500).json({ message: "Error getting videos" })
+  }
+});
+
 const startGame = asyncHandler(async (req: Request, res: Response) => {
   try {
     const { userId, theme, gameMode } = req.body;
 
-    const videoIds = await Video.findAll({
+    const videos = await Video.findAll({
       where: {
         theme: theme,
         active: true,
@@ -22,7 +42,7 @@ const startGame = asyncHandler(async (req: Request, res: Response) => {
       }
     })
 
-    if (!videoIds) {
+    if (!videos) {
       res.status(404).json({ message: "No videos available" });
       return;
     }
@@ -35,6 +55,8 @@ const startGame = asyncHandler(async (req: Request, res: Response) => {
       guesses: [],
       statuses: [],
     })
+
+    await GameVideo.addVideos(game, videos);
 
     res.json({
       message: "Success",
@@ -73,6 +95,8 @@ const finishGame = asyncHandler(async (req: Request, res: Response) => {
 
 // TODO: Auth for game owners
 router.get('/', getGames);
+router.get('/videos/:gameId', getVideos);
+
 router.post('/start', startGame);
 router.post('/finish', finishGame);
 

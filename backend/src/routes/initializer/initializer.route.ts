@@ -4,6 +4,7 @@ import User from '../../models/User';
 import Video from '../../models/Video';
 import Game from '../../models/Game';
 import { GAME_MODES } from '../../types';
+import GameVideo from '../../models/GameVideo';
 
 const router = express.Router();
 
@@ -74,6 +75,7 @@ const initialize = asyncHandler(async (req: Request, res: Response) => {
       statuses: [],
       guesses: [],
     })
+
     const game3 = await Game.create({
       userId: user2.id,
       theme: "Music",
@@ -83,6 +85,8 @@ const initialize = asyncHandler(async (req: Request, res: Response) => {
       statuses: [],
       guesses: [],
     })
+    await GameVideo.addVideos(game1, [video1, video2])
+    await GameVideo.addVideos(game2, [video1, video2])
 
   } catch (err) {
     console.log('initializer creating encountered error: ', JSON.stringify(err));

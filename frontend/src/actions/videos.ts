@@ -1,14 +1,10 @@
 "use server";
 
-import supabase from '@/config/supabaseClient'
+import { env } from "@/env";
 
-export const fetchVideos = async () => {
-  const { data, error } = await supabase
-    .from('Videos')
-    .select('*')
-  if (error) {
-    console.error(error)
-    return []
-  }
-  return data;
-}
+export const getVideos = async () => {
+  const response = await fetch(`${env.BACKEND_URL}/videos/`);
+  const responseJson = await response.json();
+  if (response.ok) return responseJson.videos;
+  else console.error(response);
+};

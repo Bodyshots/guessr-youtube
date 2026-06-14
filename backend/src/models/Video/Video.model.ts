@@ -35,7 +35,6 @@ Video.init({
     type: DataTypes.DATE,
     allowNull: false,
     field: 'created_at',
-    primaryKey: true
   },
   updatedAt: {
     type: DataTypes.DATE,
@@ -86,7 +85,6 @@ Video.init({
   theme: {
     type: DataTypes.STRING,
     allowNull: false,
-    primaryKey: true
   },
   active: {
     type: DataTypes.BOOLEAN,
@@ -96,7 +94,6 @@ Video.init({
     type: DataTypes.STRING,
     allowNull: false,
     field: 'game_mode',
-    primaryKey: true
   }
 }, {
   tableName: 'Videos',
